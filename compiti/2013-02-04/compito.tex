@@ -1,0 +1,191 @@
+\documentclass{article}[10pt]
+\usepackage[pdftex]{graphicx}
+\usepackage{amsfonts}
+\usepackage[italian]{babel}
+%****************enlarge layout
+\textheight     243.5mm
+\topmargin      -20.0mm
+\textwidth      480pt
+\hoffset        -80pt
+%*****************theorems and such
+\newcounter{esnu}
+\newenvironment{esercizio}{\medskip \noindent {\bf Esercizio\addtocounter{esnu}{1} \arabic{esnu}}}{}
+\pagestyle{empty}
+\newcommand{\liff}{\mathrel{\leftrightarrow}}   % Logical IFF Symbol
+\newcommand{\metaiff}{\Longleftrightarrow}      %iff in metatheory
+
+\begin{document}
+
+\begin{center} {\bf Esame di Programmazione I, 4 febbraio 2013. 2 ore}\end{center}
+
+\begin{esercizio}
+\textbf{[11 punti]}
+Si scriva una funzione
+
+\begin{verbatim}
+char *mirror(const char *s)
+\end{verbatim}
+
+\noindent
+che restituisce una nuova stringa ottenuta riflettendo \texttt{s} rispetto al suo ultimo
+carattere. Per esempio, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+int main(void) {
+  char *buffer;
+
+  printf("%s\n", buffer = mirror("ciao")); free(buffer);
+  printf("%s\n", buffer = mirror("che bella giornata!")); free(buffer);
+  printf("%s\n", buffer = mirror("")); free(buffer);
+
+  return 0;
+}
+\end{verbatim}
+}
+
+\noindent
+deve stampare:
+
+{\small
+\begin{verbatim}
+ciaoaic
+che bella giornata!atanroig alleb ehc
+                                          <- qui c'e' la stringa vuota!
+\end{verbatim}
+}
+
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[10 punti]}
+Si considerino le liste viste a lezione. Si implementi una funzione \underline{ricorsiva}:
+\begin{verbatim}
+struct list *lastToFirst(struct list *this)
+\end{verbatim}
+che restituisce una lista uguale a \texttt{this} tranne l'ultimo elemento di \texttt{this},
+che nella lista risultante si trova spostato all'inizio. La lista \texttt{this} non deve
+essere modificata.
+Se tutto \`e corretto, l'esecuzione del programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include "list.h"
+
+int main(void) {
+  struct list *l1 = construct_list(10, construct_list(-5, construct_list
+   (23, construct_list(11, construct_list(-2, NULL)))));
+
+  struct list *l2 = construct_list(10, NULL);
+  struct list *l3 = NULL;
+
+  printf("l1 = ");
+  print_list(l1);
+  printf("\n");
+
+  printf("lastToFirst(l1) = ");
+  print_list(lastToFirst(l1));
+  printf("\n");
+
+  printf("l1 = ");
+  print_list(l1);
+  printf("\n");
+
+  printf("lastToFirst(l2) = ");
+  print_list(lastToFirst(l2));
+  printf("\n");
+
+  printf("lastToFirst(l3) = ");
+  print_list(lastToFirst(l3));
+  printf("\n");
+
+  return 0;
+}
+\end{verbatim}
+}
+\noindent
+dovr\`a stampare:
+
+{\small
+\begin{verbatim}
+l1 = [10, -5, 23, 11, -2]
+lastToFirst(l1) = [-2, 10, -5, 23, 11]
+l1 = [10, -5, 23, 11, -2]
+lastToFirst(l2) = [10]
+lastToFirst(l3) = []
+\end{verbatim}
+}
+%
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[10 punti]}
+%
+Si definisca una struttura \texttt{television} che implementa una televisione, sintonizzabile
+su un insieme di canali.
+Si scrivano i file \texttt{television.h} e \texttt{television.c} implementando le funzioni:
+%
+\begin{itemize}
+\item \texttt{struct television *construct\_television(const char *names[], int num\_channels)} che resti\-tui\-sce una
+      nuova televisione con \texttt{num\_channel} canali chiamati come indicato dall'array, che si assume che sia
+      di lunghezza \texttt{num\_channel}; la televisione nasce sintonizzata sul canale numero 0;
+\item \texttt{void destruct\_television(struct television *this)}, che dealloca la televisione \texttt{this};
+\item \texttt{void set\_channel(struct television *this, int channel)}, che sintonizza la televisione sul canale
+      numero \texttt{channel}, che si assume tra 0 (incluso) e il numero di canali della televisione (escluso);
+\item \texttt{void undo(struct television *this)}, che torna indietro nella storia, cio\`e
+      sintonizza la televisione sul canale su cui era sintonizzata
+      prima di quello corrente. Se si torna fino all'inizio della storia, questo metodo non fa nulla;
+\item \texttt{char *toString(struct television *this)}, che restituisce il nome del canale su cui
+      la televisione \texttt{this} \`e in questo momento sintonizzata.
+\end{itemize}
+%
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include "television.h"
+
+int main(void) {
+  const char *names[] = { "raggi zero", "canale uno", "sei sul due" };
+
+  struct television *t = construct_television(names, 3);
+
+                           printf("inizio:            %s\n", toString(t));
+  set_channel(t, 2);       printf("set_channel(t, 2): %s\n", toString(t));
+  set_channel(t, 1);       printf("set_channel(t, 1): %s\n", toString(t));
+  set_channel(t, 2);       printf("set_channel(t, 2): %s\n", toString(t));
+  undo(t);                 printf("undo(t):           %s\n", toString(t));
+  undo(t);                 printf("undo(t):           %s\n", toString(t));
+  undo(t);                 printf("undo(t):           %s\n", toString(t));
+  undo(t);                 printf("undo(t):           %s\n", toString(t));
+  set_channel(t, 2);       printf("set_channel(t, 2): %s\n", toString(t));
+  undo(t);                 printf("undo(t):           %s\n", toString(t));
+
+  destruct_television(t);
+
+  return 0;
+}
+\end{verbatim}}
+\noindent
+deve stampare:
+
+{\small
+\begin{verbatim}
+inizio:            raggi zero
+set_channel(t, 2): sei sul due
+set_channel(t, 1): canale uno
+set_channel(t, 2): sei sul due
+undo(t):           canale uno
+undo(t):           sei sul due
+undo(t):           raggi zero
+undo(t):           raggi zero               <- qui la storia e' ormai finita e undo(t) non fa nulla
+set_channel(t, 2): sei sul due
+undo(t):           raggi zero
+\end{verbatim}
+}
+
+\end{esercizio}
+%
+\end{document}

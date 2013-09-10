@@ -1,0 +1,200 @@
+\documentclass{article}[10pt]
+\usepackage[pdftex]{graphicx}
+\usepackage{amsfonts}
+\usepackage[italian]{babel}
+%****************enlarge layout
+\textheight     243.5mm
+\topmargin      -20.0mm
+\textwidth      480pt
+\hoffset        -80pt
+%*****************theorems and such
+\newcounter{esnu}
+\newenvironment{esercizio}{\medskip \noindent {\bf Esercizio\addtocounter{esnu}{1} \arabic{esnu}}}{}
+\pagestyle{empty}
+\newcommand{\liff}{\mathrel{\leftrightarrow}}   % Logical IFF Symbol
+\newcommand{\metaiff}{\Longleftrightarrow}      %iff in metatheory
+
+\begin{document}
+
+\begin{center} {\bf Esame di Programmazione I, 24 giugno 2013. 2 ore}\end{center}
+
+\begin{esercizio}
+\textbf{[13 punti]}
+Si scriva una funzione
+
+\begin{verbatim}
+char *somma_modulo_10(const char *s)
+\end{verbatim}
+
+\noindent
+che restituisce la somma delle cifre contenute in \texttt{s}, modulo $10$. La somma deve essere restituita
+come una nuova stringa. Per esempio, un'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+int main(void) {
+  char buffer[101];
+  char *s;
+
+  scanf("%100s", buffer);
+  printf("somma delle cifre modulo dieci = %s\n", s = somma_modulo_10(buffer));
+  free(s)
+
+  return 0;
+}
+\end{verbatim}
+}
+
+\noindent
+deve essere la seguente:
+
+{\small
+\begin{verbatim}
+Ciao2013Oggi67Domani34Hello                   <- input immesso dall'utente
+somma delle cifre modulo dieci = sei          <- risposta del calcolatore
+\end{verbatim}
+}
+
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[9 punti]}
+Si considerino le liste di caratteri viste a lezione. Si implementi una funzione \underline{ricorsiva}:
+\begin{verbatim}
+int alternata(struct list *this)
+\end{verbatim}
+che determina se la lista \texttt{this} \`e fatta da un'alternanza di singole vocali (minuscole o
+maiuscole) e di singoli caratteri non vocali. Se tutto \`e corretto, l'esecuzione del programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include "list.h"
+
+int main(void) {
+  struct list *l1 = construct_list
+    ('a', construct_list('f', construct_list('I', construct_list('*', construct_list('e', NULL)))));
+  struct list *l2 = construct_list('a', construct_list('f', construct_list('&', NULL)));
+
+  printf("l1 = "); print_list(l1); printf("\n");
+  if (alternata(l1))
+    printf("l1 e' alternata\n");
+  else
+    printf("l1 non e' alternata\n");
+
+  printf("l2 = "); print_list(l2); printf("\n");
+  if (alternata(l2))
+    printf("l2 e' alternata\n");
+  else
+    printf("l2 non e' alternata\n");
+
+  return 0;
+}
+\end{verbatim}
+}
+\noindent
+dovr\`a stampare:
+
+{\small
+\begin{verbatim}
+l1 = [a, f, I, *, e]
+l1 e' alternata
+l2 = [a, f, &]
+l2 non e' alternata
+\end{verbatim}
+}
+%
+\end{esercizio}
+
+\newpage
+\begin{esercizio}
+\textbf{[9 punti]}
+%
+Le note musicali sono normalmente divise in 12 \emph{semitoni}, come nella seguente tabella:
+
+\begin{center}
+\begin{tabular}{c|c|c}
+  semitono & nome italiano & nome inglese \\\hline
+  0 & do & C \\
+  1 & do\# & C\#\\
+  2 & re & D\\
+  3 & re\# & D\#\\
+  4 & mi & E \\
+  5 & fa & F \\
+  6 & fa\# & F\# \\
+  7 & sol & G \\
+  8 & sol\# & G\# \\
+  9 & la & A \\
+  10 & la\# & A\# \\
+  11 & si & B
+\end{tabular}
+\end{center}
+
+\noindent
+Si scrivano i file \texttt{note.h} e \texttt{nota.c} in modo da definire una struttura \texttt{nota} con le
+seguenti funzioni:
+%
+{\small
+\begin{verbatim}
+struct nota *construct_nota(int semitono);
+void destroy_nota(struct nota *this);
+void print_nota_it(struct nota *this);
+void print_nota_uk(struct nota *this);
+void incrementa_nota(struct nota *this, int inc);
+struct nota *nota_incrementata(struct nota *this, int inc);
+\end{verbatim}
+}
+
+\noindent
+dove si assume che \texttt{construct\_nota} riceva sempre un numero tra $0$ e $11$;
+\texttt{print\_nota\_it} stampa il nome italiano della nota \texttt{this} mentre
+\texttt{print\_nota\_uk} ne stampa il nome inglese; \texttt{incrementa\_nota} incrementa di
+\texttt{inc} il semitono della nota \texttt{this} (in modo ciclico: dopo il ``si'' ricominciamo
+dal ``do''); \texttt{nota\_incrementata} restituisce una \emph{nuova} nota ottenuta incrementando
+di \texttt{inc} il semitono di \texttt{this} (che non viene modificato).
+
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include "note.h"
+
+int main(void) {
+  struct nota *n1 = construct_nota(5); struct nota *n2 = construct_nota(11); struct nota *n3;
+
+  printf("n1: "); print_nota_it(n1); printf(" ");
+  print_nota_uk(n1); printf("\n");
+  printf("n2: "); print_nota_it(n2); printf(" ");
+  print_nota_uk(n2); printf("\n");
+
+  incrementa_nota(n1, 11);
+  n3 = nota_incrementata(n2, 23);
+
+  printf("n1: "); print_nota_it(n1); printf(" ");
+  print_nota_uk(n1); printf("\n");
+  printf("n2: "); print_nota_it(n2); printf(" ");
+  print_nota_uk(n2); printf("\n");
+  printf("n3: "); print_nota_it(n3); printf(" ");
+  print_nota_uk(n3); printf("\n");
+
+  destroy_nota(n1); destroy_nota(n2); destroy_nota(n3);
+  return 0;
+}
+\end{verbatim}}
+\noindent
+deve stampare:
+
+{\small
+\begin{verbatim}
+n1: fa F
+n2: si B
+n1: mi E              <- n1 e' stato modificato
+n2: si B              <- n2 non e' stato modificato!
+n3: la# A#
+\end{verbatim}
+}
+
+\end{esercizio}
+%
+\end{document}

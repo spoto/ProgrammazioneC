@@ -1,0 +1,197 @@
+\documentclass{article}[10pt]
+\usepackage[pdftex]{graphicx}
+\usepackage{amsfonts}
+\usepackage[italian]{babel}
+%****************enlarge layout
+\textheight     243.5mm
+\topmargin      -20.0mm
+\textwidth      480pt
+\hoffset        -80pt
+%*****************theorems and such
+\newcounter{esnu}
+\newenvironment{esercizio}{\medskip \noindent {\bf Esercizio\addtocounter{esnu}{1} \arabic{esnu}}}{}
+\pagestyle{empty}
+\newcommand{\liff}{\mathrel{\leftrightarrow}}   % Logical IFF Symbol
+\newcommand{\metaiff}{\Longleftrightarrow}      %iff in metatheory
+
+\begin{document}
+
+\begin{center} {\bf Esame di Programmazione I, 15 luglio 2013. 2 ore}\end{center}
+
+\begin{esercizio}
+\textbf{[10 punti]}
+Si scriva una funzione
+
+\begin{verbatim}
+void split(char *s)
+\end{verbatim}
+
+\noindent
+che modifica la stringa \texttt{s} in modo da spostare all'inizio i caratteri alfabetici,
+al centro le cifre numeriche e a destra i restanti caratteri.
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include <string.h>
+
+int main(void) {
+  char buffer[100];
+  strcpy(buffer, "de80f?& HY(k,;;F849=");
+  split(buffer);
+  printf("%s\n", buffer);
+  return 0;
+}
+\end{verbatim}
+}
+
+\noindent
+dovr\`a stampare qualcosa del tipo \texttt{defHYkF80849?\& (,;;=}\quad
+(ci sono altre stampe possibili e corrette, basta che la tripartizione venga rispettata).
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[12 punti]}
+Si considerino le liste di stringhe di caratteri (quindi il tipo di \texttt{head}
+\`e \texttt{char *}). Si implementi una funzione \underline{ricorsiva}:
+\begin{verbatim}
+struct list *insert_ordered(char *s, struct list *this)
+\end{verbatim}
+che riceve una stringa \texttt{s} e una lista \texttt{this} ordinata alfabeticamente e restituisce una lista
+in cui \texttt{s} \`e stata piazzata in ordine alfabetico dentro \texttt{this}. La lista \texttt{this} non deve
+venire modificata dalla funzione. \textbf{Nota}: \texttt{this}
+\`e
+gi\`a ordinata quando viene passata alla funzione \texttt{insert\_ordered}.
+
+Se tutto \`e corretto, l'esecuzione del programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include "list.h"
+
+int main(void) {
+  struct list *l = construct_list("domani", construct_list("piove", construct_list("tantissimo", NULL)));
+  struct list *r;
+  printf("l = "); print_list(l); printf("\n");
+  r = insert_ordered("non", l);
+  printf("l = "); print_list(l); printf("\n");
+  printf("r = "); print_list(r); printf("\n");
+  return 0;
+}
+
+\end{verbatim}
+}
+\noindent
+dovr\`a stampare:
+
+{\small
+\begin{verbatim}
+l = [domani, piove, tantissimo]
+l = [domani, piove, tantissimo]
+r = [domani, non, piove, tantissimo]
+\end{verbatim}
+}
+%
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[9 punti]}
+%
+Si scrivano i file \texttt{portata.h}, \texttt{portata.c}, \texttt{conto.h} e \texttt{conto.c} che
+definiscono e implementano le portate e il conto di un ristorante. Sulle portate devono essere definite
+le seguenti funzioni:
+
+{\small
+\begin{verbatim}
+struct portata *construct_portata(const char *nome, int prezzo);
+void destroy_portata(struct portata *this);
+\end{verbatim}
+}
+
+\noindent
+e sul conto:
+
+{\small
+\begin{verbatim}
+struct conto *construct_conto(struct portata *portate[], int numero_portate);
+void destroy_conto(struct conto *this);
+void print_conto(struct conto *this);
+\end{verbatim}
+}
+
+\noindent
+dove la funzione \texttt{print\_conto} stampa il conto come si pu\`o vedere sotto, includendo
+2 euro di coperto e il 21\% di iva.
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include "conto.h"
+#include "portata.h"
+
+int main(void) {
+  struct portata *p1 = construct_portata("risotto agli asparagu", 10);
+  struct portata *p2 = construct_portata("pasta alla carbonara", 6);
+  struct portata *p3 = construct_portata("vitello tonnato", 12);
+  struct portata *p4 = construct_portata("frutta fresca", 9);
+  struct portata *p5 = construct_portata("macedonia di frutta", 7);
+  struct portata *p6 = construct_portata("tiramisu", 5);
+  struct portata *p7 = construct_portata("acqua naturale", 4);
+  struct portata *p8 = construct_portata("caffe espresso", 2);
+  struct portata *cliente1[] = { p1, p3, p4, p7, p7, p8 };
+  struct portata *cliente2[] = { p2, p3, p5, p6, p7, p8, p8 };
+  struct conto *conto1 = construct_conto(cliente1, 6);
+  struct conto *conto2 = construct_conto(cliente2, 7);
+
+  print_conto(conto1); printf("\n"); print_conto(conto2);
+
+  destroy_conto(conto2); destroy_conto(conto1);
+  destroy_portata(p8); destroy_portata(p7); destroy_portata(p6); destroy_portata(p5);
+  destroy_portata(p4); destroy_portata(p3); destroy_portata(p2); destroy_portata(p1);
+  return 0;
+}
+\end{verbatim}}
+\noindent
+dovr\`a stampare qualcosa del tipo:
+
+{\small
+\begin{verbatim}
+                TRATTORIA DA NONNA PAPERA
+
+         risotto agli asparagu       10 euro
+               vitello tonnato       12 euro
+                 frutta fresca        9 euro
+                acqua naturale        4 euro
+                acqua naturale        4 euro
+                caffe espresso        2 euro
+                       coperto        2 euro
+                -------------------------
+                        TOTALE      43 euro
+                       IVA 21%      9.03 euro
+                -------------------------
+               TOTALE A PAGARE      52.03 euro
+
+                TRATTORIA DA NONNA PAPERA
+
+          pasta alla carbonara        6 euro
+               vitello tonnato       12 euro
+           macedonia di frutta        7 euro
+                      tiramisu        5 euro
+                acqua naturale        4 euro
+                caffe espresso        2 euro
+                caffe espresso        2 euro
+                       coperto        2 euro
+                -------------------------
+                        TOTALE      40 euro
+                       IVA 21%      8.40 euro
+                -------------------------
+               TOTALE A PAGARE      48.40 euro
+\end{verbatim}
+}
+
+\end{esercizio}
+%
+\end{document}

@@ -1,0 +1,202 @@
+\documentclass{article}[10pt]
+\usepackage[pdftex]{graphicx}
+\usepackage{amsfonts}
+\usepackage[italian]{babel}
+%****************enlarge layout
+\textheight     243.5mm
+\topmargin      -20.0mm
+\textwidth      480pt
+\hoffset        -80pt
+%*****************theorems and such
+\newcounter{esnu}
+\newenvironment{esercizio}{\medskip \noindent {\bf Esercizio\addtocounter{esnu}{1} \arabic{esnu}}}{}
+\pagestyle{empty}
+\newcommand{\liff}{\mathrel{\leftrightarrow}}   % Logical IFF Symbol
+\newcommand{\metaiff}{\Longleftrightarrow}      %iff in metatheory
+
+\begin{document}
+
+\begin{center} {\bf Esame di Programmazione I, 2 settembre 2013. 2 ore}\end{center}
+
+\begin{esercizio}
+\textbf{[7 punti]}
+Si scriva una funzione \underline{ricorsiva}
+
+\begin{verbatim}
+int valida(const char *s)
+\end{verbatim}
+
+\noindent
+che determina se la stringa \texttt{s} \`e un'alternanza di cifre e non-cifre
+(una cifra, una non cifra, una cifra, una non cifra, ecc.). Per esempio,
+\texttt{3e6y2\#0i5u} soddisfa tale propriet\`a. Si noti che tali
+stringhe hanno sempre lunghezza pari.
+
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[13 punti]}
+Si scriva una funzione
+
+\begin{verbatim}
+char *espandi(const char *s)
+\end{verbatim}
+
+\noindent
+che controlla se \texttt{s} \`e un'alternanza di cifre e non cifre e in caso
+contrario ritorna \texttt{NULL}. Altrimenti ritorna una nuova stringa ottenuta
+ripetendo le non cifre il numero di volte indicato dalla cifra alla loro sinistra. Per
+esempio, se \texttt{s} \`e \texttt{3e6y2\#0i5u}, il risultato sar\`a la stringa
+\texttt{eeeyyyyyy\#\#uuuuu}
+
+Se tutto \`e corretto, una esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void) {
+  char buffer[100];
+  char *res;
+
+  printf("input: ");
+  scanf("%s", buffer);
+  res = espandi(buffer);
+
+  if (res) {
+    printf("output: %s\n", res);
+    free(res);
+  }
+  else
+    printf("formato errato\n");
+
+  return 0;
+}
+\end{verbatim}
+}
+
+\noindent
+potrebbe essere:
+
+{\small
+\begin{verbatim}
+input: 3e4r2#0&9i               
+output: eeerrrr##iiiiiiiii
+\end{verbatim}
+}
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[11 punti]}
+Si consideri la seguente specifica di un iscritto a un esame con il relativo voto:
+
+{\small
+\begin{verbatim}
+#ifndef ISCRITTO_H
+#define ISCRITTO_H
+
+struct iscritto {
+  const char *nome;
+  const char *cognome;
+  int matricola;
+  int voto;
+};
+
+struct iscritto *construct_iscritto(const char *nome, const char *cognome, int matricola);
+void destroy_iscritto(struct iscritto *this);
+void print_iscritto(struct iscritto *this);
+
+#endif
+\end{verbatim}
+}
+
+\noindent
+con la relativa implementazione:
+%
+{\small
+\begin{verbatim}
+#include <stdlib.h>
+#include <stdio.h>
+#include "iscritto.h"
+
+struct iscritto *construct_iscritto(const char *nome, const char *cognome, int matricola) {
+  struct iscritto *this = malloc(sizeof(struct iscritto));
+  this->nome = nome;
+  this->cognome = cognome;
+  this->matricola = matricola;
+  this->voto = -1;
+  return this;
+}
+
+void destroy_iscritto(struct iscritto *this) {
+  free(this);
+}
+
+void print_iscritto(struct iscritto *this) {
+  printf("%10s %10s   (VR%i)\t\t", this->nome, this->cognome, this->matricola);
+
+  if (this->voto >= 18)
+    printf("%i", this->voto);
+  else if (this->voto >= 0)
+    printf("insufficiente");
+  else
+    printf("assente");
+}
+\end{verbatim}
+}
+
+Si scrivano i file \texttt{appello.h} e \texttt{appello.c} in modo da implementare un appello d'esame.
+Un appello deve contenere una quantit\`a variabile di iscritti, non nota a priori, che pu\`o crescere
+arbitrariamente. Si implementino le seguenti funzioni:
+%
+{\small
+\begin{verbatim}
+struct appello *construct_appello();
+void destroy_appello(struct appello *this);
+void iscrivi(struct appello *this, struct iscritto *studente);
+void registra_voto(struct appello *this, int matricola, int voto);
+void print_appello(struct appello *this);
+\end{verbatim}
+}
+
+\noindent
+La prima restituisce un nuovo appello senza ancora alcun iscritto. La seconda dealloca
+l'appello e tutti gli iscritti contenuti al suo interno. Il terzo permette di iscrivere uno studente
+a un appello. Il quarto registra un voto a uno studente, identificato tramite la sua matricola,
+e l'ultimo stampa un appello, cio\`e tutti i suoi iscritti in sequenza.
+
+Se tutto \`e corretto, l'esecuzione del programma:
+
+{\small
+\begin{verbatim}
+#include "appello.h"
+#include "iscritto.h"
+
+int main(void) {
+  struct appello *app = construct_appello();
+  iscrivi(app, construct_iscritto("Fausto", "Spoto", 153535));
+  iscrivi(app, construct_iscritto("Giovanni", "Senzaterra", 123456));
+  iscrivi(app, construct_iscritto("Roberta", "Rossi", 310453));
+  registra_voto(app, 123456, 28);
+  registra_voto(app, 153535, 17);
+  print_appello(app);
+  destroy_appello(app);
+  return 0;
+}
+\end{verbatim}
+}
+\noindent
+dovr\`a stampare:
+
+{\small
+\begin{verbatim}
+   Roberta      Rossi   (VR310453)		assente
+  Giovanni Senzaterra   (VR123456)		28
+    Fausto      Spoto   (VR153535)		insufficiente
+\end{verbatim}
+}
+%
+\end{esercizio}
+%
+\end{document}
