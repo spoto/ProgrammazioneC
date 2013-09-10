@@ -1,0 +1,185 @@
+\documentclass{article}[10pt]
+\usepackage[pdftex]{graphicx}
+\usepackage{amsfonts}
+\usepackage[italian]{babel}
+%****************enlarge layout
+\textheight     243.5mm
+\topmargin      -20.0mm
+\textwidth      480pt
+\hoffset        -80pt
+%*****************theorems and such
+\newcounter{esnu}
+\newenvironment{esercizio}{\medskip \noindent {\bf Esercizio\addtocounter{esnu}{1} \arabic{esnu}}}{}
+\pagestyle{empty}
+\newcommand{\liff}{\mathrel{\leftrightarrow}}   % Logical IFF Symbol
+\newcommand{\metaiff}{\Longleftrightarrow}      %iff in metatheory
+
+\begin{document}
+
+\begin{tabular}{llclcr}
+ \hspace{-35pt} &{\bf COGNOME:} & \hspace{100pt}        &{\bf NOME:}    & \hspace{100pt}        &{\bf MATRICOLA:}\hspace{35pt} \\
+\hline
+\end{tabular}
+\begin{center} {\bf Esame di Programmazione I, 3 settembre 2012. 2 ore}\end{center}
+
+\begin{esercizio}
+\textbf{[13 punti]}
+Si scriva una funzione
+
+\begin{verbatim}
+char *binario(int n)
+\end{verbatim}
+
+\noindent
+che restituisce una nuova stringa che contiene la rappresentazione binaria del numero \texttt{n}.
+Si assuma che sia $\mathtt{n}>0$.
+
+Tale programma deve avere anche una funzione \texttt{main} che:
+\begin{enumerate}
+\item legge da tastiera un numero $n$ maggiore di $0$; se non \`e maggiore di 0 lo richiede ad oltranza;
+\item chiama \texttt{binario} su tale numero e ne stampa la stringa risultante;
+\item dealloca la stringa risultante.
+\end{enumerate}
+
+Se tutto \`e corretto, un'esecuzione di tale programma dovrebbe essere del tipo:
+
+{\small
+\begin{verbatim}
+Inserisci un numero positivo: -3
+Inserisci un numero positivo: 0
+Inserisci un numero positivo: 268
+100001100
+\end{verbatim}
+}
+
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[9 punti]}
+Si considerino le liste viste a lezione. Si implementi una funzione ricorsiva:
+\begin{verbatim}
+struct list *put0(struct list *this);
+\end{verbatim}
+che restituisce una lista ottenuta da \texttt{this} inserendo, davanti agli elementi di valore dispari, un nuovo nodo che contiene
+il valore $0$.
+
+Se tutto \`e corretto, l'esecuzione del programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include <stdlib.h>
+#include "list.h"
+
+int main(void) {
+  struct list *l =
+    construct_list
+    (11, construct_list
+     (13, construct_list
+      (-4, construct_list
+       (13, construct_list
+        (-5, construct_list
+         (0, construct_list
+          (1, NULL)))))));
+
+  print_list(l);
+  printf("\n");
+
+  print_list(put0(l));
+  printf("\n");
+
+  return 0;
+}
+\end{verbatim}
+}
+\noindent
+dovr\`a stampare:
+
+{\small
+\begin{verbatim}
+[11, 13, -4, 13, -5, 0, 1]
+[0, 11, 0, 13, -4, 0, 13, 0, -5, 0, 0, 1]
+\end{verbatim}
+}
+%
+\end{esercizio}
+%
+\begin{esercizio}
+\textbf{[10 punti]}
+%
+Si definisca una struttura \texttt{banca} che implementa una banca con massimo 10 correntisti,
+identificati per nome.
+Si scrivano i file \texttt{banca.h} e \texttt{banca.c} implementando le funzioni:
+%
+\begin{itemize}
+\item \texttt{struct banca *construct\_banca()} che restituisce una nuova banca,
+      al momento senza correntisti;
+\item \texttt{void destruct\_banca(struct banca *this)} che dealloca la banca \texttt{this};
+\item \texttt{void deposita(struct banca *this, char *nome, double soldi)},
+      che aggiunge i \texttt{soldi} indicati sul conto del correntista chiamato \texttt{nome} che si
+      trova nella banca \texttt{this}. Se il correntista non \`e ancora presente
+      nella banca e non si
+      \`e ancora arrivati al massimo di 10 correntisti, esso viene aggiunto come nuovo correntista con deposito
+      iniziale pari a \texttt{soldi}.  Se il correntista non \`e ancora presente
+      nella banca e si \`e gi\`a arrivati a 10 correntisti, questa funzione non
+      fa nulla;
+\item \texttt{void preleva(struct banca *this, char *nome, double soldi)}, che preleva i \texttt{soldi} indicati
+      dal conto del correntista \texttt{nome}, riducendo quindi i soldi che \texttt{nome} ha depositati sul conto;
+\item \texttt{char *toString(struct banca *this)}, che restituisce una nuova stringa del
+      tipo
+      \begin{verbatim}
+        Fausto: 113.840000
+        Samantha: 1023.030000
+        Alessandra: 11.340000
+      \end{verbatim}
+      in cui cio\`e sono riportati i nomi dei correntisti e l'entit\`a del deposito che hanno presso
+      la banca.
+\end{itemize}
+%
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+#include <stdlib.h>
+#include <stdio.h>
+#include "banca.h"
+
+int main(void) {
+  struct banca *b = construct_banca();
+  char *s;
+
+  deposita(b, "Fausto", 112.14);
+  deposita(b, "Samantha", 1023.03);
+  deposita(b, "Fausto", 13.00);
+  deposita(b, "Alessandra", 11.34);
+
+  printf("%s\n", s = toString(b));
+  free(s);
+
+  preleva(b, "Fausto", 11.30);
+
+  printf("%s\n", s = toString(b));
+  free(s);
+
+  destruct_banca(b);
+  return 0;
+}
+\end{verbatim}}
+
+\noindent
+deve stampare:
+
+{\small
+\begin{verbatim}
+Fausto: 125.140000
+Samantha: 1023.030000
+Alessandra: 11.340000
+
+Fausto: 113.840000
+Samantha: 1023.030000
+Alessandra: 11.340000
+\end{verbatim}}
+
+\end{esercizio}
+%
+\end{document}

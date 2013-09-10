@@ -1,0 +1,152 @@
+\documentclass[italian,12pt]{article}
+\usepackage{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Prima prova parziale di Programmazione I}\\
+\begin{center}
+  \Large 24 gennaio 2012 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+%\mbox{}\\
+\begin{center}{\Large Esercizio 1}\\
+($9$ punti)
+\end{center}
+Si scriva un programma \texttt{integrale.c} che definisce una funzione
+\begin{verbatim}
+  double integra(double da, double a, double dx)
+\end{verbatim}
+che restituisce un'approssimazione di
+\[
+  \int_{\mathtt{da}}^{\mathtt{a}}\mathit{sin}(x)\,\mathit{dx}
+\]
+calcolata facendo iterare una variabile \texttt{x} dal valore \texttt{da} al valore \texttt{a}
+a passi di \texttt{dx} e sommando ogni volta il valore del seno a \texttt{x} per il valore di \texttt{dx}.
+
+Tale programma deve avere anche un \texttt{main()} che legge \texttt{da}, \texttt{a} e \texttt{dx}
+da tastiera (di tipo \texttt{double}: si usi il formato \texttt{\%lf} per \texttt{scanf()}) e quindi
+stampa a video l'approssimazione dell'integrale.
+ 
+Se tutto \`e corretto, tale programma si deve comportare ad esempio come segue:
+%
+{\small
+\begin{verbatim}
+$ ./a.out
+da: 0
+a: 3.1415
+dx: 0.2
+integrale di sin(x) tra 0.000000 e 3.141500 d0.200000 = 1.997467
+
+$ ./a.out
+da: 3.1415
+a: 6.283
+dx: 0.001
+integrale di sin(x) tra 3.141500 e 6.283000 d0.001000 = -2.000000
+\end{verbatim}
+}
+%
+\begin{center}{\Large Esercizio 2}\\
+($6$ punti)
+\end{center}
+%
+Si scriva il file \texttt{next\_prime.c} che definisce la funzione
+\texttt{next\_prime()}. Questa funzione deve restituire un diverso numero primo
+ad ogni chiamata, dal $2$ in poi. Solo \texttt{next\_prime()} deve
+essere visibile all'esterno, non altre funzioni ausiliare che potreste
+scrivere. Scrivete poi il file \texttt{next\_prime.h} che esporta
+la segnatura della funzione \texttt{next\_prime()}.
+
+Se tutto \`e corretto, un'esecuzione del seguente programma:
+%
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include "next_prime.h"
+
+int main(void) {
+  int number;
+  int c;
+
+  printf("quanti numeri primi vuoi stampare? ");
+  scanf("%d", &number);
+
+  for (c = 0; c < number; c++)
+    printf("%d\n", next_prime());
+
+  return 0;
+}
+\end{verbatim}
+}
+%
+\noindent
+potrebbe essere:
+%
+{\small
+\begin{verbatim}
+quanti numeri primi vuoi stampare? 7
+2
+3
+5
+7
+11
+13
+17
+\end{verbatim}
+}
+%
+\begin{center}{\Large Esercizio 3}\\
+($16$ punti)\end{center}
+%
+Si scriva un programma \texttt{numeri\_italiani.c} che definisce le funzioni:
+\begin{itemize}
+\item \texttt{leggi()}, che legge da tastiera un numero intero non negativo e lo restituisce.
+      Se fosse negativo, deve continuare a chiederlo all'utente;
+\item \texttt{stampa(int numero)}, che stampa le cifre del numero indicato, in italiano. Per
+      esempio, se \texttt{numero} \`e \texttt{4301} allora deve stampare \texttt{quattro tre zero uno};
+      se \texttt{numero} \`e \texttt{0} allora deve stampare \texttt{zero}.
+\end{itemize}
+%
+\`E possibile definire ulteriori funzioni ausiliarie, se servono. La funzione \texttt{stampa()}
+\textbf{deve essere ricorsiva o chiamare una vostra funzione ricorsiva}.
+Si definiscano gli argomenti delle funzioni come \texttt{const}, quando possibile.
+
+Infine, tale programma deve avere anche un \texttt{main()} che chiama
+\texttt{leggi()} per leggere un numero non negativo e poi chiama \texttt{stampa()}
+per stamparne le cifre in italiano.
+
+Se tutto \`e corretto, il programma si deve comportare ad esempio come segue:
+%
+{\small
+\begin{verbatim}
+$ ./a.out
+inserisci un numero: 10985
+uno zero nove otto cinque
+
+$ ./a.out
+inserisci un numero positivo: -13
+inserisci un numero positivo: 8901
+otto nove zero uno 
+
+$ ./a.out
+inserisci un numero: 300896
+tre zero zero otto nove sei
+
+$ ./a.out
+inserisci un numero: 0
+zero
+
+$ ./a.out
+inserisci un numero: 0006
+sei
+\end{verbatim}
+}
+
+\end{document}

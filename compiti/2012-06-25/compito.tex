@@ -1,0 +1,185 @@
+\documentclass{article}[10pt]
+\usepackage[pdftex]{graphicx}
+\usepackage{amsfonts}
+\usepackage[italian]{babel}
+%****************enlarge layout
+\textheight     243.5mm
+\topmargin      -20.0mm
+\textwidth      480pt
+\hoffset        -80pt
+%*****************theorems and such
+\newcounter{esnu}
+\newenvironment{esercizio}{\medskip \noindent {\bf Esercizio\addtocounter{esnu}{1} \arabic{esnu}}}{}
+\pagestyle{empty}
+\newcommand{\liff}{\mathrel{\leftrightarrow}}   % Logical IFF Symbol
+\newcommand{\metaiff}{\Longleftrightarrow}      %iff in metatheory
+
+\begin{document}
+
+\begin{tabular}{llclcr}
+ \hspace{-35pt} &{\bf COGNOME:} & \hspace{100pt}        &{\bf NOME:}    & \hspace{100pt}        &{\bf MATRICOLA:}\hspace{35pt} \\
+\hline
+\end{tabular}
+\begin{center} {\bf Esame di Programmazione I, 25 giugno 2012. 2 ore}\end{center}
+
+\begin{esercizio}
+\textbf{[11 punti]}
+Si scriva una funzione \texttt{vocali\_consonanti} che riceve come parametro una stringa
+e non restituisce niente. La stringa viene per\`o modificata dalla funzione, in modo da
+spostare all'inizio le vocali (a, e, i, o, u) e alla fine le consonanti. Si scriva quindi
+una fuzione \texttt{main} che legge una stringa \texttt{s} da tastiera (di massimo 100 caratteri),
+la stampa sul video, chiama \texttt{vocali\_consonanti(s)}, ristampa \texttt{s} e termina.
+
+Se tutto \`e corretto, una possibile esecuzione di tale programma sarebbe:
+%
+\begin{verbatim}
+inserisci la stringa: PrecipiTevoLissimevolmentE!
+prima: PrecipiTevoLissimevolmentE!
+dopo: eiieoiieoeEPrcpTvLssmvlmnt!
+\end{verbatim}
+%
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[10 punti]}
+Si considerino le liste viste a lezione. Si implementi una funzione ricorsiva:
+\begin{verbatim}
+struct list *alterna(struct list *this, int pari);
+\end{verbatim}
+che restituisce un puntatore a una lista $l$. Se \texttt{pari} \`e vero, la lista $l$
+deve contenere tutti e soli gli elementi in
+\underline{posizione} pari di \texttt{this}; se invece \texttt{pari} \`e falso, $l$ deve contenere tutti e soli
+gli elementi in \underline{posizione} dispari di \texttt{this}. La lista \texttt{this} non deve venire
+modificata.
+
+Si scriva quindi un file \texttt{main\_list.c} con una funzione \texttt{main} che crea la lista
+\texttt{[11, -5, 7, 13, 17, 19, -1]}; la stampa; chiama \texttt{alterna} su tale lista in modo da selezionarne
+gli elementi in posizione dispari e stampa il risultato; chiama \texttt{alterna} sulla stessa lista in modo
+da selezionarne gli elementi in posizione pari e stampa il risultato. Se tutto \`e corretto, l'esecuzione
+di tale \texttt{main} dovrebbe stampare qualcosa del tipo:
+%
+\begin{verbatim}
+La lista originale: [11, -5, 7, 13, 17, 19, -1]
+I suoi elementi in posizione dispari: [-5, 13, 19]
+I suoi elementi in posizione pari: [11, 7, 17, -1]
+\end{verbatim}
+%
+\end{esercizio}
+%
+\begin{esercizio}
+\textbf{[11 punti]}
+Si consideri un gioco in cui un \emph{serpente} \`e al centro di un quadrato di gioco di dimensione
+$21$x$21$ caselle. Inizialmente, solo la testa del serpente esiste, alla posizione di
+ascissa e ordinata $10$: se la \texttt{X} \`e la testa del serpente, possiamo rappresentare questa
+situazione come segue:
+%
+
+{\scriptsize
+\begin{verbatim}
+*********************
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*         X         *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*********************
+\end{verbatim}}
+
+\noindent
+Se a questo punto si sposta il serpente di tre posizioni a sinistra e di due in alto, si
+ottiene:
+
+\newpage
+{\scriptsize
+\begin{verbatim}
+*********************
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*      X            *
+*      *            *
+*      ****         *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*********************
+\end{verbatim}}
+
+\noindent
+Si noti che il serpente \emph{lascia una scia} quando si muove.
+Se spostiamo ulteriormente il serpente di due posizioni a destra e di una in basso,
+otteniamo:
+
+{\scriptsize
+\begin{verbatim}
+*********************
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*      ***          *
+*      * X          *
+*      ****         *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*                   *
+*********************
+\end{verbatim}}
+
+\noindent
+Si noti che, da questa posizione, il serpente non pu\`o spostarsi n\'e in basso
+n\'e in alto, poich\'e
+non permettiamo di urtare la propria scia o i bordi del quadrato di gioco.
+
+Si scrivano i file \texttt{snake.h} e \texttt{snake.c} che implementano il gioco del serpente.
+In particolare, devono essere definite e implementate le seguenti funzioni:
+%
+\begin{itemize}
+\item \texttt{construct\_snake()}, che restituisce un nuovo gioco con un serpente
+      posizionato nella posizioni iniziale di ascissa e ordinata $10$;
+\item \texttt{destruct\_snake(struct snake *this)}, che dealloca il gioco del serpente indicato;
+\item \texttt{goLeft(struct snake *this)}, che sposta il serpente a sinistra di una casella.
+      Deve ritornare vero se e solo se \`e possibile lo spostamento, cio\`e non si
+      urta la propria scia n\'e i bordi del gioco;
+\item \texttt{goRight, goUp, goDown}, simili a \texttt{goLeft};
+\item \texttt{toString(struct snake *this)}, che restituisce una nuova stringa
+      contenente una descrizione dello stato attuale del gioco, come negli esempi
+      stampati sopra.
+\end{itemize}
+%
+\end{esercizio}
+%
+\end{document}

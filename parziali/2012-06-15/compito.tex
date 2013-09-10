@@ -1,0 +1,122 @@
+\documentclass[italian,12pt]{article}
+\usepackage{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Seconda prova parziale di Programmazione I}\\
+\begin{center}
+  \Large 15 giugno 2012 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+%\mbox{}\\
+\vspace*{2ex}
+\begin{center}{\Large Esercizio 1}\\
+($19$ punti)
+\end{center}
+Si scrivano i file \texttt{polinomio.h} e \texttt{polinomio.c} che definiscono un polinomio
+a coefficienti interi in una sola variabile, cio\`e una cosa del tipo
+$-3x^4 + 9x^3 - 11x^2 - 2$. Si devono definire e implementare le seguenti funzioni:
+%
+\begin{itemize}
+\item \texttt{struct polinomio *construct\_polinomio(int coefficienti[], int grado)}, che costruisce
+      un nuovo polinomio del grado indicato con i coefficienti indicati. Il grado \`e l'esponente del
+      monomio pi\`u significativo. Si noti che il grado \`e
+      sempre la lunghezza dell'array dei coefficienti meno 1. I coefficienti iniziano con quello
+      del monomio pi\`u significativo. Per esempio, per costruire
+      $-3x^4 + 9x^3 - 11x^2 - 2$ si deve poter scrivere
+      \texttt{construct\_polinomio(coefficienti, 4)} dove
+      \verb!int coefficienti[] = { -3, 9, -11, 0, -2 }!;
+\item \texttt{void destruct\_polinomio(struct polinomio *this)}, che dealloca il polinomio indicato;
+\item \texttt{int grado(struct polinomio *this)}, che restituisce il grado del polinomio indicato;
+\item \texttt{struct polinomio *add(struct polinomio *this, struct polinomio *other)}, che resti\-tui\-sce un
+      nuovo polinomio che \`e la somma dei due polinomi indicati;
+\item \texttt{int evaluate(struct polinomio *this, int x)}, che restituisce il valore del polinomio indicato
+      valutato nel punto indicato;
+\item \texttt{char *toString(struct polinomio *this)}, che restituisce una nuova stringa che descrive
+      il polinomio indicato, una cosa del tipo \verb!- 3x^4 + 9x^3 - 11x^2 - 2x^0! (i monomi di coefficiente
+      0 non devono essere riportati).
+\end{itemize}
+
+\noindent\textbf{Suggerimento}: per realizzare la \texttt{toString}, pu\`o essere comodo ricordarsi che la
+funzione della libreria standard \texttt{sprintf(buffer, format, valori\ldots)} si comporta come
+\texttt{printf(format, valori\ldots)} ma stampa dentro la stringa \texttt{buffer} invece che sul video.
+Inoltre \texttt{sprintf} ritorna un \texttt{int} che \`e il numero di caratteri stampati.
+
+Se tutto \`e corretto, il seguente programma:
+%
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include <stdlib.h>
+#include "polinomio.h"
+
+int main() {
+  int coefficienti1[] = { -3, 4, 0, 0, -2 };
+  int coefficienti2[] = { 5, -11, 0, 0 };
+
+  struct polinomio *poly1 = construct_polinomio(coefficienti1, 4);
+  struct polinomio *poly2 = construct_polinomio(coefficienti2, 3);
+  struct polinomio *somma = add(poly1, poly2);
+
+  char *s;
+
+  printf("primo polinomio: %s di grado %d\n", s = toString(poly1), grado(poly1));
+  free(s);
+
+  printf("secondo polinomio: %s di grado %d\n", s = toString(poly2), grado(poly2));
+  free(s);
+
+  printf("somma: %s di grado %d\n", s = toString(somma), grado(somma));
+  free(s);
+
+  printf("la somma valutata in x = 7 vale %d\n", evaluate(somma, 7));
+
+  destruct_polinomio(somma);
+  destruct_polinomio(poly2);
+  destruct_polinomio(poly1);
+
+  return 0;
+}
+\end{verbatim}
+}
+%
+\noindent stamper\`a:
+%
+{\small
+\begin{verbatim}
+primo polinomio:  - 3x^4 + 4x^3 - 2x^0 di grado 4
+secondo polinomio:  + 5x^3 - 11x^2 di grado 3
+somma:  - 3x^4 + 9x^3 - 11x^2 - 2x^0 di grado 4
+la somma valutata in x = 7 vale -4657
+\end{verbatim}
+}
+%
+\vspace*{2ex}
+\begin{center}{\Large Esercizio 2}\\
+($13$ punti)\end{center}
+%
+Si scriva una funzione ricorsiva \texttt{sup} che riceve come argomento una lista
+\texttt{this}
+e restituisce una lista contenente solo gli elementi di
+\texttt{this} che sono strettamente maggiori di tutti quelli che li seguono in \texttt{this}. La lista
+\texttt{this} non deve essere modificata. Si deve gestire anche il caso
+in cui \texttt{this} \`e la lista vuota. Per esempio,
+se \texttt{this} fosse la lista \texttt{[5,13,8,9,8,3,2,4,2]} allora
+\texttt{sup(this)} deve essere la lista \texttt{[13,9,8,4,2]}.
+Si scriva quindi un programma
+\texttt{main\_list.c} con una funzione \texttt{main} che costruisce la lista
+\texttt{[5,13,8,9,8,3,2,4,2]}, la stampa con la funzione \texttt{print\_list},
+chiama la funzione \texttt{sup} su tale lista e stampa il risultato
+di \texttt{sup} con \texttt{print\_list}. La definizione delle liste e le funzioni
+di costruzione e di stampa delle liste sono state viste a lezione: non riscrivetele
+nella soluzione.
+
+\end{document}

@@ -1,0 +1,196 @@
+\documentclass{article}[10pt]
+\usepackage[pdftex]{graphicx}
+\usepackage{amsfonts}
+\usepackage[italian]{babel}
+%****************enlarge layout
+\textheight     243.5mm
+\topmargin      -20.0mm
+\textwidth      480pt
+\hoffset        -80pt
+%*****************theorems and such
+\newcounter{esnu}
+\newenvironment{esercizio}{\medskip \noindent {\bf Esercizio\addtocounter{esnu}{1} \arabic{esnu}}}{}
+\pagestyle{empty}
+\newcommand{\liff}{\mathrel{\leftrightarrow}}   % Logical IFF Symbol
+\newcommand{\metaiff}{\Longleftrightarrow}      %iff in metatheory
+
+\begin{document}
+
+\begin{tabular}{llclcr}
+ \hspace{-35pt} &{\bf COGNOME:} & \hspace{100pt}        &{\bf NOME:}    & \hspace{100pt}        &{\bf MATRICOLA:}\hspace{35pt} \\
+\hline
+\end{tabular}
+\begin{center} {\bf Esame di Programmazione I, 11 luglio 2012. 2 ore}\end{center}
+
+\begin{esercizio}
+\textbf{[12 punti]}
+Si scriva una funzione
+
+\begin{verbatim}
+char *replace(const char *s, const char *old, const char *new)
+\end{verbatim}
+
+\noindent
+che restituisce una nuova stringa ottenuta sostituendo
+con \texttt{new} la prima occorrenza (quella pi\`u a sinistra) di \texttt{old} dentro \texttt{s}.
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+
+int main(void) {
+  const char *x = "ciao, come stai?";
+  char *r = replace(x, "come stai", "how are you");
+  printf("%s\n", r);
+  free(r);
+  r = replace(x, "a", "e");
+  printf("%s\n", r);
+  free(r);
+  r = replace(x, "", "_inizio_");
+  printf("%s\n", r);
+  free(r);
+  r = replace(x, "hello", "ciao");
+  printf("%s\n", r);
+  free(r);
+  return 0;
+}
+\end{verbatim}
+}
+
+\noindent
+deve stampare:
+
+{\small
+\begin{verbatim}
+ciao, how are you?
+cieo, come stai?
+_inizio_ciao, come stai?
+ciao, come stai?
+\end{verbatim}
+}
+
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[9 punti]}
+Si considerino le liste viste a lezione. Si implementi una funzione ricorsiva:
+\begin{verbatim}
+int prefix(struct list *this, struct list *other);
+\end{verbatim}
+che restituisce \emph{vero} se e solo se \texttt{other} \`e un prefisso di \texttt{this} (cio\`e se e solo se \texttt{this} comincia con \texttt{other}). Si noti che la lista
+vuota \`e un prefisso di qualsiasi altra lista.
+
+Se tutto \`e corretto, l'esecuzione del programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include <stdlib.h>
+#include "list.h"
+
+int main(void) {
+  struct list *l = construct_list(11, construct_list(13, construct_list
+      (-4, construct_list(13, construct_list(-6, construct_list(0, construct_list(1, NULL)))))));
+
+  struct list *p1 = construct_list(11, construct_list(13, NULL));
+  struct list *p2 = construct_list(13, construct_list(-4, construct_list(13, NULL)));
+
+  print_list(p1);
+  if (!prefix(l, p1))
+    printf(" non");
+  printf(" e' un prefisso di ");
+  print_list(l);
+  printf("\n");
+
+  print_list(p2);
+  if (!prefix(l, p2))
+    printf(" non");
+  printf(" e' un prefisso di ");
+  print_list(l);
+  printf("\n");
+
+  return 0;
+}
+\end{verbatim}
+}
+
+\noindent
+dovr\`a stampare:
+
+{\small
+\begin{verbatim}
+[11, 13] e' un prefisso di [11, 13, -4, 13, -6, 0, 1]
+[13, -4, 13] non e' un prefisso di [11, 13, -4, 13, -6, 0, 1]
+\end{verbatim}
+}
+%
+\end{esercizio}
+%
+\begin{esercizio}
+\textbf{[11 punti]}
+%
+Si definisca una struttura \texttt{radio} che implementa una radio con 10 canali
+(numerati da 0 a 9). Si scrivano i file \texttt{radio.h} e \texttt{radio.c} implementando
+le funzioni:
+%
+\begin{itemize}
+\item \texttt{struct radio *construct\_radio()} che restituisce una nuova radio,
+      i cui dieci canali non sono ancora memorizzati e che \`e sintonizzata sul canale 0;
+\item \texttt{void destruct\_radio(struct radio *this)} che dealloca la radio \texttt{this};
+\item \texttt{void memorizza\_canale(struct radio *this, int numero, char *nome, float frequenza)},
+      che\linebreak memorizza il canale di numero indicato di \texttt{this} sull'emittente di nome
+      \texttt{nome} la cui frequenza \`e \texttt{frequenza};
+\item \texttt{void sintonizza\_su(struct radio *this, int numero)}, che sintonizza la radio
+      \texttt{this} sul canale di numero indicato;
+\item \texttt{char *toString(struct radio *this)}, che restituisce una nuova stringa del
+      tipo
+      \begin{verbatim}
+        Radio Arena: frequenza 102.5
+      \end{verbatim}
+      (il nome dell'emittente seguito dall'indicazione
+      della frequenza). Se la radio \`e sintonizzata su un canale non ancora memorizzato,
+      questa funzione deve restituire la nuova stringa \texttt{canale non memorizzato}.
+\end{itemize}
+%
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+#include <stdlib.h>
+#include <stdio.h>
+#include "radio.h"
+
+int main(void) {
+  struct radio *r = construct_radio();
+  char *s = toString(r);
+  printf("%s\n", s);
+  free(s);
+  memorizza_canale(r, 3, "Radio Patchanka", 98.1);
+  memorizza_canale(r, 0, "Radio Castelrotto", 100.5);
+  memorizza_canale(r, 9, "Radiofutura", 105.6);
+  sintonizza_su(r, 3);
+  printf("%s\n", s = toString(r));
+  free(s);
+  memorizza_canale(r, 0, "Radio Arena", 102.5);
+  sintonizza_su(r, 0);
+  printf("%s\n", s = toString(r));
+  free(s);
+  destruct_radio(r);
+  return 0;
+}
+\end{verbatim}}
+
+\noindent
+deve stampare:
+
+{\small
+\begin{verbatim}
+canale non memorizzato
+Radio Patchanka: frequenza 98.1
+Radio Arena: frequenza 102.5
+\end{verbatim}}
+
+\end{esercizio}
+%
+\end{document}

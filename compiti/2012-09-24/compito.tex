@@ -1,0 +1,182 @@
+\documentclass{article}[10pt]
+\usepackage[pdftex]{graphicx}
+\usepackage{amsfonts}
+\usepackage[italian]{babel}
+%****************enlarge layout
+\textheight     243.5mm
+\topmargin      -20.0mm
+\textwidth      480pt
+\hoffset        -80pt
+%*****************theorems and such
+\newcounter{esnu}
+\newenvironment{esercizio}{\medskip \noindent {\bf Esercizio\addtocounter{esnu}{1} \arabic{esnu}}}{}
+\pagestyle{empty}
+\newcommand{\liff}{\mathrel{\leftrightarrow}}   % Logical IFF Symbol
+\newcommand{\metaiff}{\Longleftrightarrow}      %iff in metatheory
+
+\begin{document}
+
+\begin{tabular}{llclcr}
+ \hspace{-35pt} &{\bf COGNOME:} & \hspace{100pt}        &{\bf NOME:}    & \hspace{100pt}        &{\bf MATRICOLA:}\hspace{35pt} \\
+\hline
+\end{tabular}
+\begin{center} {\bf Esame di Programmazione I, 24 settembre 2012. 2 ore}\end{center}
+
+\begin{esercizio}
+\textbf{[14 punti]}
+Si scriva una funzione
+
+\begin{verbatim}
+char *replace(char *s, char c, char *replacement)
+\end{verbatim}
+
+\noindent
+che restituisce una nuova stringa ottenuta sostituendo con \texttt{replacement}
+ogni occorrenza di \texttt{c} dentro \texttt{s}.
+
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+int main(void) {
+  char *s = "ciao amico";
+  char *risultato;
+
+  printf("%s\n", risultato = replace(s, 'a', "hello"));
+  free(risultato);
+
+  printf("%s\n", risultato = replace(s, 'u', "hello"));
+  free(risultato);
+
+  // si noti: il terminatore \0 non e' un carattere della stringa!
+  printf("%s\n", risultato = replace(s, '\0', "hello"));
+  free(risultato);
+
+  return 0;
+}
+\end{verbatim}
+}
+
+\noindent
+deve stampare:
+
+{\small
+\begin{verbatim}
+cihelloo hellomico
+ciao amico
+ciao amico
+\end{verbatim}
+}
+
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[9 punti]}
+Si considerino le liste viste a lezione. Si implementi una funzione ricorsiva:
+\begin{verbatim}
+struct list *fib(int n);
+\end{verbatim}
+che restituisce la lista dei primi \texttt{n} numeri di Fibonacci, in ordine inverso.
+
+Se tutto \`e corretto, l'esecuzione del programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include <stdlib.h>
+#include "list.h"
+
+int main(void) {
+  print_list(fib(10));
+  printf("\n");
+
+  print_list(fib(0));
+  printf("\n");
+
+  return 0;
+}
+\end{verbatim}
+}
+\noindent
+dovr\`a stampare:
+
+{\small
+\begin{verbatim}
+[55, 34, 21, 13, 8, 5, 3, 2, 1, 1]
+[]
+\end{verbatim}
+}
+%
+\end{esercizio}
+
+\pagebreak
+
+\begin{esercizio}
+\textbf{[9 punti]}
+%
+Si definisca una struttura \texttt{studente} che implementa uno studente.
+Si scrivano i file \texttt{studente.h} e \texttt{studente.c} implementando le funzioni:
+%
+\begin{itemize}
+\item \texttt{struct studente *construct\_studente(char *nome)} che restituisce un
+      nuovo studente con il nome indicato;
+\item \texttt{void destruct\_studente(struct studente *this)} che dealloca lo studente \texttt{this};
+\item \texttt{void fa\_esame(struct studente *this, int voto)},
+      che registra il voto indicato per lo studente \texttt{this}, se il voto \`e
+      fra $18$ e $30$ inclusi, e non fa nulla altrimenti; non c'\`e limite al
+      numero di esami che uno studente pu\`o fare;
+\item \texttt{float media(struct studente *this)}, che restituisce la media dei voti
+      degli esami sostenuti dallo studente \texttt{this}; se lo studente non ha ancora fatto esami,
+      restituisce $0.0$.
+\item \texttt{char *toString(struct studente *this)}, che restituisce una nuova stringa
+      fatta dal nome dello studente \texttt{this} seguito dalla media degli esami sostenuti da
+      \texttt{this}.
+\end{itemize}
+%
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+#include <stdlib.h>
+#include <stdio.h>
+#include "studente.h"
+
+int main(void) {
+  struct studente *s1 = construct_studente("Giacomo");
+  struct studente *s2 = construct_studente("Elisa");
+  char *s;
+
+  fa_esame(s1, 18);
+  fa_esame(s1, 15);  // non viene registrato
+  fa_esame(s2, 30);
+  fa_esame(s1, 25);
+  fa_esame(s2, 22);
+  fa_esame(s2, 29);
+  fa_esame(s2, 27);
+
+  printf("%s\n", s = toString(s1));
+  free(s);
+
+  printf("%s\n", s = toString(s2));
+  free(s);
+
+  destruct_studente(s1);
+  destruct_studente(s2);
+
+  return 0;
+}
+\end{verbatim}}
+
+\noindent
+deve stampare:
+
+{\small
+\begin{verbatim}
+Giacomo  21.50
+Elisa  27.00
+\end{verbatim}
+}
+
+\end{esercizio}
+%
+\end{document}
