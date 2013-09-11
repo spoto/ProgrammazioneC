@@ -1,0 +1,5 @@
+* introduzione al corso
+* linguaggi di alto e di basso livello
+* interpretazione e compilazione
+* esempio di programma C che legge un numero da tastiera e lo ripresenta su video
+* funzioni C main, printf, scanf
