@@ -1,0 +1,125 @@
+\documentclass{article}[10pt]
+\usepackage[pdftex]{graphicx}
+\usepackage{amsfonts}
+\usepackage[italian]{babel}
+%****************enlarge layout
+\textheight     243.5mm
+\topmargin      -20.0mm
+\textwidth      480pt
+\hoffset        -80pt
+%*****************theorems and such
+\newcounter{esnu}
+\newenvironment{esercizio}{\medskip \noindent {\bf Esercizio\addtocounter{esnu}{1} \arabic{esnu}}}{}
+\pagestyle{empty}
+\newcommand{\liff}{\mathrel{\leftrightarrow}}   % Logical IFF Symbol
+\newcommand{\metaiff}{\Longleftrightarrow}      %iff in metatheory
+
+%\`e
+
+\begin{document}
+
+\begin{center} {\bf Esame di Programmazione I, 27 settembre 2013. 2 ore}\end{center}
+
+La rappresentazione \emph{binaria a codice decimale} (bcd) \`e un modo di scrivere in
+binario i numeri decimali non negativi, in cui si riservano quattro cifre binarie per ogni cifra
+decimale. Per esempio, il numero decimale $209$ viene scritto in bcd come:
+\[
+  \underbrace{0010}_2\underbrace{0000}_0\underbrace{1001}_9
+\]
+
+\begin{esercizio}
+\textbf{[12 punti]}
+Si scriva una funzione
+
+\begin{verbatim}
+char *as_string(int decimal)
+\end{verbatim}
+
+\noindent
+che restituisce una nuova stringa contenente la rappresentazione bcd del decimale
+non negativo passato
+come argomento. Si tratta quindi di una stringa di caratteri \texttt{'0'} e
+\texttt{'1'}. Per esempio, l'invocazione di \texttt{as\_string(209)} deve restituire la
+stringa \verb!"001000001001"!.
+L'invocazione di \texttt{as\_string(0)} deve restituire la stringa \verb!"0000"!.
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[12 punti]}
+Considerando le liste di interi come viste a lezione, si scriva una funzione \underline{ricorsiva}
+
+\begin{verbatim}
+struct list *construct_list_bcd(int decimal)
+\end{verbatim}
+
+\noindent
+che restituisce una nuova lista di 0 e 1 rappresentante il bcd del decimale non negativo
+\texttt{decimal}. Per esempio, l'invocazione di \texttt{construct\_list\_bcd(209)} deve
+restituire la lista \verb![0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1]!.
+L'invocazione di \texttt{construct\_list\_bcd(0)} deve restituire la
+lista \verb![0, 0, 0, 0]!.
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[7 punti]}
+Si scrivano i file \texttt{bcd.h} e \texttt{bcd.c} che definiscono e implementano
+una struttura che rappresenta un numero in bcd. Devono definire e implementare le
+seguenti funzioni:
+
+{\small
+\begin{verbatim}
+struct bcd *construct_bcd(int decimal);
+void destroy_bcd(struct bcd *this);
+void print_as_decimal(struct bcd *this);
+void print_as_binary_string(struct bcd *this);
+void print_as_list(struct bcd *this);
+\end{verbatim}
+}
+
+\noindent
+La prima restituisce una nuova struttura che rappresenta in bcd il decimale non negativo
+passato come argomento. La seconda dealloca una tale struttura. Le ultime tre stampano a video il
+numero bcd rispettivamente come decimale, come stringa binaria e come lista di 0 e 1.
+
+Se tutto \`e corretto, l'esecuzione del programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include "bcd.h"
+
+int main(void) {
+  struct bcd *b1 = construct_bcd(209);
+  struct bcd *b2 = construct_bcd(0);
+  struct bcd *b3 = construct_bcd(1987);
+
+  print_as_decimal(b1); print_as_binary_string(b1); print_as_list(b1); printf("\n");
+  print_as_decimal(b2); print_as_binary_string(b2); print_as_list(b2); printf("\n");
+  print_as_decimal(b3); print_as_binary_string(b3); print_as_list(b3); printf("\n");
+
+  return 0;
+}
+\end{verbatim}
+}
+\noindent
+dovr\`a stampare:
+
+{\small
+\begin{verbatim}
+209
+001000001001
+[0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1]
+
+0
+0000
+[0, 0, 0, 0]
+
+1987
+0001100110000111
+[0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1]
+\end{verbatim}
+}
+%
+\end{esercizio}
+%
+\end{document}
