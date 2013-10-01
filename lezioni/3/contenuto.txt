@@ -1,6 +1,3 @@
-* codifica binaria dei numeri
-* calcoli in binario (addizioni, moltiplicazioni e divisioni per potenze del 2)
-
 * codifica binaria in complemento a due
 * codifiche in virgola mobile (cenni)
 * problemi di approssimazione nelle codifiche in virgola mobile
