@@ -1,0 +1,3 @@
+- Numerazione ottale ed esadecimale
+- Algebra di Boole
+- Operazioni bit a bit
