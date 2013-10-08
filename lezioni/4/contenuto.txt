@@ -1,3 +1,4 @@
-- Numerazione ottale ed esadecimale
 - Algebra di Boole
 - Operazioni bit a bit
+- espressioni aritmetiche, precedenza, associtività, parentesi
+- lettura di dati da tastiera tramite scanf

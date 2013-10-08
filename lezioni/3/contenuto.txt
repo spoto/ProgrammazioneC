@@ -1,4 +1,6 @@
 * codifica binaria in complemento a due
 * codifiche in virgola mobile (cenni)
 * problemi di approssimazione nelle codifiche in virgola mobile
+* numerazione ottale ed esadecimale
+
 
