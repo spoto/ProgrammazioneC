@@ -1,0 +1,4 @@
+- tipi primitivi int, float, double e char
+- costanti di tipi primitivi
+- modificatori long e unsigned
+- espressioni aritmetiche: precedenza, associtività e ordine di valutazione
