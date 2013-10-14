@@ -1,0 +1,3 @@
+* conversione esplicita di tipo primitivo
+* assegnamento: leftvalue e rightvalue
+* assegnamenti composti
