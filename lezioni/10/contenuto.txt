@@ -1,1 +1,8 @@
 - massimo comun divisore con l'algoritmo di Euclide
+- dichiarazione di variabili locali al for
+- il ciclo while
+- esempi di for tradotti tramite il while
+  * calcolo del numero di cifre di un numero positivo
+  * calcolo della radice quadrata di un numero naturale, approssimata per difetto
+  * mcd fra due numeri positivi
+- equivalenza tra for e while
