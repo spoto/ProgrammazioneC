@@ -3,4 +3,3 @@
 - Prendere decisioni: il comando condizionale if
 - L'alternativa con else
 - Esempi di uso di cicli e condizionali
-- Equivalenza fra while e do...while
