@@ -1,42 +1,35 @@
-// chiede un numero intero positivo all'utente e
-// stampa il numero dei suoi divisori interi positivi;
-// se il numero non è positivo deve richiederlo
-
 #include <stdio.h>
 
 int main(void) {
-  int numero;
-  int numero_dei_divisori;
-  int i;
+  int num;
+  int numero_divisori;
+  int candidato;
 
-  // legge numero: deve essere intero positivo
   do {
-    printf("Inserisci il numero positivo: ");
-    scanf("%i", &numero);
+    printf("Inserisci un numero >= 1: ");
+    scanf("%i", &num);
   }
-  while (numero <= 0);
+  while (num < 1);
 
-  // calcola quanti divisori interi positivi ha numero
-  for (i = 1, numero_dei_divisori = 0;
-       i <= numero; i++)
-    if (numero % i == 0)
-      numero_dei_divisori++;
+  for (candidato = 1, numero_divisori = 0;
+       candidato <= num; candidato++)
+    if (num % candidato == 0)
+      // ho trovato un divisore!
+      numero_divisori++;
 
-  // stampa il numero di tali divisori
-  if (numero_dei_divisori != 1) {
-    printf("Il numero %i ha %i divisori interi\n",
-	 numero, numero_dei_divisori);
-    // stampa se il numero è primo o meno
-    if (numero_dei_divisori == 2)
-      printf("Il numero %i e' primo\n", numero);
-    else
-      printf("Il numero %i non e' primo\n", numero);    
-  }
-  else {
-    printf("Il numero %i ha 1 divisore intero\n",
-	   numero);
-    printf("Il numero %i non e' primo\n", numero);
-  }
- 
+  if (numero_divisori == 1)
+    printf("Il numero %i ha 1 divisore\n", num);
+  else if (numero_divisori <= 5)
+    printf("Il numero %i ha %i divisori\n",
+	   num, numero_divisori);
+  else
+    printf("Il numero %i ha troppi divisori\n", num);
+
+  // i numeri primi hanno esattamente due divisori
+  if (numero_divisori == 2)
+    printf("ed e' un numero primo\n");
+  else
+    printf("e non e' un numero primo\n");
+
   return 0;
 }
