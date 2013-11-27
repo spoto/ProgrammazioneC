@@ -1,0 +1,2 @@
+- dichiarazione di array
+- accesso agli elementi di un array
