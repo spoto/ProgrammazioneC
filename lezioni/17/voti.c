@@ -1,43 +1,43 @@
 #include <stdio.h>
 
 int main(void) {
-  int persone_che_hanno_preso[31];
+  int voti[31] = { 0 };
   int voto;
-  int contatore = 1;
-  int somma_voti, numero_voti;
+  int pos;
+  int num, den;
 
-  // inizializzo a 0 il vettore
-  for (voto = 0; voto <= 30; voto++)
-    persone_che_hanno_preso[voto] = 0;
-
-  // leggi da tastiera i voti
   do {
-    printf("voto %i: ", contatore);
-    scanf ("%i", &voto);
-    if (voto >= 0 && voto <= 30) {
-      persone_che_hanno_preso[voto]++;
-      contatore++;
-    }
+    printf("voto: ");
+    scanf("%i", &voto);
+
+    if (voto >= 0 && voto <= 30)
+      voti[voto]++;
   }
   while (voto >= 0);
 
-  // stampo i risultati
-  for (voto = 0; voto <= 30; voto++)
-    if (persone_che_hanno_preso[voto] > 0)
-      printf("%i person%s preso %i\n",
-	     persone_che_hanno_preso[voto],
-	     persone_che_hanno_preso[voto] == 1 ? "a ha" : "e hanno",
-	     voto);
+  for (pos = 0; pos < 31; pos++)
+    printf("%i ", voti[pos]);
 
-  // calcola somma_voti e numero_voti
-  somma_voti = numero_voti = 0;
-  for (voto = 0; voto <= 30; voto++) {
-    somma_voti += voto * persone_che_hanno_preso[voto];
-    numero_voti += persone_che_hanno_preso[voto];
+  printf("\n");
+
+  for (voto = 0; voto < 31; voto++)
+    if (voti[voto] > 0)
+      printf("%i student%c ha%s preso %i %s\n",
+	     voti[voto],
+	     voti[voto] == 1 ? 'e' : 'i',
+	     voti[voto] == 1 ? "" : "nno",
+	     voto,
+	     voto >= 18 ? "" : "(insufficiente)");
+
+  // calcoliamo la media dei voti
+  num = den = 0;
+  for (voto = 0; voto < 31; voto++) {
+    num += voti[voto] * voto;
+    den += voti[voto];
   }
+    
+  printf("La media dei voti e': %g\n",
+	 ((double) num) / den);
 
-  // stampa il voto medio
-  printf("voto medio: %f\n", (float) somma_voti / numero_voti);
-  
   return 0;
 }
