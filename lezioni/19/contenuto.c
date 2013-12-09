@@ -1,0 +1,6 @@
+- array di caratteri
+- conversione di base da decimale a base X con 2 <= X <= 16
+- il modificatore const per le variabili e per gli elementi di un array
+- array multidimensionali
+- inizializzazione esplicita degli array multidimensionali
+- somma di due matrici
