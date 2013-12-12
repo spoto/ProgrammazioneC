@@ -1,12 +1,9 @@
 - Funzioni
-- Definizione di funzione
+- Dichiarazione di funzione
 - Invocazione di funzione
 - Attivazione di una funzione
-- Dichiarazione di funzione
-- Parametri e valore di ritorno
-- Tipo dei parametri e tipo del valore di ritorno
-- L'istruzione return
+- Parametri di una funzione
+- Tipo dei parametri
 - Esempi di funzioni:
 - calcolo dei numeri triangolari
 - calcolo del massimo comun divisore
-- calcolo del valore assoluto
