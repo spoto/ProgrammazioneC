@@ -1,0 +1,1 @@
+- determinare se un array contiene almeno un elemento ripetuto

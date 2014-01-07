@@ -2,52 +2,62 @@
 
 #define SIZE 30000
 
-void init_random(int array[], int size);
-// ordina gli elementi dell'array passato come parametro
-// comporta side-effect sull'array!
-void min_sort(int array[], int size);
-void bubble_sort(int array[], int size);
-int swap(int array[], int start, int size);
+void init_random(int array[], int length);
+int index_of_min(int array[], int start, int length);
+void min_sort(int array[], int length);
+void bubble_sort(int array[], int length);
+int swap_pairs(int array[], int length);
+void swap(int array[], int i, int j);
 int main(void);
 
-void init_random(int array[], int size) {
+void init_random(int array[], int length) {
   int pos;
 
-  for (pos = 0; pos < size; pos++)
+  for (pos = 0; pos < length; pos++)
     array[pos] = rand();
 }
 
-void min_sort(int array[], int size) {
-  int pos, pos2, temp;
-
-  for (pos = 0; pos < size - 1; pos++)
-    for (pos2 = pos + 1; pos2 < size; pos2++)
-      if (array[pos] > array[pos2]) {
-        temp = array[pos];
-        array[pos] = array[pos2];
-        array[pos2] = temp;
-      }
+void swap(int array[], int i, int j) {
+  int temp = array[i];
+  array[i] = array[j];
+  array[j] = temp;
 }
 
-int swap(int array[], int start, int size) {
-  int pos, temp;
+int index_of_min(int array[], int start, int length) {
+  int res = start;
+  int pos;
+
+  for (pos = start + 1; pos < length; pos++)
+    if (array[pos] < array[res])
+      res = pos;
+
+  return res;
+}
+
+void min_sort(int array[], int length) {
+  int start, min_pos;
+
+  for (start = 0; start < length - 1; start++) {
+    min_pos = index_of_min(array, start, length);
+    swap(array, start, min_pos);
+  }
+}
+
+int swap_pairs(int array[], int length) {
+  int pos;
   int swapped = 0; // falso
 
-  for (pos = size - 2; pos >= start; pos--)
+  for (pos = 0; pos < length - 1; pos++)
     if (array[pos] > array[pos + 1]) {
-      temp = array[pos];
-      array[pos] = array[pos + 1];
-      array[pos + 1] = temp;
+      swap(array, pos, pos + 1);
       swapped = 1; // vero
     }
 
   return swapped;
 }
 
-void bubble_sort(int array[], int size) {
-  int start = 0;
-
-  while (swap(array, start++, size));
+void bubble_sort(int array[], int length) {
+  while (swap_pairs(array, length));
 }
 
 int main(void) {
@@ -59,14 +69,14 @@ int main(void) {
   init_random(array, SIZE);
 
   start = clock();
-  min_sort(array, SIZE);
-  end = clock();
-  printf("Tempo per il min sort: %.1f secondi\n", (end - start) / 1000000.0);
-
-  start = clock();
   bubble_sort(array, SIZE);
   end = clock();
   printf("Tempo per il bubble sort: %.1f secondi\n", (end - start) / 1000000.0);
+
+  start = clock();
+  min_sort(array, SIZE);
+  end = clock();
+  printf("Tempo per il min sort: %.1f secondi\n", (end - start) / 1000000.0);
 
   return 0;
 }
