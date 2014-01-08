@@ -1,1 +1,3 @@
-- determinare se un array contiene almeno un elemento ripetuto
+- variabili locali e globali
+- variabili automatiche e statiche
+
