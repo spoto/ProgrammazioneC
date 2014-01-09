@@ -1,4 +1,5 @@
 - variabili locali e globali
 - divisione in più funzioni del calcolo della conversione di base
 - variabili automatiche e statiche
+- variabili locali static
 
