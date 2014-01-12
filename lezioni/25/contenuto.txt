@@ -1,9 +1,7 @@
 - ricorsione
 - esempi di funzioni ricorsive:
-  * somma dei primi n numeri: <a href="lezione20_2012/somma.c"><tt>somma.c</tt></a>
-  * fattoriale: <a href="lezione20_2012/fattoriale.c"><tt>fattoriale.c</tt></a>
-  * fibonacci: <a href="lezione20_2012/fibonacci.c"><tt>fibonacci.c</tt></a>
-  * funzione ricorsiva che stampa le prime n lettere dell'alfabeto in ordine descrescente:
-          <a href="lezione20_2012/prime_lettere_decrescente.c"><tt>prime_lettere_decrescente.c</tt></a>
-  * funzione ricorsiva che stampa le prime n lettere dell'alfabeto in ordine crescente:
-          <a href="lezione20_2012/prime_lettere_crescente.c"><tt>prime_lettere_crescente.c</tt></a>
+  * fattoriale
+  * somma dei primi n numeri
+  * funzione ricorsiva che stampa le prime n lettere dell'alfabeto in ordine descrescente
+  * funzione ricorsiva che stampa le prime n lettere dell'alfabeto in ordine crescente
+  * fibonacci
