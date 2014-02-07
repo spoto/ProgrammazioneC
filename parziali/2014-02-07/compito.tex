@@ -1,0 +1,108 @@
+\documentclass[italian,12pt]{article}
+\usepackage{babel}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Prima prova parziale di Programmazione I}\\
+\begin{center}
+  \Large 7 febbraio 2014 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+%\mbox{}\\
+\begin{center}{\Large Esercizio 1}\\
+($10$ punti)
+\end{center}
+Si scriva una funzione
+\begin{verbatim}
+  double e(int precision)
+\end{verbatim}
+che restituisce un'approssimazione della costante di Eulero $e$ calcolata come:
+\[
+  \sum\limits_{n=0}^{\mathtt{precision}}\frac{1}{n!}
+\]
+
+\noindent
+Si scriva quindi un \texttt{main} che chiede all'utente \texttt{precision} e stampa l'approssimazione
+di $e$ calcolata con la precedente funzione e la precisione inserita, usando 20 cifre
+decimali. Per esempio, una possibile esecuzione di tale programma potrebbe essere:
+%
+{\small
+\begin{verbatim}
+$ ./a.out
+precision: 7
+2.7182539682539683668
+\end{verbatim}
+}
+%
+\begin{center}{\Large Esercizio 2}\\
+($10$ punti)
+\end{center}
+%
+Si scriva una funzione
+%
+\begin{verbatim}
+  void swap(int array[], int length)
+\end{verbatim}
+%
+che riceve come parametri un array di lunghezza
+\texttt{length}, considera l'array come una sequenza di
+triplette di interi e, per ogni tripletta, inverte il primo e il terzo
+elemento della tripletta. Se alla fine rimangono 1 o 2 elementi, non vengono
+modificati.
+
+Se tutto \`e corretto, l'esecuzione del seguente \texttt{main}:
+{\small
+\begin{verbatim}
+int main(void) {
+  int arr[] = { 13, 0, 34, -5, -6, 10, 34, -28, 44, 71, 9 };
+  int pos;
+
+  swap(arr, 11);
+  for (pos = 0; pos < 11; pos++)
+    printf("%i ", arr[pos]);
+  printf("\n");
+  return 0;
+}
+
+\end{verbatim}
+}
+
+\noindent
+stamper\`a
+%
+{\small
+\begin{verbatim}
+34 0 13 10 -6 -5 44 -28 34 71 9
+\end{verbatim}
+}
+%
+\begin{center}{\Large Esercizio 3}\\
+($12$ punti)\end{center}
+%
+Si scriva un programma \texttt{primes.c} che definisce la funzione \textbf{ricorsiva}
+\begin{verbatim}
+  int count_primes(int max)
+\end{verbatim}
+%
+che restituisce la quantit\`a di numeri primi tra 0 e \texttt{max} inclusi.
+Si scriva quindi un \texttt{main} che legge \texttt{max} da tastiera
+e stampa quanti numeri primi ci sono tra 0 e \texttt{max} inclusi.
+Per esempio, una possibile esecuzione del programma potrebbe essere:
+%
+{\small
+\begin{verbatim}
+$ ./a.out
+max: 13
+Ci sono 6 numeri primi tra 0 e 13
+\end{verbatim}
+}
+
+\end{document}

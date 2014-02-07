@@ -1,0 +1,170 @@
+\documentclass{article}[10pt]
+\usepackage[pdftex]{graphicx}
+\usepackage{amsfonts}
+\usepackage[italian]{babel}
+%****************enlarge layout
+\textheight     243.5mm
+\topmargin      -20.0mm
+\textwidth      480pt
+\hoffset        -80pt
+%*****************theorems and such
+\newcounter{esnu}
+\newenvironment{esercizio}{\medskip \noindent {\bf Esercizio\addtocounter{esnu}{1} \arabic{esnu}}}{}
+\pagestyle{empty}
+\newcommand{\liff}{\mathrel{\leftrightarrow}}   % Logical IFF Symbol
+\newcommand{\metaiff}{\Longleftrightarrow}      %iff in metatheory
+
+%
+
+%\`e
+
+\begin{document}
+
+\begin{center} {\bf Esame di Programmazione I, 7 febbraio 2014. 2 ore}\end{center}
+
+\begin{esercizio}
+\textbf{[12 punti]}
+Si scriva una funzione
+
+\begin{verbatim}
+int included(const char *where, const char *what)
+\end{verbatim}
+
+\noindent
+che determina se i caratteri di \texttt{what} si trovano tutti dentro
+\texttt{where} e nello stesso ordine. Per esempio, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+
+int main(void) {
+  const char *s = "Major Tom to Ground Control";
+
+  printf("%i\n", included(s, "jomo"));
+  printf("%i\n", included(s, "Tootro"));
+  printf("%i\n", included(s, "troll"));
+  printf("%i\n", included(s, ""));
+  printf("%i\n", included("", "troll"));
+
+  return 0;
+}
+\end{verbatim}
+}
+
+\noindent
+dovr\`a stampare:
+%
+{\small
+\begin{verbatim}
+1
+1
+0
+1
+0
+\end{verbatim}
+}
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[13 punti]}
+Considerando le liste di interi come viste a lezione, si scriva una funzione \underline{ricorsiva}
+o che chiama una funzione ricorsiva:
+
+\begin{verbatim}
+void print_sums(struct list *this)
+\end{verbatim}
+
+\noindent
+che stampa tutte le possibili somme di 0 o pi\`u elementi della lista \texttt{this}.
+Per esempio, il seguente programma:
+%
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include "list.h"
+
+int main(void) {
+  struct list *l = construct_list(13, construct_list(11, construct_list(-2, construct_list(10, NULL))));
+
+  print_list(l);
+  printf("\n");
+  print_sums(l);
+
+  return 0;
+}
+\end{verbatim}
+}
+
+\noindent
+dovr\`a stampare:
+%
+{\small
+\begin{verbatim}
+[13, 11, -2, 10]
+ 32  22  34  24  21  11  23  13  19   9  21  11   8  -2  10   0 
+\end{verbatim}
+}
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[7 punti]}
+Si scrivano i file \texttt{chart.h} e \texttt{chart.c} che definiscono e implementano
+una classifica delle dieci canzoni pi\`u ascoltate. Devono essere realizzate le
+seguenti funzioni:
+
+{\small
+\begin{verbatim}
+struct chart *construct_chart();
+void destroy_chart(struct chart *this);
+void print_chart(struct chart *this);
+void set_song_title(struct chart *this, const char *title, int position); 
+\end{verbatim}
+}
+
+\noindent
+L'ultima funzione assegna il titolo della canzone posizionata tra 1 e 10 inclusi.
+La terza stampa la classifica, numerando
+le canzoni da 1 a 10, usando un trattino per le posizioni per cui non si \`e ancora assegnata la canzone.
+Quando una classifica \`e stata appena costruita, nessuna posizione ha ancora una canzone assegnata.
+
+Se tutto \`e corretto, l'esecuzione del programma:
+
+{\small
+\begin{verbatim}
+int main(void) {
+  struct chart *c = construct_chart();
+
+  set_song_title(c, "O luna tua", 3);
+  set_song_title(c, "Canzone stonata", 1);
+  set_song_title(c, "Red submarine", 8);
+
+  print_chart(c);
+
+  return 0;
+}
+
+\end{verbatim}
+}
+\noindent
+dovr\`a stampare:
+
+{\small
+\begin{verbatim}
+song list
+[1] Canzone stonata
+[2] -
+[3] O luna tua
+[4] -
+[5] -
+[6] -
+[7] -
+[8] Red submarine
+[9] -
+[10] -
+\end{verbatim}
+}
+%
+\end{esercizio}
+%
+\end{document}
