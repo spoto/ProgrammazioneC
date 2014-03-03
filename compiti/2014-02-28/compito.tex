@@ -1,0 +1,185 @@
+\documentclass{article}[10pt]
+\usepackage[pdftex]{graphicx}
+\usepackage{amsfonts}
+\usepackage[italian]{babel}
+%****************enlarge layout
+\textheight     243.5mm
+\topmargin      -20.0mm
+\textwidth      480pt
+\hoffset        -80pt
+%*****************theorems and such
+\newcounter{esnu}
+\newenvironment{esercizio}{\medskip \noindent {\bf Esercizio\addtocounter{esnu}{1} \arabic{esnu}}}{}
+\pagestyle{empty}
+\newcommand{\liff}{\mathrel{\leftrightarrow}}   % Logical IFF Symbol
+\newcommand{\metaiff}{\Longleftrightarrow}      %iff in metatheory
+
+%
+
+%\`e
+
+\begin{document}
+
+\begin{center} {\bf Esame di Programmazione I, 28 febbraio 2014. 2 ore}\end{center}
+
+\begin{esercizio}
+\textbf{[12 punti]}
+Si scriva una funzione
+
+\begin{verbatim}
+char *replace(const char *where, const char *what) {
+\end{verbatim}
+
+\noindent
+che restituisce una nuova stringa ottenuta da \texttt{where} sostituendo tutti i caratteri
+\texttt{\$} con la stringa \texttt{what}.
+
+Per esempio, l'esecuzione del seguente \texttt{main}:
+
+{\small
+\begin{verbatim}
+int main(void) {
+  const char *s = "ciao $$ amico $";
+
+  char *r = replace(s, "caro");
+
+  printf("%s\n", r);
+
+  free(r);
+
+  return 0;
+}
+\end{verbatim}
+}
+
+\noindent
+dovr\`a stampare:
+%
+{\small
+\begin{verbatim}
+ciao carocaro amico caro
+\end{verbatim}
+}
+\end{esercizio}
+
+\begin{esercizio}
+\textbf{[13 punti]}
+Considerando le liste di caratteri come viste a lezione, si scriva una funzione \underline{ricorsiva}:
+
+\begin{verbatim}
+struct list *replace(struct list *this, struct list *what)
+\end{verbatim}
+
+\noindent
+che restituisce una lista derivata da \texttt{this} sostituendo il carattere
+\texttt{\$} con la lista \texttt{what}.
+
+Per esempio, il seguente programma:
+%
+{\small
+\begin{verbatim}
+#include <stdlib.h>
+#include "list.h"
+
+int main(void) {
+  struct list *where = construct_list
+    ('d', construct_list('$', construct_list('$', construct_list('E', construct_list('$', NULL)))));
+  struct list *what = construct_list('A', construct_list('3', NULL));
+
+  struct list *r = replace(where, what);
+  print_list(r);
+  
+  return 0;
+}
+\end{verbatim}
+}
+
+\noindent
+dovr\`a stampare:
+%
+{\small
+\begin{verbatim}
+[d, A, 3, A, 3, E, A, 3]
+\end{verbatim}
+}
+\end{esercizio}
+
+\newpage
+
+\begin{esercizio}
+\textbf{[7 punti]}
+Si consideri il seguente file di include \texttt{cartellone.h} che specifica
+un cartellone del tipo di quelli delle stazioni ferroviarie, che indica una sequenza
+di treni specificando il numero e la destinazione di ciascun treno:
+
+{\small
+\begin{verbatim}
+#ifndef CARTELLONE_H
+#define CARTELLONE_H
+
+struct cartellone {
+  int numero_treno[8];
+  const char *destinazione[8];
+  int usati; // il numero di elementi degli array che sono usati
+};
+
+struct cartellone *construct_cartellone(void);
+void destroy_cartellone(struct cartellone *this);
+void print_cartellone(struct cartellone *this);
+void aggiungi_treno(struct cartellone *this, int numero_treno, const char *destinazione);
+void rimuovi_treno(struct cartellone *this);
+
+#endif
+\end{verbatim}
+}
+
+\noindent
+Il cartellone nasce vuoto ed \`e
+possibile aggiungere treni con la funzione
+\texttt{aggiungi\_treno} (specificando il numero del treno e la sua destinazione. Se il cartellone
+\`e pieno, questa funzione non fa nulla),
+stamparlo con la funzione \texttt{print\_cartellone} e rimuovere il treno che sta in cima
+al cartellone con la funzione \texttt{rimuovi\_treno}. Quest'ultima funzione
+sposta tutti i treni di una posizione verso l'alto.
+
+Se tutto \`e corretto, l'esecuzione del programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include "cartellone.h"
+
+int main(void) {
+  struct cartellone *c = construct_cartellone();
+
+  aggiungi_treno(c, 3408, "Vicenza");
+  aggiungi_treno(c, 129, "Milano");
+  aggiungi_treno(c, 891, "Roma");
+
+  print_cartellone(c);
+  rimuovi_treno(c);  // fa scomparire il treno 3408 per Vicenza
+  printf("\n");
+  print_cartellone(c);
+  destroy_cartellone(c);
+
+  return 0;
+}
+\end{verbatim}
+}
+\noindent
+dovr\`a stampare:
+
+{\small
+\begin{verbatim}
+3408 - Vicenza
+ 129 - Milano
+ 891 - Roma
+
+ 129 - Milano
+ 891 - Roma
+\end{verbatim}
+}
+%
+\end{esercizio}
+%
+\end{document}
