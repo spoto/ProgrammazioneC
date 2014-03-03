@@ -1,0 +1,5 @@
+- definizione di strutture
+- campi delle strutture
+- accesso ai campi delle strutture: l'operatore punto
+- un nuovo tipo di leftvalue: il campo di una struttura
+- variabili, parametri e ritorno di tipo struttura
