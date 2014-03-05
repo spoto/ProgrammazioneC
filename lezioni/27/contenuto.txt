@@ -1,0 +1,4 @@
+- inizializzazione di sruct
+- assegnamento fra struct
+- passaggio di parametri e ritorno di valori di tipo struct
+- divisione del codice in .c e file header .h
