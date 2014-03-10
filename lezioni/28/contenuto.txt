@@ -1,0 +1,2 @@
+- array di strutture
+- accesso ai campi delle strutture in un array
