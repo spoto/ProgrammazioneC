@@ -1,0 +1,2 @@
+- array dentro struct
+- funzioni static: sono private al file in cui si trovano
