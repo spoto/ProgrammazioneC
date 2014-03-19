@@ -1,7 +1,6 @@
 #include <stdio.h>
 
-static void stampa(int n);
-static void stampa_aux(char da, int n);
+void stampa(int n);
 
 int main(void) {
   int n;
@@ -16,7 +15,7 @@ int main(void) {
   return 0;
 }
 
-static void stampa(int n) {
+void stampa(int n) {
   if (n == 0)
     return;
   else {

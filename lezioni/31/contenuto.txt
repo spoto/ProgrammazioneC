@@ -1,0 +1,4 @@
+- stringhe in C
+- letterali stringa
+- formato %s di printf
+- Lunghezza, concatenazione e confronto fra stringhe
