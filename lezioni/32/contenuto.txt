@@ -1,0 +1,4 @@
+- input di stringhe da tastiera col formato %s e %Ns della funzione scanf()
+- input di un carattere da tastiera con la funzione getchar()
+- lettura di una stringa da tastiera, terminata da \n
+- conteggio del numero di parole in una stringa
