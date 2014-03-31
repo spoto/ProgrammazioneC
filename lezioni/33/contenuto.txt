@@ -1,0 +1,3 @@
+- strutture che contengono stringhe
+- esempio di un dizionario
+- ricerca lineare e ricerca binaria in un array ordinato
