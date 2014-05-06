@@ -1,0 +1,4 @@
+- strutture che contengono puntatori
+- strutture ricorsive con campi di tipo puntatore
+- la struct list
+- la costante NULL di stdlib.h
