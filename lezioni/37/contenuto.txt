@@ -1,0 +1,4 @@
+- esempi di utilizzo della struttura list
+- ritornare un puntatore da una funzione
+- la funzione malloc()
+- il tipo void *
