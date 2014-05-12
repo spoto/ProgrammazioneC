@@ -1,0 +1,3 @@
+- la funzione di libreria free()
+- dangling pointer
+- puntatori usati in test booleani
