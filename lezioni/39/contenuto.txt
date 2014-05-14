@@ -1,0 +1,4 @@
+- array e puntatori
+- aritmetica dei puntatori: somma con costante intera, sottrazione
+- operazioni su array viste come operazioni su puntatori
+- rivisitazione della lunghezza e copia di una stringa
