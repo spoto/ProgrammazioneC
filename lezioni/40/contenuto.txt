@@ -1,0 +1,2 @@
+- esempi di programmi che manipolano stringhe tramite puntatori
+- confronto < e > fra puntatori
