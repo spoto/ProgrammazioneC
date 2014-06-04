@@ -1,0 +1,4 @@
+Funzioni ricorsive sulle liste:
+- test di uguaglianza
+- concatenazione
+- inversione
