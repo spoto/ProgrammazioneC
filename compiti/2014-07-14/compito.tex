@@ -1,0 +1,164 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Esame di Programmazione I}\\
+\vspace*{-2ex}
+\begin{center}
+  \large 14 luglio 2014 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+%\mbox{}\\
+%\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($11$ punti)
+\end{center}
+Si scriva una funzione \texttt{char *camelize(const char *s)}
+che restituisce una nuova stringa, che \`e la versione
+\emph{camel-style} della stringa \texttt{s}, in cui cio\`e gli spazi
+sono stati eliminati e l'inizio delle parole (tranne la prima) \`e
+stato scritto in maiuscolo. Si assuma per semplicit\`a che
+\texttt{s} contenga solo caratteri alfabetici minuscoli e spazi, non abbia
+mai due spazi di seguito e cominci con un carattere alfabetico minuscolo.
+
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+int main(void) {
+  char *s;
+  printf("%s\n", s = camelize("camels are sweet and clever animals")); free(s);
+  return 0;
+}
+\end{verbatim}}
+
+\noindent
+dovr\`a stampare:
+%
+{\small
+\begin{verbatim}
+camelsAreSweetAndCleverAnimals
+\end{verbatim}}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 2} ($9$ punti)\end{center}
+%
+Si considerino le liste di \texttt{char} come viste a lezione. Si definisca una funzione
+\textbf{ricorsiva}
+%
+\begin{verbatim}
+struct list *camelize_list(struct list *this)
+\end{verbatim}
+%
+che restituisce una lista ottenuta da \texttt{this} traducendola in \emph{camel-style}. Si assuma
+per semplicit\`a che la lista \texttt{this} contenga
+solo caratteri alfabetici minuscoli e spazi, non abbia
+mai due spazi di seguito e cominci con un carattere alfabetico minuscolo.
+La lista \texttt{this} non deve venire modificata. Per esempio, l'esecuzione del programma
+
+{\small
+\begin{verbatim}
+int main(void) {
+  struct list *l = construct_list
+    ('c', construct_list
+     ('a', construct_list
+      ('m', construct_list
+       ('e', construct_list
+        ('l', construct_list
+         ('s', construct_list
+          (' ', construct_list
+           ('a', construct_list
+            ('r', construct_list
+             ('e', construct_list
+              (' ', construct_list
+               ('s', construct_list
+                ('w', construct_list
+                 ('e', construct_list
+                  ('e', construct_list
+                   ('t', NULL))))))))))))))));
+			 
+  print_list(camelize_list(l)); printf("\n"); return 0;
+}
+\end{verbatim}}
+
+\noindent
+dovr\`a stampare
+%
+{\small
+\begin{verbatim}
+[c, a, m, e, l, s, A, r, e, S, w, e, e, t]
+\end{verbatim}}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 3} ($12$ punti)\end{center}
+%
+Si scrivano i file \texttt{date.h} e \texttt{date.c} che definiscono e implementano la struttura
+\texttt{date} che rappresenta una data del calendario, con le seguenti funzioni sulle date:
+
+{\small
+\begin{verbatim}
+struct date *construct_date(int day, int month, int year);
+struct date *construct_date_alt(int day, const char *month, int year);
+void print_date(struct date *this);  // stampa this, del tipo "13 gennaio 1973"
+int equals_date(struct date *this, struct date *that); // vero se e solo se le date sono uguali
+int compare_date(struct date *this, struct date *that); // <0 se this viene prima di that,
+  // 0 se this e that sono uguali, >0 se this viene dopo that
+\end{verbatim}}
+
+\noindent
+La funzione di costruzione \texttt{construct\_date\_alt} permette di specificare il mese
+come il nome minuscolo italiano del mese. Entramble le funzioni di costruzione
+ritornano \texttt{NULL} se si
+cerca di costruire una data inesistente e considerano gli anni bisestili.
+
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include "date.h"
+
+static void compare(struct date *d1, struct date *d2) {
+  int comp = compare_date(d1, d2);
+  print_date(d1);
+
+  if (comp < 0) printf(" < ");
+  else if (comp == 0) printf(" = ");
+  else printf(" > ");
+
+  print_date(d2);
+  printf("\n");
+}
+
+int main(void) {
+  struct date *d1 = construct_date(14, 7, 1789);
+  struct date *d2 = construct_date_alt(15, "maggio", 1789);
+  struct date *d3 = construct_date_alt(15, "giugno", 2014);
+  struct date *d4 = construct_date_alt(14, "luglio", 1789);
+  compare(d1, d2);
+  compare(d2, d3);
+  compare(d1, d3);
+  compare(d1, d4);
+  return 0;
+}
+\end{verbatim}}
+
+\noindent
+dovr\`a stampare:
+
+{\small
+\begin{verbatim}
+14 luglio 1789 > 15 maggio 1789
+15 maggio 1789 < 15 giugno 2014
+14 luglio 1789 < 15 giugno 2014
+14 luglio 1789 = 14 luglio 1789
+\end{verbatim}}
+
+\end{document}
