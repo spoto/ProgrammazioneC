@@ -1,0 +1,159 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Esame di Programmazione I}\\
+\vspace*{-2ex}
+\begin{center}
+  \large 15 settembre 2014 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+%\mbox{}\\
+%\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($11$ punti)
+\end{center}
+Si scriva una funzione \texttt{char *histo(int values[], int length)}
+che restituisce una nuova stringa che rappresenta \texttt{length} istogrammi orizzontali fatti
+da asterischi. Il primo \`e
+fatto da \texttt{values[0]} asterischi; il secondo da \texttt{values[1]} asterischi ecc.
+
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+int main(void) {
+  int values[] = { 3, 8, 0, 1, 5 };
+  char *s = histo(values, 5);
+  printf("%s", s);
+  free(s);
+  return 0;
+}
+\end{verbatim}}
+
+\noindent
+dovr\`a stampare:
+%
+{\small
+\begin{verbatim}
+***
+********
+
+*
+*****
+\end{verbatim}}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 2} ($11$ punti)\end{center}
+%
+Si considerino le liste di \texttt{int} come viste a lezione. Si definisca una funzione
+\textbf{ricorsiva}
+%
+\begin{verbatim}
+int compare_sum(struct list *this, struct list *that)
+\end{verbatim}
+%
+che restituisce un intero negativo se la somma degli elementi di \texttt{this} \`e maggiore
+della somma degli elementi di \texttt{that}; un intero positivo se la somma degli elementi di
+\texttt{that} \`e maggiore
+della somma degli elementi di \texttt{this}; e ritorna 0 altrimenti. Per semplicit\`a, si assuma
+che \texttt{this} e \texttt{that} abbiano la stessa lunghezza. La funzione {\tt compare\_sum} non deve richiamare altre funzioni ricorsive, se non se stessa.
+
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+int main(void) {
+  struct list *l1 = construct_list
+    (2, construct_list(5, construct_list(4, construct_list(-3, NULL))));
+  struct list *l2 = construct_list
+    (-5, construct_list(13, construct_list(16, construct_list(26, NULL))));
+  printf("The Answer to The Ultimate Question of Life: %i\n", compare_sum(l1, l2));
+  return 0;
+}
+\end{verbatim}}
+
+\noindent
+dovr\`a stampare un numero positivo (non necessariamente $42$\ldots):
+%
+{\small
+\begin{verbatim}
+The Answer to The Ultimate Question of Life: 42
+\end{verbatim}}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 3} ($10$ punti)\end{center}
+%
+Si scrivano i file \texttt{casa.h} e \texttt{casa.c} che definiscono una casa, con le tre metrature
+essenziali che possono interessare un'agenzia immobiliare, con le seguenti funzioni sulle case:
+
+{\small
+\begin{verbatim}
+struct casa *construct_casa(int metratura_casa, int metratura_terrazzi, int metratura_garage);
+void destroy_casa(struct casa *this);
+double metratura_commerciale(struct casa *this);
+\end{verbatim}}
+
+\noindent
+La funzione di costruzione \texttt{construct\_casa} richiede di specificare i metri quadri della casa,
+dei suoi eventuali terrazzi e del suo eventuale garage. La metratura commerciale di una casa \`e
+definita come i metri quadri della casa, pi\'u il $70\%$ dei metri quadri dei terrazzi pi\'u il $50\%$
+dei metri quadri del garage.
+
+Quindi si definiscano i file \texttt{vendita.h} e \texttt{vendita.c} che definiscono una vendita immobiliare di
+una casa. Una vendita \`e specificata dalla casa e dal prezzo a cui \`e venduta. Devono essere definite e implementate
+le seguenti funzioni:
+
+{\small
+\begin{verbatim}
+struct vendita *construct_vendita(struct casa* casa, int prezzo);
+void destroy_vendita(struct vendita *this);
+double prezzo_m2(struct vendita *this);
+\end{verbatim}}
+
+\noindent
+dove la funzione \texttt{prezzo\_m2} calcola il prezzo della vendita al metro quadro (prezzo della vendita
+diviso i metri quadri commerciali della casa venduta).
+
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+#include <stdio.h>
+#include "casa.h"
+#include "vendita.h"
+
+int main(void) {
+  struct casa *c1 = construct_casa(80, 20, 15);
+  struct casa *c2 = construct_casa(70, 0, 0);
+  printf("c1 ha una metratura commerciale di %.2f m2\n", metratura_commerciale(c1));
+  printf("c2 ha una metratura commerciale di %.2f m2\n", metratura_commerciale(c2));
+  // la stessa casa viene venduta due volte a prezzi diversi
+  struct vendita *v1 = construct_vendita(c1, 200000);
+  struct vendita *v2 = construct_vendita(c1, 250000);
+  printf("c1 e' stata venduta una prima volta a %.2f euro al m2\n", prezzo_m2(v1));
+  printf("c1 e' stata venduta una seconda volta a %.2f euro al m2\n", prezzo_m2(v2));
+
+  return 0;
+}
+\end{verbatim}}
+
+\noindent
+dovr\`a stampare:
+
+{\small
+\begin{verbatim}
+c1 ha una metratura commerciale di 101.50 m2
+c2 ha una metratura commerciale di 70.00 m2
+c1 e' stata venduta una prima volta a 1970.44 euro al m2
+c1 e' stata venduta una seconda volta a 2463.05 euro al m2
+\end{verbatim}}
+
+\end{document}
