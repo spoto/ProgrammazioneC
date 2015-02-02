@@ -1,0 +1,161 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Esame di Programmazione I}\\
+\vspace*{-2ex}
+\begin{center}
+  \large 2 febbraio 2015 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+%\mbox{}\\
+%\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($11$ punti)
+\end{center}
+Si scriva una funzione \texttt{char *histo(int values[], int length)}
+che restituisce una nuova stringa che rappresenta una barra orizzontale di 80 caratteri
+divisa in segmenti di lunghezza proporzionale ai valori dell'array \texttt{values}.
+Il paramentro \texttt{length} \`e la lunghezza di tale array. I segmenti sono fatti,
+alternativamente, dai caratteri \texttt{*@+\#}.
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+int main(void) {
+  int values[] = { 8, 12, 0, 3, 5 };
+  char *s = histo(values, 5);
+  printf("%s", s);
+  free(s);
+  return 0;
+}
+\end{verbatim}}
+
+\noindent
+dovr\`a stampare:
+%
+{\small
+\begin{verbatim}
+***********************@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@++++++++##############
+\end{verbatim}}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 2} ($11$ punti)\end{center}
+%
+Si considerino le liste di \texttt{char} come viste a lezione. Si definisca una funzione
+\textbf{ricorsiva}
+%
+\begin{verbatim}
+int *frequency(struct list *this)
+\end{verbatim}
+%
+che restituisce un nuovo array di interi contenente
+le frequenze di ciascun carattere nella lista
+\texttt{this}. Questo significa che il primo elemento dell'array sar\`a il numero di
+caratteri \texttt{'a'} che si trovano in \texttt{this}, il secondo elemento sar\`a il
+numero di caratteri \texttt{'b'} che si trovano in \texttt{this} e cos\`{\i} via. Per
+esempio, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+int main(void) {
+  struct list *l = construct_list
+    ('f', construct_list('a', construct_list('f', construct_list ('z', construct_list
+        ('a', construct_list('f', construct_list('k', construct_list('m', NULL))))))));
+  printf("l = "); print_list(l); printf("\n");
+  int *freq = frequency(l);
+  int pos;
+  for (pos = 0; pos < 26; pos++)
+    printf("%i ", freq[pos]);
+  printf("\n");
+  free(freq);
+  return 0;
+}
+\end{verbatim}}
+
+\noindent
+dovr\`a stampare
+%
+{\small
+\begin{verbatim}
+l = [f, a, f, z, a, f, k, m]
+2 0 0 0 0 3 0 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1
+\end{verbatim}}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 3} ($9$ punti)\end{center}
+%
+Si definisca una struttura \texttt{banca} che implementa una banca con massimo 10 correntisti,
+identificati per nome.
+Si scrivano i file \texttt{banca.h} e \texttt{banca.c} implementando le funzioni:
+%
+\begin{itemize}
+\item \texttt{struct banca *construct\_banca()} che restituisce una nuova banca,
+      ancora senza correntisti;
+\item \texttt{void destruct\_banca(struct banca *this)} che dealloca la banca \texttt{this};
+\item \texttt{void deposita(struct banca *this, char *nome, double soldi)},
+      che aggiunge i \texttt{soldi} indicati sul conto del correntista chiamato \texttt{nome} che si
+      trova nella banca \texttt{this}. Se il correntista non \`e ancora presente
+      nella banca e non si
+      \`e ancora arrivati al massimo di 10 correntisti, esso viene aggiunto come nuovo correntista con deposito
+      iniziale pari a \texttt{soldi}.  Se il correntista non \`e ancora presente
+      nella banca e si \`e gi\`a arrivati a 10 correntisti, questa funzione non
+      fa nulla;
+\item \texttt{void interessi(struct banca *this, double percent)}, che aggiungi
+      a tutti i correntisti un interesse pari al \texttt{percent} per cento;
+\item \texttt{char *toString(struct banca *this)}, che restituisce una nuova stringa del tipo
+      \vspace{-1ex}
+      \begin{verbatim}
+        Fausto: 113.840000
+        Samantha: 1023.030000
+        Alessandra: 11.340000
+      \end{verbatim}
+      \vspace{-3ex}
+      in cui cio\`e sono riportati i nomi dei correntisti e l'entit\`a del deposito che hanno presso
+      la banca.
+\end{itemize}
+%
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+{\small
+\begin{verbatim}
+#include <stdlib.h>
+#include <stdio.h>
+#include "banca.h"
+
+int main(void) {
+  struct banca *b = construct_banca();
+  char *s;
+  deposita(b, "Fausto", 112.14); deposita(b, "Samantha", 1023.03);
+  deposita(b, "Fausto", 13.00);  deposita(b, "Alessandra", 11.34);
+  printf("%s\n", s = toString(b));
+  free(s);
+  interesse(b, 2.50);
+  printf("%s\n", s = toString(b)); free(s);
+  destruct_banca(b);
+  return 0;
+}
+\end{verbatim}}
+
+\noindent
+dovr\`a stampare:
+
+{\small
+\begin{verbatim}
+Fausto: 125.140000
+Samantha: 1023.030000
+Alessandra: 11.340000
+
+Fausto: 128.268500
+Samantha: 1048.605750
+Alessandra: 11.623500
+\end{verbatim}}
+
+\end{document}
