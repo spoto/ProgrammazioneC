@@ -1,0 +1,104 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+
+\usepackage{listings, framed}
+\lstset{
+  language=Java,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  frame=none,
+  numbers=none,
+  keywordstyle=\bfseries\color{grey},
+  commentstyle=\itshape\color{red},
+  identifierstyle=\color{black},
+  stringstyle=\color{blue},
+  numberstyle={\ttfamily},
+%  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  escapechar=|
+}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Parziale di Programmazione I - BioInformatica}\\
+\vspace*{-2ex}
+\begin{center}
+  \large 1 febbraio 2018 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\begin{center}{\Large Esercizio 1} ($5$ punti)
+\end{center}
+
+Cosa stampa il seguente programma?
+
+\begin{lstlisting}
+#include <stdio.h>
+
+int main(void) {
+  int arr[] = { 22, 13, 7, 10, -4 };
+  int i, sum = 0, counter = 0;
+
+  for (i = 1; i < 5; i += 2, counter++)
+    sum += arr[i];
+
+  float result = sum / counter;
+  printf("%.2f\n", result);
+  return 0;
+}
+\end{lstlisting}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 2} ($9$ punti)
+\end{center}
+Si scriva una funzione \texttt{rotate\_right} che riceve un array di interi e la sua lunghezza e modifica l'array spostando i suoi elementi di una posizione a destra (cio\`e verso la fine dell'array); l'elemento che esce da destra deve rientrare da sinistra.
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 3} ($13$ punti)\end{center}
+%
+Si completi il seguente programma scrivendo la funzione
+\texttt{quasi\_max}, che riceve un array di interi e la sua lunghezza
+e ritorna il quasi massimo dell'array, cio\`e il pi\'u grande numero
+contenuto nell'array che non sia il massimo. Per esempio, sotto
+dovr\`a venire stampato $23$, che \`e il quasi massimo di \texttt{arr}.
+\textbf{Nota:} per semplicit\`a
+si assuma che il quasi massimo dell'array
+esista, quindi non ci si preoccupi di gestire i casi in cui
+esso non esiste, per esempio quando l'array \`e vuoto
+o ha un solo elemento. \textbf{Suggerimento:} definite funzioni
+ausiliarie, se vi risultano di aiuto.
+%
+\begin{lstlisting}
+#include <stdio.h>
+
+int main(void) {
+  int arr[] = { 28, 10, 7, 9, 14, 22, 23, 28, -4, 23 };
+  printf("quasi massimo: %d\n", quasi_max(arr, 10));
+  return 0;
+}
+\end{lstlisting}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 4} ($5$ punti)\end{center}
+
+\begin{itemize}
+\item Si pu\`o scrivere la funzione \texttt{quasi\_max} dell'esercizio precedente
+  prima del \texttt{main}? Come?
+\item Si pu\`o scriverla dopo il \texttt{main}? Come?
+\item Si pu\`o scriverla in un altro file sorgente diverso da quello
+  in cui sta il \texttt{main}? Come?
+\end{itemize}
+
+\end{document}
