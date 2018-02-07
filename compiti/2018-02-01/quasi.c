@@ -9,9 +9,18 @@ int max(int arr[], int length) {
   return result;
 }
 
+int min(int arr[], int length) {
+  int result = arr[0];
+  for (int pos = 1; pos < length; pos++)
+    if (arr[pos] < result)
+      result = arr[pos];
+
+  return result;
+}
+
 int quasi_max(int arr[], int length) {
   int m = max(arr, length);
-  int result;
+  int result = min(arr, length);
 
   for (int pos = 0; pos < length; pos++)
     if (arr[pos] > result && arr[pos] != m)
