@@ -1,0 +1,175 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+
+\usepackage{listings, framed}
+\lstset{
+  language=Java,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  frame=none,
+  numbers=none,
+  keywordstyle=\bfseries\color{grey},
+  commentstyle=\itshape\color{red},
+  identifierstyle=\color{black},
+  stringstyle=\color{blue},
+  numberstyle={\ttfamily},
+%  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  escapechar=|
+}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+
+\begin{center}
+{\LARGE Secondo parziale di Programmazione I - BioInformatica}\\
+\vspace*{-2ex}
+\begin{center}
+{\large 21 Giugno 2018 (tempo disponibile: 2 ore)}
+\end{center}
+\end{center}
+
+\begin{center}
+{\Large Esercizio 1} ($14$ punti)
+\end{center}
+
+Si definisca una struttura \texttt{studente} che implementa uno studente.
+Si scrivano i file \texttt{studente.h} e \texttt{studente.c} implementando le funzioni:
+%
+\begin{itemize}
+\itemsep0em 
+\item \texttt{struct studente *construct\_studente(char *nome)} che restituisce un
+      nuovo studente con il nome indicato;
+\item \texttt{void destruct\_studente(struct studente *this)} che dealloca lo studente \texttt{this};
+\item \texttt{void fa\_esame(struct studente *this, int voto)},
+      che registra il voto indicato per lo studente \texttt{this}, se il voto \`e
+      fra $18$ e $30$ inclusi, e non fa nulla altrimenti; uno studente pu\`o fare al pi\`u 20 esami:
+      oltre tale soglia, questa funzione non registra pi\`u ulteriori esami;
+\item \texttt{float media(struct studente *this)}, che restituisce la media dei voti
+      degli esami sostenuti dallo studente \texttt{this}; se lo studente non ha ancora fatto esami,
+      restituisce $0.0$;
+\item \texttt{char *toString(struct studente *this)}, che restituisce una nuova stringa
+      fatta dal nome dello studente \texttt{this} seguito dalla media degli esami sostenuti da
+      \texttt{this}.
+\end{itemize}
+%
+Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+\begin{lstlisting}
+#include <stdlib.h>
+#include <stdio.h>
+#include "studente.h"
+
+int main(void) {
+  struct studente *s1 = construct_studente("Giacomo");
+  struct studente *s2 = construct_studente("Elisa");
+  char *s;
+  fa_esame(s1, 18);
+  fa_esame(s1, 15);  // non viene registrato
+  fa_esame(s2, 30);
+  fa_esame(s1, 25);
+  fa_esame(s2, 22);
+  fa_esame(s2, 29);
+  fa_esame(s2, 27);
+  printf("%s\n", s = toString(s1));
+  free(s);
+  printf("%s\n", s = toString(s2));
+  free(s);
+  destruct_studente(s1);
+  destruct_studente(s2);
+  return 0;
+}
+\end{lstlisting}
+
+\noindent
+deve stampare:
+
+{\small
+\begin{verbatim}
+Giacomo  21.50
+Elisa  27.00
+\end{verbatim}
+}
+
+
+\vspace*{1ex}
+
+% -----------------------------------------------------------------------------
+
+\begin{center}
+{\Large Esercizio 2} ($4$ punti)
+\end{center}
+
+\noindent Cosa stampa il seguente programma C?
+
+\begin{lstlisting}
+#include <stdio.h>
+ 
+struct date {
+  int day;
+  int month;
+  int year;
+}
+
+void changeDay(struct date d) {
+  d.day = 12;  
+}
+ 
+int main(void) {
+  struct date today;
+  today.day = 21;
+  today.month = 6;
+  today.year = 2018;  
+  changeDay(today);
+  printf("La data modificata e': %i/%2i/%i", today.day, today.month, today.year); // cosa stampa?
+  return 0;
+}
+\end{lstlisting}
+
+\vspace*{1ex}
+
+% -----------------------------------------------------------------------------
+
+\begin{center}{\Large Esercizio 3} ($14$ punti)\end{center}
+
+% vedi lezione 4 laboratorio 
+
+Si completi il seguente programma scrivendo la  funzione 
+\texttt{void somme(int *arr, int length)} che, dato un puntatore ad un array di interi \texttt{arr} di lunghezza \texttt{length}, modifica gli elementi di \texttt{arr} in modo tale che ogni elemento in posizione pari diventi uguale alla somma di quelli in posizione pari dall'array originario dall'inizio fino ad esso, e ogni elemento in posizione dispari diventi uguale alla somma di quelli in posizione dispari dell'array originario dall'inizio fino ad esso. Tale funzione dovr\`a utilizzare l'aritmetica dei puntatori per accedere agli elementi dell'array.
+
+
+Se tutto \`e corretto l'esecuzione del seguente programma
+
+\begin{lstlisting}
+#include <stdio.h>
+
+void somme(int*, int);
+
+int main(void) {
+  int arr[] = {5,2,10,6,8,9,7,5,6,7};
+  int i, length = 10;
+  somme( arr, length );  
+  for(i = 0; i < length; i++) {
+    printf( "%i ", *(arr+i) );
+  }
+  return 0;
+}
+\end{lstlisting}
+
+\noindent deve stampare:
+%
+\texttt{5 2 15 8 23 17 30 22 36 29}
+
+\end{document}
