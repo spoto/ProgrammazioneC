@@ -1,0 +1,190 @@
+%
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+
+\usepackage{listings, framed}
+\lstset{
+  language=Java,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  frame=none,
+  numbers=none,
+  keywordstyle=\bfseries\color{grey},
+  commentstyle=\itshape\color{red},
+  identifierstyle=\color{black},
+  stringstyle=\color{blue},
+  numberstyle={\ttfamily},
+%  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  escapechar=|
+}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+
+\begin{center}{\LARGE Compito di Programmazione I - BioInformatica}\\
+\vspace*{-2ex}
+\begin{center}
+  \large 13 settembre 2018 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\begin{center}{\Large Esercizio 1} ($6$ punti)
+\end{center}
+Che numero stampa l'esecuzione del seguente programma?
+\begin{lstlisting}
+#include <stdio.h>
+
+int foo(int arr[], int length) {
+  int counter = 0, i;
+  for (i = 0; i < length - 1; i += 2)
+    if (arr[i] > arr[i + 1])
+      counter++;
+
+  return counter;
+}
+
+int main(void) {
+  int original[] = { 6, 6, -6, -5, 8, 1, 4, 4, 3 };
+  printf("%d\n", foo(original, 9));  // cosa stampa?
+
+  return 0;
+}
+\end{lstlisting}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 2} ($9$ punti)
+\end{center}
+Si scriva una funzione \texttt{divide} che riceve tre parametri: un array
+\texttt{original} di \texttt{int}, un array \texttt{destination} di \texttt{double}
+e la lunghezza dei due array (che si assume essere la stessa per entrambi).
+La funzione deve modificare \texttt{destination} in modo che ogni suo elemento
+in posizione $i$ diventi l'elemento di \texttt{original} in posizione $i$
+diviso per $i + 1$ (risultato con la virgola). Per esempio, l'esecuzione
+del seguente programma:
+
+\begin{lstlisting}
+#include <stdio.h>
+
+// la funzione divide va aggiunta qui
+
+int main(void) {
+  int i, original[] = { 5, 4, 3, 2, 1, 0 };
+  double destination[6];
+  divide(original, destination, 6);
+  for (i = 0; i < 6; i++)
+    printf("%.2f ", destination[i]);
+  return 0;
+}
+\end{lstlisting}
+dovr\`a stampare \texttt{5.00 2.00 1.00 0.50 0.20 0.00}.
+\newpage
+
+\begin{center}{\Large Esercizio 3} ($11$ punti)\end{center}
+%
+Si scriva un file \texttt{registro.h} che definisce una struttura
+\texttt{registro} che implementa un registro per una campagna raccolta punti.
+I partecipanti alla campagna sono al massimo $10$ e sono identificati per cognome.
+La struttura \texttt{registro} sar\`a fatta da un array di $10$ stringhe (i cognomi dei
+partecipanti) e da un array di $10$ \texttt{double} (i punti di ciascun partecipante) e non
+dovr\`a avere altre componenti.
+Si scriva il file \texttt{registro.c} che implementa le seguenti funzioni, dichiarandole
+in \texttt{registro.h}:
+%
+\begin{itemize}
+\item \texttt{struct registro *construct\_registro()} che restituisce un nuovo registro vuoto;
+\item \texttt{void destruct\_registro(struct registro *this)} che dealloca il registro \texttt{this};
+\item \texttt{void aggiungi\_punti(struct registro *this, char *cognome, int punti)},
+      che aumenta di \texttt{punti} i punti del partecipante \texttt{cognome}, se si
+      trova in \texttt{this}. Se il partecipante non \`e
+      in \texttt{this} e non si \`e ancora arrivati al massimo di $10$ partecipanti, questa funzione
+      lo aggiunge come nuovo partecipante con punti
+      iniziali pari a \texttt{punti}.  Se il partecipante non \`e
+      in \texttt{this} e si \`e gi\`a arrivati a $10$ partecipanti, questa funzione non
+      fa nulla;
+\item \texttt{void bonus(struct registro *this, double percent)}, che aumenta i
+      punti di ciascun partecipante del \texttt{percent} per cento.
+\end{itemize}
+%
+%Se tutto \`e corretto, l'esecuzione del seguente programma:
+
+%{\small
+%\begin{verbatim}
+%#include <stdlib.h>
+%#include <stdio.h>
+%#include "registro.h"
+%
+%int main(void) {
+%  struct registro *r = construct_registro();
+%  aggiungi_punti(r, "Rossi", 112); aggiungi_punti(r, "Bianchi", 1023);
+%  aggiungi_punti(r, "Rossi", 13); aggiungi_punti(r, "Verdi", 11);
+%  int pos;
+%  for (pos = 0; pos < 10 && r->cognome[pos]; pos++)
+%    printf("%s: %f\n", r->cognome[pos], r->saldo_punti[pos]);
+%  printf("\n");
+%  bonus(r, 2.50);
+%  for (pos = 0; pos < 10 && r->cognome[pos]; pos++)
+%    printf("%s: %f\n", r->cognome[pos], r->saldo_punti[pos]);
+%  destruct_registro(r);
+%  return 0;
+%}
+%\end{verbatim}}
+%
+%\noindent
+%dovr\`a stampare:
+%
+%{\small
+%\begin{verbatim}
+%Rossi: 125.000000
+%Bianchi: 1023.000000
+%Verdi: 11.000000
+%
+%Rossi: 128.125000
+%Bianchi: 1048.575000
+%Verdi: 11.275000
+%\end{verbatim}}
+
+\vspace*{1ex}
+
+\begin{center}
+{\Large Esercizio 4} (6 punti)
+\end{center}
+
+\noindent Cosa stampa il seguente programma C?
+
+\begin{lstlisting}
+#include <stdio.h>
+
+void f(int *p){
+  *p = 5;
+}
+
+void g(int *p){
+  int i = 12;
+  p = &i;
+}
+
+int main(void){
+  int n = 8;
+  int *p = &n;
+  printf("Il valore puntato da p e' uguale a %d.\n", *p);
+  f(p);
+  printf("Il valore puntato da p e' uguale a %d.\n", *p);
+  g(p);
+  printf("Il valore puntato da p e' uguale a %d.\n", *p);
+}
+\end{lstlisting}
+
+\end{document}
