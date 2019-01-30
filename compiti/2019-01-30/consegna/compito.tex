@@ -1,0 +1,83 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+
+\usepackage{listings, framed}
+\lstset{
+  language=Java,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  frame=none,
+  numbers=none,
+  keywordstyle=\bfseries\color{grey},
+  commentstyle=\itshape\color{red},
+  identifierstyle=\color{black},
+  stringstyle=\color{blue},
+  numberstyle={\ttfamily},
+%  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  escapechar=|
+}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Parziale di Programmazione I - BioInformatica}\\
+\vspace*{-2ex}
+\begin{center}
+  \large 30 gennaio 2019 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($16$ punti)
+\end{center}
+Si scriva un programma \texttt{swap.c} che implementa le seguenti tre funzioni su array di caratteri:
+\begin{verbatim}
+// inizializza arr, lungo length, con caratteri alfabetici
+// inglesi minuscoli scelti a caso
+void init_random(char arr[], int length);
+
+// stampa su un'unica riga i caratteri nell'array arr, lungo length, poi va a capo
+void print(char arr[], int length);
+
+// scambia ogni elemento in posizione pari di arr, lungo length,
+// con quello in posizione dispari che lo segue.
+// Se length fosse dispari, l'ultimo elemento restera' nella sua posizione
+void swap(char arr[], int length);
+\end{verbatim}
+%
+Per esempio, se \texttt{arr} fosse \texttt{\{'f','m','d','j','a'\}}, chiamando
+\texttt{swap(arr, 5)} l'array \texttt{arr} dovr\`a diventare
+\texttt{\{'m','f','j','d','a'\}}.
+
+Si scriva quindi un file di header \texttt{swap.h} che dichiara le precedenti
+tre funzioni.
+
+\begin{center}{\Large Esercizio 2} ($16$ punti)\end{center}
+%
+Si scriva un programma \texttt{main\_swap.c} che include le funzioni dell'Esercizio~1 tramite
+il file di header \texttt{swap.h}.
+Il programma \texttt{main\_swap.c} deve contenere una funzione iniziale \texttt{main} che esegue
+le seguenti operazioni:
+\begin{enumerate}
+\item legge da tastiera la lunghezza \texttt{length} di un array, richiedendola ad oltranza se fosse inserita negativa;
+\item crea un array \texttt{elements} di \texttt{length} caratteri;
+\item usa la funzione \texttt{init\_random} per inizializzare casualmente
+  gli elementi di \texttt{elements};
+\item usa la funzione \texttt{print} per stampare \texttt{elements};
+\item usa la funzione \texttt{swap} per scambiare ogni elemento di \texttt{elements} in posizione pari con quello in posizione dispari che lo segue;
+\item usa la funzione \texttt{print} per stampare nuovamente \texttt{elements}.
+\end{enumerate}
+
+\end{document}
