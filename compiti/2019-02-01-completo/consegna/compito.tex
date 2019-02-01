@@ -1,0 +1,142 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+
+\usepackage{listings, framed}
+\lstset{
+  language=Java,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  frame=none,
+  numbers=none,
+  keywordstyle=\bfseries\color{grey},
+  commentstyle=\itshape\color{red},
+  identifierstyle=\color{black},
+  stringstyle=\color{blue},
+  numberstyle={\ttfamily},
+%  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  escapechar=|
+}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Esame Completo di Programmazione I - BioInformatica}\\
+\vspace*{-2ex}
+\begin{center}
+  \large 1 febbraio 2019 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($6$ punti)
+\end{center}
+Si scriva un programma \texttt{sum.c} che implementa una funzione \texttt{int sum(int arr[], int length)}. Tale funzione deve ricevere un array \texttt{arr} di interi, lungo \texttt{length}, e deve restituire la somma degli elementi di \texttt{arr} che abbiano l'elemento precedente dispari. Per esempio, se \texttt{arr} fosse $\{2,3,4,1,5\}$, la funzione dovrebbe restituire $9$ (la somma di $4$ e $5$). Si scriva il file di header \texttt{sum.h} in cui si dichiara tale funzione.
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 2} ($8$ punti)\end{center}
+%
+Si scriva un programma \texttt{main\_sum.c} che include la funzione dell'Esercizio~1 tramite
+il file di header \texttt{sum.h}.
+Il programma \texttt{main\_sum.c} deve contenere una funzione iniziale \texttt{main} che esegue
+le seguenti operazioni:
+\begin{enumerate}
+\item legge da tastiera la lunghezza \texttt{length} di un array, richiedendola ad oltranza se fosse inserita negativa;
+\item crea un array \texttt{elements} di \texttt{length} interi;
+\item legge da tastiera gli elementi di tale array, uno alla volta;
+\item chiama la funzione \texttt{sum} dell'Esercizio~1, passando \texttt{elements} e \texttt{length};
+\item stampa sul video il risultato di tale chiamata.
+\end{enumerate}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 3} ($10$ punti)\end{center}
+%
+Si definisca una struttura \texttt{trainingRecorder} che implementa un registro per memorizzare risultati di allenamenti podistici. Si scrivano i file \texttt{trainingRecorder.h} e \texttt{trainingRecorder.c} che implementano le funzioni:
+
+\begin{itemize}
+\item \texttt{struct trainingRecorder *constructTrainingRecorder(char *trainingName)}, che resti\-tui\-sce un nuovo registro vuoto con il nome indicato;
+
+\item \texttt{void destructTrainingRecorder(struct trainingRecorder *this)}, che dealloca \texttt{this};
+
+\item \texttt{void addRun(struct trainingRecorder *this, float length, float time)},
+      che aggiunge un nuovo allenamento (\emph{run}) al registro memorizzandone la lunghezza del percorso (in chilometri) e il tempo impiegato (in minuti). Un numero illimitato di allenamenti possono essere aggiunti ad un registro;
+
+\item \texttt{float averageSpeed(struct trainingRecorder *this)}, che restituisce la velocit\`a media degli allenamenti inseriti in \texttt{this}; se \texttt{this} non contenesse nessun allenamento, questa funzione deve restituire $0.0$;
+
+\item \texttt{char *toString(struct trainingRecorder *this)}, che restituisce una nuova stringa
+      ottenuta dal nome del registro \texttt{this} seguito dalla velocit\`a media e dal numero degli allenamenti in esso contenuti;
+
+\item \texttt{int compareAverageSpeeds(struct trainingRecorder *tr1, struct trainingRecorder *tr2)}, che confronta \texttt{tr1} e \texttt{tr2} e restituisce -1 se la velocit\`a media del primo \`e minore di quella del secondo, 1 se la velocit\`a media del primo \`e maggiore di quella del secondo, 0 altrimenti. 
+\end{itemize}
+%
+Se tutto \`e corretto, l'esecuzione del seguente programma \texttt{main\_trainingRecorder.c}:
+
+\begin{lstlisting}
+#include <stdlib.h>
+#include <stdio.h>
+#include "trainingRecorder.h"
+
+int main(void) {
+  struct trainingRecorder *tr1 = constructTrainingRecorder("New York Marathon");
+  struct trainingRecorder *tr2 = constructTrainingRecorder("Rome Marathon");
+  char *s;
+
+  addRun(tr1, 10, 51);
+  addRun(tr1, 15, 79);
+  addRun(tr1, 20, 120);
+
+  addRun(tr2, 8, 40);
+  addRun(tr2, 35, 180);
+  addRun(tr2, 20, 115);
+  addRun(tr2, 40, 195);
+
+  printf("%s\n", s = toString(tr1));
+  free(s);
+  printf("%s\n", s = toString(tr2));
+  free(s);
+  printf("Comparison:  %d\n", compareAverageSpeeds(tr1, tr2));
+
+  destructTrainingRecorder(tr1); destructTrainingRecorder(tr2);
+  return 0;
+}
+\end{lstlisting}
+
+\noindent
+deve stampare:
+
+{\small
+\begin{verbatim}
+Training name: New York Marathon; average speed:  10.80 Km/h; number of runs: 3
+Training name: Rome Marathon; average speed:  11.66 Km/h; number of runs: 4
+Comparison:  -1
+\end{verbatim}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 4} ($8$ punti)\end{center}
+
+Si modifichi il programma \texttt{coppia.c} definendo le funzioni
+\texttt{init}, \texttt{f}, \texttt{g} ed \texttt{h}, in modo che alla fine compili senza
+errori e la sua esecuzione stampi:
+%
+\begin{verbatim}
+Il valore della coppia e' uguale a (5,10)
+Il valore della coppia e' uguale a (45,10)
+Il valore della coppia e' uguale a (45,10)
+Il valore della coppia e' uguale a (45,12)
+\end{verbatim}
+%
+Non potete modificare altro in \texttt{coppia.c}; quindi, per esempio, non potete modificare
+la funzione \texttt{main} o la \texttt{struct coppia}.
+
+\end{document}

@@ -1,0 +1,83 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+
+\usepackage{listings, framed}
+\lstset{
+  language=Java,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  frame=none,
+  numbers=none,
+  keywordstyle=\bfseries\color{grey},
+  commentstyle=\itshape\color{red},
+  identifierstyle=\color{black},
+  stringstyle=\color{blue},
+  numberstyle={\ttfamily},
+%  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  escapechar=|
+}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Parziale di Programmazione I - BioInformatica}\\
+\vspace*{-2ex}
+\begin{center}
+  \large 1 febbraio 2019 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($9$ punti)
+\end{center}
+Si scriva un programma \texttt{sum.c} che implementa una funzione \texttt{int sum(int arr[], int length)}. Tale funzione deve ricevere un array \texttt{arr} di interi, lungo \texttt{length}, e deve restituire la somma degli elementi di \texttt{arr} che abbiano l'elemento precedente dispari. Per esempio, se \texttt{arr} fosse $\{2,3,4,1,5\}$, la funzione dovrebbe restituire $9$ (la somma di $4$ e $5$). Si scriva il file di header \texttt{sum.h} in cui si dichiara tale funzione.
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 2} ($11$ punti)\end{center}
+%
+Si scriva un programma \texttt{main\_sum.c} che include la funzione dell'Esercizio~1 tramite
+il file di header \texttt{sum.h}.
+Il programma \texttt{main\_sum.c} deve contenere una funzione iniziale \texttt{main} che esegue
+le seguenti operazioni:
+\begin{enumerate}
+\item legge da tastiera la lunghezza \texttt{length} di un array, richiedendola ad oltranza se fosse inserita negativa;
+\item crea un array \texttt{elements} di \texttt{length} interi;
+\item legge da tastiera gli elementi di tale array, uno alla volta;
+\item chiama la funzione \texttt{sum} dell'Esercizio~1, passando \texttt{elements} e \texttt{length};
+\item stampa sul video il risultato di tale chiamata.
+\end{enumerate}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 3} ($12$ punti)\end{center}
+
+Si scriva un programma \texttt{cross.c} con una funzione iniziale \texttt{main}
+che esegue le seguenti operazioni:
+\begin{enumerate}
+\item legge da tastiera una dimensione intera \texttt{size}, dispari e positiva. Se non lo fosse,
+  la richiede ad oltranza;
+\item stampa su video una croce di asterischi, le cui aste hanno lunghezza \texttt{size}.
+\end{enumerate}
+
+Per esempio, se l'utente inserisse \texttt{5} come \texttt{size}, il programma dovrebbe stampare:
+%
+\begin{verbatim}
+  *
+  *
+*****
+  *
+  *
+\end{verbatim}
+
+\end{document}
