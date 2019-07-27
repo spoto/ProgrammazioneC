@@ -1,0 +1,90 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+
+\usepackage{listings, framed}
+\lstset{
+  language=Java,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  frame=none,
+  numbers=none,
+  keywordstyle=\bfseries\color{grey},
+  commentstyle=\itshape\color{red},
+  identifierstyle=\color{black},
+  stringstyle=\color{blue},
+  numberstyle={\ttfamily},
+%  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  escapechar=|
+}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Compito di Programmazione I - BioInformatica}\\
+\vspace*{-2ex}
+\begin{center}
+  \large 25 luglio 2019 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($14$ punti) \textbf{[Si consegni \texttt{esercizio1.c}]}\end{center}
+
+Si scriva un programma C che definisce e implementa una funzione \texttt{f} che riceve come
+argomenti un array di interi e la sua lunghezza. Tale funzione deve modificare l'array passato
+come argomento nel seguente modo:
+
+\begin{itemize}
+\item ogni elemento in posizione dispari deve diventare la somma di se stesso e degli elementi
+  che lo precedevano nell'array (cio\`e alla sua sinistra);
+\item ogni elementi in posizione pari deve diventare 0.
+\end{itemize}
+
+Si scriva quindi una funzione \texttt{main} che:
+
+\begin{enumerate}
+\item dichiara l'array \texttt{\{ 3, -2, 5, 6, 3, 11, -5 \}};
+\item lo passa alla funzione \texttt{f};
+\item stampa gli elementi dell'array dopo la chiamata della funzione \texttt{f}.
+\end{enumerate}
+
+La stampa dovrebbe essere \texttt{0 1 0 12 0 26 0}.
+
+\begin{center}{\Large Esercizio 2} ($18$ punti) \textbf{[Si consegni \texttt{esercizio2.c}]}\end{center}
+Si scriva un programma C che definisce una funzione \texttt{crealista} che crea una  lista i cui elementi contengono abbreviazioni di nomi di citt\`a (ad esempio TO, MI,
+RM) e i corrispondenti nomi di citt\`a estesi (ad esempio Torino, Milano, Roma). Gli elementi della lista sono rappresentati
+dalla seguente struttura: 
+
+\begin{lstlisting}
+struct elem {
+	char abbr[2];
+	char *estesa;
+	struct elem *next;
+}
+\end{lstlisting}
+
+Scrivere una funzione \texttt{cerca} che riceve come parametri il puntatore all'inizio della lista, una abbreviazione di nome di citt\`a e  il corrispondente nome esteso. La funzione cerca l'abbreviazione nella lista e:
+
+\begin{enumerate}
+\item[a)] restituisce 0 se l'abbreviazione \`e presente nella lista e ad essa corrisponde
+  lo stesso nome di citt\`a esteso passato alla funzione;
+\item[b)] restituisce 1 se l'abbrevazione non \`e presente nella lista; in questo caso, inoltre,
+  la funzione aggiunge un nuovo elemento in coda alla lista, con l'abbreviazione e il nome di citt\`a passati alla funzione;
+\item[c)] restituisce 2 se l'abbreviazione \`e presente nella lista ma ad essa corrisponde un nome di citt\`a esteso differente
+  da quello passato alla funzione; in questo caso, inoltre, la funzione rimpiazza il nome di citt\`a esteso presente nella lista
+  con quello passato come parametro alla funzione.
+\end{enumerate}
+
+\end{document}
