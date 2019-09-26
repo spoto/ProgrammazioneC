@@ -1,0 +1,89 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+
+\usepackage{listings, framed}
+\lstset{
+  language=Java,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  frame=none,
+  numbers=none,
+  keywordstyle=\bfseries\color{grey},
+  commentstyle=\itshape\color{red},
+  identifierstyle=\color{black},
+  stringstyle=\color{blue},
+  numberstyle={\ttfamily},
+%  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  escapechar=|
+}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Compito di Programmazione I - BioInformatica}\\
+\vspace*{-2ex}
+\begin{center}
+  \large 26 settembre 2019 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($14$ punti) \textbf{[Si consegni \texttt{esercizio1.c}]}\end{center}
+
+Si scriva un programma C che definisce e implementa una funzione \texttt{f} che riceve come
+argomenti un array di interi e la sua lunghezza. Tale funzione deve modificare l'array passato
+come argomento in modo tale che ciascun suo elemento diventi:
+
+\begin{itemize}
+\item $1$ se l'elemento al quadrato \`e strettamente maggiore della somma di tutti gli elementi
+  inizialmente nell'array;
+\item $0$ altrimenti.
+\end{itemize}
+
+Si scriva quindi una funzione \texttt{main} che:
+
+\begin{enumerate}
+\item dichiara l'array \texttt{\{ 3, -2, 5, 10, 3, 12, -6 \}};
+\item lo passa alla funzione \texttt{f};
+\item stampa gli elementi dell'array dopo la chiamata della funzione \texttt{f}.
+\end{enumerate}
+
+La stampa dovrebbe essere \texttt{0 0 0 1 0 1 1}.
+
+\vspace*{2ex}
+\begin{center}{\Large Esercizio 2} ($8$ punti) \textbf{[Si consegni \texttt{esercizio2.c}]}\end{center}
+Si scriva un programma C che consenta ad un utente di acquisire una password da standard input.
+Dopo avere acquisito la password, il programma deve svolgere le seguenti operazioni:
+\begin{enumerate}
+	\item stampare la password
+	\item sostituire nella password ogni lettera ``a'' con ``@''
+	\item sostituire nalla password ogni lettera ``s'' con ``\$''
+	\item stampare la password modificata.
+\end{enumerate} 
+
+Per esempio, se la password specificata dall'utente \`e ``password'', l'output dovr\`a essere ``p@\$\$word''.
+
+\vspace*{2ex}
+\begin{center}{\Large Esercizio 3} ($10$ punti) \textbf{[Si consegni \texttt{esercizio3.c}]}\end{center}
+
+Si scriva un programma che permetta all'utente di inserire una parola \texttt{p} da standard input.
+Una volta acquisita la parola, il programma deve svolgere le seguenti operazioni:
+\begin{enumerate}
+	\item calcolare il numero delle occorrenze della parola \texttt{p} nel file \texttt{data.txt}
+	\item stampare il numero delle occorenze a video.
+\end{enumerate} 
+
+
+\end{document}
