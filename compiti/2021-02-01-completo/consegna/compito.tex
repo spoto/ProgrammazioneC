@@ -1,0 +1,102 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+
+\usepackage{listings, framed}
+\lstset{
+  language=Java,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  frame=none,
+  numbers=none,
+  keywordstyle=\bfseries\color{grey},
+  commentstyle=\itshape\color{red},
+  identifierstyle=\color{black},
+  stringstyle=\color{blue},
+  numberstyle={\ttfamily},
+%  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  escapechar=|
+}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Esame Completo di Programmazione I - Bioinformatica}\\
+%\vspace*{-1ex}
+\begin{center}
+  \large 1 febbraio 2021 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($18$ punti)\\
+  \textbf{(si consegni \texttt{penta.c} e \texttt{penta.h})}
+\end{center}
+Si scriva un programma \texttt{penta.c} che implementa le seguenti funzioni:
+\begin{verbatim}
+// inizializza arr, lungo length, con numeri interi casuali tra 0 a 999,
+// usando srand() e rand()
+void init_random(int arr[], int length);
+
+// stampa su un'unica riga il contenuto dell'array arr, lungo length, poi va a capo
+void print(int arr[], int length);
+
+// determina se il numero n non negativo e' pentafratto,
+// cioe' se ha almeno 5 divisori interi positivi
+int is_pentafract(int n);
+
+// modifica l'array, lungo length, in modo da spostare al suo inizio i suoi elementi
+// pentafratti e alla sua fine i suoi elementi non pentafratti
+void pentafract_first(int arr[], int length);
+\end{verbatim}
+%
+Si scriva quindi un file di header \texttt{penta.h} che dichiara le precedenti funzioni.
+
+\mbox{}\\
+\begin{center}{\Large Esercizio 2} ($14$ punti)\\
+  \textbf{(si consegni \texttt{main.c})}\end{center}
+%
+Si scriva un programma \texttt{main.c} che include le funzioni dell'Esercizio~1 tramite
+il file \texttt{penta.h}.
+Il programma \texttt{main.c} deve definire una struttura
+
+\begin{verbatim}
+struct list {
+  int x;
+  struct list *tail;
+};
+\end{verbatim}
+
+\noindent
+e deve implementare due funzioni:
+
+\begin{verbatim}
+// alloca una struct list contenente x e tail e ne restituisce il puntatore in memoria
+struct list *construct(int x, struct list *tail) { ... }
+
+// determina se la lista l contiene almeno un elemento x pentafratto
+// (si chiami la funzione opportuna dell'Esercizio 1)
+int at_least_one(struct list *l) { ... }
+\end{verbatim}
+
+\noindent
+Inoltre \texttt{main.c} deve contenere una funzione iniziale \texttt{main} che esegue
+le seguenti operazioni:
+\begin{enumerate}
+\item crea una lista $5\rightarrow 12\rightarrow 6\rightarrow 15$;
+\item chiama \texttt{at\_least\_one} passando tale lista come parametro;
+\item stampa il valore ritornato dalla chiamata di funzione del punto precedente.
+\end{enumerate}
+
+\end{document}
