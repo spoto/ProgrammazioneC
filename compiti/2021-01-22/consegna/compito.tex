@@ -1,0 +1,81 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+
+\usepackage{listings, framed}
+\lstset{
+  language=Java,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  frame=none,
+  numbers=none,
+  keywordstyle=\bfseries\color{grey},
+  commentstyle=\itshape\color{red},
+  identifierstyle=\color{black},
+  stringstyle=\color{blue},
+  numberstyle={\ttfamily},
+%  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  escapechar=|
+}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Parziale di Programmazione I - BioInformatica}\\
+\vspace*{-2ex}
+\begin{center}
+  \large 22 gennaio 2021 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($20$ punti)\\
+  \textbf{(si consegni \texttt{permutations.c} e \texttt{permutations.h})}
+\end{center}
+Si scriva un programma \texttt{permutations.c} che implementa le seguenti tre funzioni:
+\begin{verbatim}
+// inizializza arr, lungo length, con una permutazione casuale
+// dei numeri interi da 0 a length-1, usando srand() e rand()
+void init_random(int arr[], int length);
+
+// stampa su un'unica riga il contenuto dell'array arr, lungo length, poi va a capo
+void print(char arr[], int length);
+
+// determina se gli elementi dell'array arr, lungo length, sono tutti diversi fra loro
+int different(int arr[], int length);
+\end{verbatim}
+%
+Per esempio, chiamando la funzione \texttt{init\_random(arr, 5)} l'array \texttt{arr} potr\`a diventare
+\texttt{\{3,0,1,2,4\}}, oppure \texttt{\{2,4,1,3,0\}},
+oppure \texttt{\{0,1,2,3,4\}}, oppure \texttt{\{4,3,2,1,0\}}, oppure qualsiasi altra
+permutazione di $0\ldots 4$.
+
+Si scriva quindi un file di header \texttt{permutations.h} che dichiara le precedenti tre funzioni.
+
+\begin{center}{\Large Esercizio 2} ($12$ punti)\\
+  \textbf{(si consegni \texttt{main.c})}\end{center}
+%
+Si scriva un programma \texttt{main.c} che include le funzioni dell'Esercizio~1 tramite
+il file \texttt{permutations.h}.
+Il programma \texttt{main.c} deve contenere una funzione iniziale \texttt{main} che esegue
+le seguenti operazioni:
+\begin{enumerate}
+\item legge da tastiera la lunghezza \texttt{length} di un array, richiedendola ad oltranza se fosse inserita negativa;
+\item crea un array \texttt{elements} di \texttt{length} caratteri;
+\item chiama la funzione \texttt{init\_random} per inizializzarla a una permutazione casuale;
+\item chiama la funzione \texttt{print} per stampare \texttt{elements};
+\item chiama la funzione \texttt{different} con l'array \texttt{elements} come parametro e stampa il suo risultato.
+\end{enumerate}
+
+\end{document}

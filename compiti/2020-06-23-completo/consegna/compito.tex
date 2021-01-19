@@ -1,0 +1,78 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+
+\usepackage{listings, framed}
+\lstset{
+  language=Java,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  frame=none,
+  numbers=none,
+  keywordstyle=\bfseries\color{grey},
+  commentstyle=\itshape\color{red},
+  identifierstyle=\color{black},
+  stringstyle=\color{blue},
+  numberstyle={\ttfamily},
+%  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3,
+  escapechar=|
+}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Compito di Programmazione I - BioInformatica}\\
+\vspace*{-2ex}
+\begin{center}
+  \large 23 giugno 2020 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($13$ punti) \textbf{[Si consegni \texttt{spazi.c}]}\end{center}
+
+Si completi la funzione
+%
+\begin{verbatim}
+int spazi(char arr[], int length)
+\end{verbatim}
+%
+dentro il file sorgente \texttt{spazi.c}. Tale funzione riceve un array di caratteri
+e la sua lunghezza. La funzione deve modificare l'array in modo che i caratteri ripetuti
+diventino spazi. Deve ritornare il numero totale dei caratteri ripetuti che ha trovato.
+\textbf{Si faccia l'ipotesi semplificativa che l'array inizialmente non contenga spazi}.
+
+Per esempio, l'esecuzione del \texttt{main} (gi\`a completo, non modificatelo):
+
+\begin{verbatim}
+int main(void) {
+  char x[] = { 'f', 'y', 'F', 'Y', 'y', 'd', '@', 'y', 'o', '3', '@' };
+  int quanti = spazi(x, 11);
+
+  for (int pos = 0; pos < 11; pos++)
+    printf("%c", x[pos]);
+
+  printf("\nquanti = %d\n", quanti);
+  return 0;
+}
+\end{verbatim}
+%
+deve stampare
+%
+\begin{verbatim}
+f FY d  o3 
+quanti = 5
+\end{verbatim}
+
+\end{document}
