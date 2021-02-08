@@ -9,7 +9,7 @@ void init_random(long arr[], int length) {
     int r;
 
     do {
-      r = 1 + rand() % 999;
+      r = rand() % 1000;
     }
     while (pos > 0 && arr[pos - 1] == r);
 
