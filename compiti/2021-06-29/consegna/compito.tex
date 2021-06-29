@@ -1,0 +1,226 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{textcomp}
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+
+\lstdefinelanguage{myC}{
+        keywords=[1]{break, case, continue, default, do
+, else, false, for, if, const, return, switch, true, while}, % generic keywords
+        keywordstyle=[1]\color{blue}\bfseries,
+        keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+        keywordstyle=[2]\color{teal}\bfseries,
+        keywordstyle=[2]\color{violet}\bfseries,
+        keywords=[3]{NULL},
+        keywordstyle=[3]\color{teal}\bfseries,
+        identifierstyle=\color{black},
+        sensitive=false,
+        comment=[l]{//},
+        morecomment=[s]{/*}{*/},
+        commentstyle=\color{violet}\ttfamily,
+        commentstyle=\scriptsize\ttfamily\color{myGreen},
+        stringstyle=\color{red}\ttfamily,
+        morestring=[b]',
+        morestring=[b]"
+}
+
+\lstset{
+        language=myC,
+        backgroundcolor=\color{verylightgray},
+        extendedchars=true,
+        basicstyle=\small\ttfamily,
+        showstringspaces=false,
+        showspaces=false,
+        numbers=none,
+        numberstyle=\small,
+        numbersep=9pt,
+        tabsize=2,
+        upquote=true,
+        breaklines=true,
+        showtabs=false,
+        captionpos=b
+        otherkeywords={define,include,\# }
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\scriptsize\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\scriptsize\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Esame Completo di Programmazione I - Bioinformatica}\\
+%\vspace*{-1ex}
+\begin{center}
+  \large 29 giugno 2021 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($15$ punti)\\
+  \textbf{(si consegni \texttt{average.c})}
+\end{center}
+Si completi il seguente programma \texttt{average.c} che implementa le seguenti funzioni:
+
+\begin{center}
+\begin{lstlisting}[language=myC]
+// inizializza arr, lungo length, con numeri interi casuali tra -40 e 50 inclusi
+void init_random(int arr[], int length) {
+  // DA COMPLETARE
+}
+
+// stampa su un'unica riga il contenuto dell'array arr, lungo length, poi va a capo
+void print_int(int arr[], int length) {
+  // DA COMPLETARE
+}
+
+// come sopra, ma stampa tre cifre decimali dopo la virgola
+void print_double(double arr[], int length) {
+  // DA COMPLETARE
+}
+
+// considera l'array arr diviso in blocchi consecutivi di step elementi
+// e calcola per ciascun blocco la media dei suoi step elementi,
+// scrivendola dentro result; quindi ogni elemento di result
+// e' la media di tre elementi consecutivi di arr
+//
+// e' sempre vero che arr ha lunghezza length
+// e' sempre vero che (la lunghezza di result) * step == length
+// e' sempre vero che step > 0
+void average(int arr[], int length, int step, double result[]) {
+  // DA COMPLETARE
+}
+
+int main(void) {
+  int arr[33];
+  double result[11];
+  init_random(arr, 33);
+  print_int(arr, 33);
+  // calcolo la media degli elementi di arr a gruppi di 3;
+  // result ha infatti 11 elementi
+  average(arr, 33, 3, result);
+  print_double(result, 11);
+  return 0;
+}
+\end{lstlisting}
+\end{center}
+
+\noindent
+L'esecuzione del programma dovr\`a stampare qualcosa del tipo:
+
+\begin{mdframed}[backgroundcolor=lightgrey] 
+{\scriptsize\begin{verbatim}
+15 28 41 11 18 -29 28 -25 -6 5 -2 4 2 13 -7 -16 -36 31 -29 47 -33 6 15 -34 -17 -19 -38 -2 6 -15 30 -30 16 
+28.000 0.000 -1.000 2.333 2.667 -7.000 -5.000 -4.333 -24.667 -3.667 5.333 
+\end{verbatim}}
+\end{mdframed}
+
+\newpage
+\mbox{}\\
+\begin{center}{\Large Esercizio 2} ($16$ punti)\\
+  \textbf{(si consegni \texttt{canzoni.c})}\end{center}
+Si completi il seguente programma \texttt{canzoni.c}, la cui funzione \texttt{main()} crea una canzone con cinque accordi, li stampa su video e poi libera la memoria:
+
+\begin{center}
+\begin{lstlisting}[language=myC]
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+struct accordo_t *add_accordo(struct accordo_t *head, char nota, bool minore);
+void print_canzone(struct accordo_t *head);
+void free_canzone(struct accordo_t *head);
+
+struct accordo_t {
+    char nota;
+    bool minore;
+    struct accordo_t *next;
+};
+
+// Program entry point. Output atteso: Am G D Am Em
+int main() {
+    struct accordo_t *song = NULL;
+    song = add_accordo(song, 'A', true);
+    add_accordo(song, 'G', false);
+    add_accordo(song, 'D', false);
+    add_accordo(song, 'A', true);
+    add_accordo(song, 'E', true);
+    print_canzone(song);
+    printf("\n");
+    free_canzone(song);
+    return 0;
+}
+
+// Crea un accordo e lo aggiunge in fondo a una canzone,
+// restituendo il puntatore al suo primo accordo.
+struct accordo_t *add_accordo(struct accordo_t *head, char nota, bool minore) {
+  // DA COMPLETARE
+}
+
+// Stampa gli accordi di una canzone
+void print_canzone(struct accordo_t *head) {
+  // DA COMPLETARE
+}
+
+// Dealloca gli accordi della canzone
+void free_canzone(struct accordo_t *head) {
+  // DA COMPLETARE
+}
+\end{lstlisting}
+\end{center}
+La sua esecuzione dovr\`a stampare sul video:
+\begin{mdframed}[backgroundcolor=lightgrey] 
+\begin{verbatim}
+Am G D Am Em
+\end{verbatim}
+\end{mdframed}
+
+\mbox{}\\
+Si osservi che:
+\begin{itemize}
+\item Gli accordi vanno da A a G.
+\item Nella stampa di un accordo minore, oltre alla lettera maiuscola, viene visualizzata una \texttt{m}.
+\item Per indicare l'aggiunta di un accordo minore, la funzione
+  \texttt{add\_accordo()} deve ricevere \texttt{true} come ultimo argomento.
+\end{itemize}
+\end{document}
