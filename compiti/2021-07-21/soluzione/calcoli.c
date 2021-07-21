@@ -52,8 +52,7 @@ FILE * myfopen(char *name, char *mode)
     f = fopen( name, mode );
     if (f==NULL)
     {
-        printf("Impossibile aprire %s\n", name);
-        exit(1) ;
+        myerror("Impossibile aprire il file\n");
     }
     return f;
 }
