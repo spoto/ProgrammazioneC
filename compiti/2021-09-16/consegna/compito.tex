@@ -1,0 +1,243 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{textcomp}
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+
+\lstdefinelanguage{myC}{
+        keywords=[1]{break, case, continue, default, do
+, else, false, for, if, const, return, switch, true, while}, % generic keywords
+        keywordstyle=[1]\color{blue}\bfseries,
+        keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+        keywordstyle=[2]\color{teal}\bfseries,
+        keywordstyle=[2]\color{violet}\bfseries,
+        keywords=[3]{NULL},
+        keywordstyle=[3]\color{teal}\bfseries,
+        identifierstyle=\color{black},
+        sensitive=false,
+        comment=[l]{//},
+        morecomment=[s]{/*}{*/},
+        commentstyle=\color{violet}\ttfamily,
+        commentstyle=\scriptsize\ttfamily\color{myGreen},
+        stringstyle=\color{red}\ttfamily,
+        morestring=[b]',
+        morestring=[b]"
+}
+
+\lstset{
+        language=myC,
+        backgroundcolor=\color{verylightgray},
+        extendedchars=true,
+        basicstyle=\small\ttfamily,
+        showstringspaces=false,
+        showspaces=false,
+        numbers=none,
+        numberstyle=\small,
+        numbersep=9pt,
+        tabsize=2,
+        upquote=true,
+        breaklines=true,
+        showtabs=false,
+        captionpos=b
+        otherkeywords={define,include,\# }
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\scriptsize\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\scriptsize\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+\begin{document}
+\begin{center}{\LARGE Esame Completo di Programmazione I - Bioinformatica}\\
+%\vspace*{-1ex}
+\begin{center}
+  \large 16 settembre 2021 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($15$ punti)\\
+  \textbf{(si consegni \texttt{distinct.c})}
+\end{center}
+Si completi il seguente programma \texttt{distinct.c}:
+
+\begin{center}
+\begin{lstlisting}[language=myC]
+// inizializza l'array lungo length con numeri casuali tra 1 e 10 inclusi
+void init_random(int arr[], int length) {
+  // DA COMPLETARE
+}
+
+// stampa su una riga l'array lungo length e poi va a capo
+void print(int arr[], int length) {
+  // DA COMPLETARE
+}
+
+// modifica l'array arr, lungo length, in modo da mettere i suoi elementi distinti
+// al suo inizio; ritorna il numero di tali elementi distinti.
+//
+// Per esempio, se arr fosse
+//
+// 4 6 4 6 2 3 7 6 9 10 5 8 2 9 5 4 9 4 5 6
+//
+// allora dopo la chiamata a questa funzione i nove elementi distinti di arr
+// finirebbero al suo inizio, in qualsiasi ordine, seguiti da qualsiasi valore.
+// Per esempio l'array potrebbe diventare
+//
+// 3 7 10 8 2 9 4 5 6 .................
+//
+// (non importa cosa contengano gli undici elementi finali)
+// e la funzione ritornera' 9 (numero di elementi distinti)
+int only_distinct(int arr[], int length) {
+  // DA COMPLETARE
+}
+
+int main(void) {
+  int arr[20];
+  init_random(arr, 20);
+  print(arr, 20); // stampa di arr prima di chiamare only_distinct()
+  int x = only_distinct(arr, 20);
+  print(arr, x); // stampa degli elementi distinti di arr
+  return 0;
+}
+\end{lstlisting}
+\end{center}
+
+\noindent
+L'esecuzione del programma dovr\`a stampare qualcosa del tipo:
+
+\begin{mdframed}[backgroundcolor=lightgrey] 
+{\scriptsize\begin{verbatim}
+4 6 4 6 2 3 7 6 9 10 5 8 2 9 5 4 9 4 5 6 
+3 7 10 8 2 9 4 5 6
+\end{verbatim}}
+\end{mdframed}
+
+\newpage
+\mbox{}\\
+\begin{center}{\Large Esercizio 2} ($16$ punti)\\
+  \textbf{(si consegni \texttt{calcola.c})}\end{center}
+Si completi il seguente programma \texttt{calcola.c}, la cui funzione \texttt{main()} calcola la somma di numeri presenti in un file il cui contenuto \`{e} una sequenza (di lunghezza ignota) di numeri interi positivi, uno per riga. I numeri sono scritti in lettere cifra per cifra, e sono terminati dalla parola ``stop''. Il file di esempio potrebbe essere
+\begin{verbatim}
+otto cinque nove stop
+due due stop
+sette zero sette stop
+uno sei tre stop
+\end{verbatim}
+\begin{center}
+\begin{lstlisting}[language=myC]
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int myerror(char *message);
+int myfclose(FILE *f);
+FILE * myfopen(char *name, char *mode);
+int calcolaSomma(FILE* fp);
+struct cifra{char lettera[8]; int valore;};
+struct cifra cifre[10] = { {"zero",0} , {"uno",1} , {"due",2} , {"tre",3} ,
+                            {"quattro",4} , {"cinque", 5} , {"sei",6} ,
+                            {"sette",7} , {"otto",8} , {"nove",9}
+};
+
+int main()
+{
+    char filename[6] = "in.txt";
+    FILE* fp;
+    fp = myfopen(filename,"r");
+    int risultato = calcolaSomma(fp);
+    myfclose(fp);
+    printf("La somma  di tutti i numeri risulta: %d \n",risultato);
+  return 0;
+}
+
+int myerror(char *message)
+{
+    fputs( message, stderr );
+    exit(1);
+}
+
+/**
+ *  chiude lo stream su file controllando se ci sono errori,
+ *  invoca myerror sia che f sia null sia che il risultato delle
+ *  chiusura sia diverso da zero
+ */
+int myfclose(FILE *f)
+{
+     // DA COMPLETARE
+}
+
+/**
+ *  apre lo stream su file controllando se ci sono errori,
+ *  invoca myerror se f e' null
+ */
+FILE * myfopen(char *name, char *mode)
+{
+     // DA COMPLETARE
+}
+
+/**
+ *  legge un file identificato da FILE * f, distingue le singole cifre
+ *  e traduce, calcola il numero fino a "stop" che ne determina la fine,
+ *  restituisce la somma di tutti i numeri
+ */
+int calcolaSomma(FILE* fp)
+{
+     // DA COMPLETARE
+}
+\end{lstlisting}
+\end{center}
+La sua esecuzione, con il file di esempio sopra specificato, dovr\`a stampare sul video:
+\begin{mdframed}[backgroundcolor=lightgrey] 
+\begin{verbatim}
+La somma  di tutti i numeri risulta: 1751 
+\end{verbatim}
+\end{mdframed}
+
+\mbox{}\\
+Si osservi che:
+\begin{itemize}
+\item Si assume che i numeri siano di dimensione tale da essere rappresentabili tramite il tipo int.
+\end{itemize}
+\end{document}
