@@ -1,0 +1,206 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{textcomp}
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+
+\lstdefinelanguage{myC}{
+        keywords=[1]{break, case, continue, default, do
+, else, false, for, if, const, return, switch, true, while}, % generic keywords
+        keywordstyle=[1]\color{blue}\bfseries,
+        keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+        keywordstyle=[2]\color{teal}\bfseries,
+        keywordstyle=[2]\color{violet}\bfseries,
+        keywords=[3]{NULL},
+        keywordstyle=[3]\color{teal}\bfseries,
+        identifierstyle=\color{black},
+        sensitive=false,
+        comment=[l]{//},
+        morecomment=[s]{/*}{*/},
+        commentstyle=\color{violet}\ttfamily,
+        commentstyle=\small\ttfamily\color{myGreen},
+        stringstyle=\color{red}\ttfamily,
+        morestring=[b]',
+        morestring=[b]"
+}
+
+\lstset{
+        language=myC,
+        backgroundcolor=\color{verylightgray},
+        extendedchars=true,
+        basicstyle=\small\ttfamily,
+        showstringspaces=false,
+        showspaces=false,
+        numbers=none,
+        numberstyle=\small,
+        numbersep=9pt,
+        tabsize=2,
+        upquote=true,
+        breaklines=true,
+        showtabs=false,
+        captionpos=b
+        otherkeywords={define,include,\# }
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+\begin{center}{\LARGE Compito completo di Programmazione I - Bioinformatica}\\
+\begin{center}
+  \large 31 gennaio 2022 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($15$ punti)\\
+  \textbf{(si consegni \texttt{second.c} e \texttt{second.h})}
+\end{center}
+
+Si scriva un programma \texttt{second.c} che implementa le seguenti funzioni:
+
+\begin{center}
+\begin{lstlisting}[language=myC]
+// inizializza l'array, lungo length, con numeri casuali tra 0 e 9 inclusi
+void init(int array[], int length) { ... }
+
+// stampa l'array, lungo length, su una riga e poi va a capo
+void print(int array[], int length) { ... }
+
+// restituisce l'elemento dell'array, lungo length, il cui valore
+// e' il secondo piu' grande fra quelli contenuti nell'array;
+// se non esistesse, restituisce -1;
+// l'array non deve venire modificato
+int second(int array[], int length) { ... }
+\end{lstlisting}
+\end{center}
+%
+Si scriva quindi un file di header \texttt{second.h} che dichiara le precedenti funzioni.
+
+Per esempio, il seguente file \texttt{main.c}
+(gi\`a fornito e da non modificare):
+
+\begin{center}
+  \begin{lstlisting}[language=myC]
+#include <stdio.h>
+#include "second.h"
+
+int main(void) {
+  int array1[8];
+  init(array1, 8);
+  printf("array1: ");
+  print(array1, 8);
+  printf("Secondo piu' grande elemento di array1: %i\n", second(array1, 8));
+  int array2[] = { 8, 8, 4, 8 };
+  printf("array2: ");
+  print(array2, 4);
+  printf("Secondo piu' grande elemento di array2: %i\n", second(array2, 4));
+  int array3[] = { 8, 8, 8 };
+  printf("array3: ");
+  print(array3, 3);
+  printf("Secondo piu' grande elemento di array3: %i\n", second(array3, 4));
+  int array4[] = { };
+  printf("array4: ");
+  print(array4, 0);
+  printf("Secondo piu' grande elemento di array4: %i\n", second(array4, 0));
+  return 0;
+}
+  \end{lstlisting}
+\end{center}
+stampa qualcosa del tipo:
+
+\begin{mdframed}[backgroundcolor=lightgrey] 
+\begin{verbatim}
+array1: 3 1 7 2 6 1 7 5 
+Secondo piu' grande elemento di array1: 6
+array2: 8 8 4 8 
+Secondo piu' grande elemento di array2: 4
+array3: 8 8 8 
+Secondo piu' grande elemento di array3: -1
+array4: 
+Secondo piu' grande elemento di array4: -1
+\end{verbatim}
+\end{mdframed}
+
+\mbox{}\\
+\begin{center}{\Large Esercizio 2} ($16$ punti)\\
+  \textbf{(si consegni \texttt{punti.c})}\end{center}
+Si completi il seguente programma \texttt{punti.c}, la cui funzione \texttt{main()} :
+\begin{center}
+\begin{lstlisting}[language=myC]
+int main() {
+    struct polilinea_t *polilinea1;
+    struct polilinea_t *polilinea2;
+
+    polilinea1 = new_polilinea();
+    polilinea2 = new_polilinea();
+
+    add_punto(polilinea1, 0, 0);
+    add_punto(polilinea1, 1, 0);
+    add_punto(polilinea1, 1, 1);
+
+    printf("Lunghezza polilinea 1: %.2lf\n", length(polilinea1));
+    printf("Lunghezza polilinea 2: %.2lf\n", length(polilinea2));
+    return 0;
+}
+\end{lstlisting}
+\end{center}
+produce il seguente ouput:
+\begin{mdframed}[backgroundcolor=lightgrey] 
+\begin{verbatim}
+Lunghezza polilinea 1: 2.00
+Lunghezza polilinea 2: 0.00
+\end{verbatim}
+\end{mdframed}
+
+\mbox{}\\
+Nota:
+\begin{itemize}
+\item Il programma va compilato con l'opzione \texttt{-lm} posta dopo \texttt{punti.c}, per utilizzare la funzione \texttt{sqrt()} della libreria \texttt{math.h}:\\
+ \texttt{gcc punti.c -lm}
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,145 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{textcomp}
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+
+\lstdefinelanguage{myC}{
+        keywords=[1]{break, case, continue, default, do
+, else, false, for, if, const, return, switch, true, while}, % generic keywords
+        keywordstyle=[1]\color{blue}\bfseries, 
+        keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+        keywordstyle=[2]\color{teal}\bfseries,
+        keywordstyle=[2]\color{violet}\bfseries,
+        keywords=[3]{NULL},
+        keywordstyle=[3]\color{teal}\bfseries,
+        identifierstyle=\color{black},
+        sensitive=false,
+        comment=[l]{//},
+        morecomment=[s]{/*}{*/},
+        commentstyle=\color{violet}\ttfamily,
+        commentstyle=\small\ttfamily\color{myGreen},
+        stringstyle=\color{red}\ttfamily,
+        morestring=[b]',
+        morestring=[b]"
+}
+
+\lstset{
+        language=myC,
+        backgroundcolor=\color{verylightgray},
+        extendedchars=true,
+        basicstyle=\small\ttfamily,
+        showstringspaces=false,
+        showspaces=false,
+        numbers=none,
+        numberstyle=\small,
+        numbersep=9pt,
+        tabsize=2,
+        upquote=true,
+        breaklines=true,
+        showtabs=false,
+        captionpos=b
+        otherkeywords={define,include,\# }
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+\begin{center}{\LARGE Parziale di Programmazione I - Bioinformatica}\\
+\begin{center}
+  \large 27 gennaio 2022 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\begin{center}{\Large Esercizio 1} ($20$ punti)\\
+  \textbf{(si consegni \texttt{harshad.c} e \texttt{harshad.h})}
+\end{center}
+Si scriva un programma \texttt{harshad.c} che implementa le seguenti funzioni:
+\begin{center}
+\begin{lstlisting}[language=myC]
+// inizializza arr, lungo length, con numeri interi lunghi casuali
+// tra 0 a 20 inclusi,
+// usando srand() e rand(), facendo in modo che alla fine
+// non ci siano elementi consecutivi uguali nell'array
+void init_random(long arr[], int length);
+
+// stampa su un'unica riga il contenuto dell'array arr, lungo length,
+// con parentesi quadre all'inizio e alla fine e con virgole
+// fra gli elementi; poi va a capo
+void print(long arr[], int length);
+
+// determina se n e' un numero Harshad, cioe' e' positivo e divisibile
+// per la somma delle proprie cifre. Per esempio, 1729 e' Harshad
+// poiche' 1+7+2+9 fa 19 e 1729 e' divisibile per 19
+int is_harshad(long n);
+
+// modifica l'array, lungo length, in modo da sostituire con -1
+// gli elementi che sono numeri Harshad
+void delete_harshad(long arr[], int length);
+\end{lstlisting}
+\end{center}
+%
+Si scriva quindi un file di header \texttt{harshad.h} che dichiara le precedenti funzioni.
+
+\mbox{}\\
+\begin{center}{\Large Esercizio 2} ($12$ punti)\\
+  \textbf{(si consegni \texttt{main.c})}\end{center}
+%
+Si scriva un programma \texttt{main.c} che include le funzioni dell'Esercizio~1 tramite
+il file \texttt{harshad.h}.
+Il programma \texttt{main.c} deve contenere una funzione iniziale \texttt{main} che esegue
+le seguenti operazioni:
+\begin{enumerate}
+\item legge da tastiera la lunghezza \texttt{length} di un array, richiedendola ad oltranza se fosse inserita negativa;
+\item crea un array \texttt{elements} di \texttt{length} interi lunghi;
+\item chiama la funzione \texttt{init\_random} per inizializzare \texttt{elements} in modo casuale;
+\item chiama la funzione \texttt{print} per stampare \texttt{elements};
+\item chiama la funzione \texttt{delete\_harshad} con l'array \texttt{elements} come parametro;
+\item chiama la funzione \texttt{print} per stampare \texttt{elements}.
+\end{enumerate}
+
+\end{document}

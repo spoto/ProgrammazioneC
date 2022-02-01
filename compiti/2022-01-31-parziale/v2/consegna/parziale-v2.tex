@@ -1,0 +1,201 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{textcomp}
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+
+\lstdefinelanguage{myC}{
+        keywords=[1]{break, case, continue, default, do
+, else, false, for, if, const, return, switch, true, while}, % generic keywords
+        keywordstyle=[1]\color{blue}\bfseries,
+        keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+        keywordstyle=[2]\color{teal}\bfseries,
+        keywordstyle=[2]\color{violet}\bfseries,
+        keywords=[3]{NULL},
+        keywordstyle=[3]\color{teal}\bfseries,
+        identifierstyle=\color{black},
+        sensitive=false,
+        comment=[l]{//},
+        morecomment=[s]{/*}{*/},
+        commentstyle=\color{violet}\ttfamily,
+        commentstyle=\small\ttfamily\color{myGreen},
+        stringstyle=\color{red}\ttfamily,
+        morestring=[b]',
+        morestring=[b]"
+}
+
+\lstset{
+        language=myC,
+        backgroundcolor=\color{verylightgray},
+        extendedchars=true,
+        basicstyle=\small\ttfamily,
+        showstringspaces=false,
+        showspaces=false,
+        numbers=none,
+        numberstyle=\small,
+        numbersep=9pt,
+        tabsize=2,
+        upquote=true,
+        breaklines=true,
+        showtabs=false,
+        captionpos=b
+        otherkeywords={define,include,\# }
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+\begin{center}{\LARGE Parziale di Programmazione I - Bioinformatica}\\
+\begin{center}
+  \large 31 gennaio 2022, turno delle 11:30 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($18$ punti)\\
+  \textbf{(si consegni \texttt{max.c} e \texttt{max.h})}
+\end{center}
+
+Si scriva un programma \texttt{max.c} che implementa le seguenti funzioni:
+
+\begin{center}
+\begin{lstlisting}[language=myC]
+// inizializza l'array, lungo length, con numeri casuali tra 0 e 9 inclusi
+void init(int array[], int length) { ... }
+
+// stampa l'array, lungo length, su una riga e poi va a capo
+void print(int array[], int length) { ... }
+
+// restituisce l'elemento dell'array, lungo length, il cui valore,
+// scritto in binario, contiene piu' '1'. Se non esistesse, ritorna -1.
+// In caso di parita' fra due elementi, restituisce quello piu' a sinistra.
+// Si dia per scontato che gli elementi dell'array siano non negativi.
+// L'array non deve venire modificato
+int max(int array[], int length) { ... }
+\end{lstlisting}
+\end{center}
+%
+Si scriva quindi un file di header \texttt{max.h} che dichiara le precedenti funzioni.
+
+Per esempio, il seguente file \texttt{main.c}
+(gi\`a fornito e da non modificare):
+
+\begin{center}
+  \begin{lstlisting}[language=myC]
+#include <stdio.h>
+#include "max.h"
+
+int main(void) {
+  int array1[8];
+  init(array1, 8);
+  printf("array1: ");
+  print(array1, 8);
+  printf("Elemento con piu' '1' in binario dentro array1: %i\n", max(array1, 8));
+  int array2[] = { 4, 4, 8, 1 };
+  printf("array2: ");
+  print(array2, 4);
+  printf("Elemento con piu' '1' in binario dentro array2: %i\n", max(array2, 4));
+  int array3[] = { };
+  printf("array3: ");
+  print(array3, 0);
+  printf("Elemento con piu' '1' in binario dentro array3: %i\n", max(array3, 0));
+  return 0;
+}
+  \end{lstlisting}
+\end{center}
+stampa qualcosa del tipo:
+
+\begin{mdframed}[backgroundcolor=lightgrey] 
+\begin{verbatim}
+array1: 6 7 2 8 0 7 7 5 
+Elemento con piu' '1' in binario dentro array1: 7
+array2: 4 4 8 1 
+Elemento con piu' '1' in binario dentro array2: 4
+array3: 
+Elemento con piu' '1' in binario dentro array3: -1
+\end{verbatim}
+\end{mdframed}
+
+\mbox{}\\
+\begin{center}{\Large Esercizio 2} ($13$ punti)\\
+  \textbf{(si consegni \texttt{bar.c})}\end{center}
+%
+Si completi il seguente programma \texttt{bar.c} in modo che la funzione
+\texttt{bar} stampi una riga fatta dai caratteri da \texttt{c} fino
+a \texttt{'z'} incluso e poi da \texttt{'z'} indietro fino a \texttt{c} incluso.
+\textbf{La funzione bar deve essere ricorsiva}:
+
+\begin{center}
+  \begin{lstlisting}[language=myC]
+#include <stdio.h>
+
+void bar(char c) {
+  // si dia per scontato che c sia un carattere fra 'a' e 'z' inclusi
+  // DA COMPLETARE, DEVE ESSERE RICORSIVA
+}
+
+int main(void) {
+  // DA COMPLETARE:
+  // 1) legge il carattere c con scanf(" %c", &c) ad oltranza
+  //    finche' non e' tra 'a' e 'z'
+  // 2) chiama bar(c)
+  // 3) va a capo
+  return 0;
+}
+  \end{lstlisting}
+\end{center}
+
+Per esempio, un utilizzo del programma potrebbe essere il seguente:
+
+\begin{mdframed}[backgroundcolor=lightgrey] 
+\begin{verbatim}
+Inserisci un carattere alfabetico minuscolo: d
+defghijklmnopqrstuvwxyzzyxwvutsrqponmlkjihgfed
+\end{verbatim}
+\end{mdframed}
+
+\end{document}
