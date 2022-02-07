@@ -1,0 +1,206 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{textcomp}
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+
+\lstdefinelanguage{myC}{
+        keywords=[1]{break, case, continue, default, do
+, else, false, for, if, const, return, switch, true, while}, % generic keywords
+        keywordstyle=[1]\color{blue}\bfseries,
+        keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+        keywordstyle=[2]\color{teal}\bfseries,
+        keywordstyle=[2]\color{violet}\bfseries,
+        keywords=[3]{NULL},
+        keywordstyle=[3]\color{teal}\bfseries,
+        identifierstyle=\color{black},
+        sensitive=false,
+        comment=[l]{//},
+        morecomment=[s]{/*}{*/},
+        commentstyle=\color{violet}\ttfamily,
+        commentstyle=\small\ttfamily\color{myGreen},
+        stringstyle=\color{red}\ttfamily,
+        morestring=[b]',
+        morestring=[b]"
+}
+
+\lstset{
+        language=myC,
+        backgroundcolor=\color{verylightgray},
+        extendedchars=true,
+        basicstyle=\small\ttfamily,
+        showstringspaces=false,
+        showspaces=false,
+        numbers=none,
+        numberstyle=\small,
+        numbersep=9pt,
+        tabsize=2,
+        upquote=true,
+        breaklines=true,
+        showtabs=false,
+        captionpos=b
+        otherkeywords={define,include,\# }
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+\begin{center}{\LARGE Parziale di Programmazione I - Bioinformatica}\\
+\begin{center}
+  \large 7 febbraio 2022, turno delle 14:30 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($18$ punti)\\
+  \textbf{(si consegni \texttt{mediano.c} e \texttt{mediano.h})}
+\end{center}
+
+Si scriva un programma \texttt{mediano.c} che implementa le seguenti funzioni:
+
+\begin{center}
+\begin{lstlisting}[language=myC]
+// inizializza l'array, lungo length, con numeri casuali,
+// tutti pari, tra 0 e 100 inclusi
+void init(int array[], int length) { ... }
+
+// stampa l'array, lungo length, su una riga e poi va a capo
+void print(int array[], int length) { ... }
+
+// ritorna l'elemento dell'array che e' piu' vicino alla media
+// degli elementi dell'array, supponendo che l'array abbia lunghezza length
+// e che length > 0
+int mediano(int array[], int length) {
+  // si dia per scontato che length > 0
+  ...
+}
+\end{lstlisting}
+\end{center}
+%
+Si scriva quindi un file di header \texttt{mediano.h} che dichiara le precedenti funzioni.
+
+Per esempio, il seguente file \texttt{main.c}
+(gi\`a fornito e da non modificare):
+
+\begin{center}
+  \begin{lstlisting}[language=myC]
+#include <stdio.h>
+#include "mediano.h"
+
+int main(void) {
+  int array1[8];
+  init(array1, 8);
+  printf("array1: ");
+  print(array1, 8);
+  printf("Mediano di array1 = %i\n", mediano(array1, 8));
+  int array2[] = { 14, 5, 18, 8 };
+  printf("array2: ");
+  print(array2, 4);
+  printf("Mediano di array2 = %i\n", mediano(array2, 4));
+  int array3[] = { 15, 12, 15, 19 };
+  printf("array3: ");
+  print(array3, 4);
+  printf("Mediano di array3 = %i\n", mediano(array3, 4));
+  int array4[] = { 1, 2, 3, 4, 5, 6 };
+  printf("array4: ");
+  print(array4, 6);
+  printf("Mediano di array4 = %i\n", mediano(array4, 6));
+  return 0;
+}
+  \end{lstlisting}
+\end{center}
+stampa qualcosa del tipo:
+
+\begin{mdframed}[backgroundcolor=lightgrey] 
+\begin{verbatim}
+array1: 20 8 10 32 92 24 62 82 
+Mediano di array1 = 32
+array2: 14 5 18 8 
+Mediano di array2 = 14
+array3: 15 12 15 19 
+Mediano di array3 = 15
+array4: 1 2 3 4 5 6 
+Mediano di array4 = 3
+\end{verbatim}
+\end{mdframed}
+
+\mbox{}\\
+\begin{center}{\Large Esercizio 2} ($13$ punti)\\
+  \textbf{(si consegni \texttt{count1.c})}\end{center}
+%
+Si completi il seguente programma \texttt{count1.c} in modo che la funzione
+\texttt{count1} conti il numero di bit $1$ nella rappresentazione in binario di $n$.
+\textbf{La funzione count1 deve essere ricorsiva}:
+
+\begin{center}
+  \begin{lstlisting}[language=myC]
+#include <stdio.h>
+
+int count1(int n) {
+  // si dia per scontato che n >= 0
+  // DA COMPLETARE: QUESTA FUNZIONE DEVE ESSERE RICORSIVA
+}
+
+int main(void) {
+  // DA COMPLETARE:
+  // 1) legge un intero n >= 0, se non lo fosse lo richiede ad oltranza
+  // 2) chiama count1(n) e ne stampa il risultato
+  return 0;
+}
+  \end{lstlisting}
+\end{center}
+
+Per esempio, un utilizzo del programma potrebbe essere il seguente:
+
+\begin{mdframed}[backgroundcolor=lightgrey] 
+\begin{verbatim}
+Inserisci n >= 0: 255
+count1(255) = 8
+\end{verbatim}
+\end{mdframed}
+
+\end{document}
