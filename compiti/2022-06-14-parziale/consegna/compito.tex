@@ -1,0 +1,191 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+% \usepackage[dvipsnames]{xcolor} % Non va!
+\usepackage{textcomp}
+
+\lstdefinelanguage{myC}{
+        keywords=[1]{break, case, continue, default, do
+, else, false, for, if, const, return, switch, true, while}, % generic keywords
+        keywordstyle=[1]\color{blue}\bfseries,
+        keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+        keywordstyle=[2]\color{teal}\bfseries,
+        keywordstyle=[2]\color{violet}\bfseries,
+        keywords=[3]{NULL},
+        keywordstyle=[3]\color{violet}\bfseries,
+        identifierstyle=\color{black},
+        sensitive=false,
+        comment=[l]{//},
+        morecomment=[s]{/*}{*/},
+        commentstyle=\color{violet}\ttfamily,
+        commentstyle=\normalsize\ttfamily\color{grey}, % scriptsize
+        stringstyle=\color{forestgreen}\ttfamily,
+        morestring=[b]',
+        morestring=[b]"
+}
+
+\lstset{
+        language=myC,
+        backgroundcolor=\color{veryLightgray},
+        extendedchars=true,
+        basicstyle=\small\ttfamily,
+        showstringspaces=false,
+        showspaces=false,
+        numbers=none,
+        numberstyle=\normalsize,
+        numbersep=9pt,
+        tabsize=2,
+        upquote=true,
+        breaklines=true,
+        showtabs=false,
+        captionpos=b
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{white},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{forestgreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\newcommand\ddfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}
+
+\begin{document}
+\begin{center}{\LARGE Secondo parziale di Programmazione I - Bioinformatica}\\
+%\vspace*{-1ex}
+\begin{center}
+  \large 14 giugno 2022 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+\input{indicazioni_generali.tex}
+
+% ESERCIZIO 1
+\vspace{8ex}
+\begin{center}{\Large Esercizio 1} ($10$ punti)\\
+  \textbf{(si consegni \texttt{sinh1.c})}
+\end{center}
+Completare il programma \texttt{sinh1.c} che ha la seguente funzione \texttt{main()}:
+\begin{lstlisting}[language=myC]
+int main(){
+    printf("Valore di sinh1: %lf\n", sinh1(10));
+    return 0;
+}
+\end{lstlisting}
+con le funzioni:
+\begin{itemize}
+\item \texttt{f()} che calcola, preferibilmente in modo ricorsivo, il fattoriale di un numero n;
+\item \texttt{sinh1()} che calcola, preferibilmente in modo ricorsivo, la somma dei primi n termini della serie sequente che rappresenta lo sviluppo di Taylor-Mc Laurin del seno iperbolico:\\
+\\
+$ \ddfrac{1}{(2\cdot0 + 1)!} + \ddfrac{1}{(2\cdot1 + 1)!} + \ddfrac{1}{(2\cdot2 + 1)!} + \ddfrac{1}{(2\cdot3 + 1)!} + \ddfrac{1}{(2\cdot4 + 1)!} + \dots $
+
+\end{itemize}
+in modo che produca il seguente output:
+
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+Valore di sinh1: 1.175201
+\end{verbatim}
+\end{mdframed}
+
+\newpage
+% ESERCIZIO 2
+\begin{center}{\Large Esercizio 2} ($14$ punti)\\
+  \textbf{(si consegni \texttt{odd\_element\_list.c})}
+\end{center}
+Si completi il programma \texttt{odd\_element\_list.c}, la cui funzione \texttt{main()} crea e poi stampa una lista concatenata con i soli numeri dispari presenti in un file di testo contenente dei numeri interi.
+\\
+Per esempio, se viene fornito in input il file \texttt{numbers.txt} seguente:
+
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+8 3 1 3
+9 4
+6 7 7
+\end{verbatim}
+\end{mdframed}
+il programma stampa nella console:
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+3 1 3 9 7 7
+\end{verbatim}
+\end{mdframed}
+
+% ESERCIZIO 3
+\vspace*{8ex}
+\begin{center}{\Large Esercizio 3} ($9$ punti)\\
+  \textbf{(si consegni \texttt{matrix\_density.c})}
+\end{center}
+Completare il file \texttt{matrix\_density.c} che ha la seguente funzione \texttt{main()}:
+
+\begin{lstlisting}[language=myC]
+int main() {
+    int matrix1[SIZE][SIZE] = {{0, 2, 0}, {1, 0, 0}, {4, 0, 8}};
+    int matrix2[SIZE][SIZE] = {{0, 2, 0}, {4, 0, 6}, {0, 8, 9}};
+
+    print_matrix(matrix1, SIZE);
+    printf("Matrice densa? %i\n---\n", is_dense(matrix1, SIZE));
+
+    print_matrix(matrix2, SIZE);
+    printf("Matrice densa? %i\n---\n", is_dense(matrix2, SIZE));
+
+    return 0;
+}
+\end{lstlisting}
+in modo che produca il seguente output:
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+0 2 0 
+1 0 0 
+4 0 8 
+Matrice densa? 0
+---
+0 2 0 
+4 0 6 
+0 8 9 
+Matrice densa? 1
+---
+\end{verbatim}
+\end{mdframed}
+
+
+\end{document}

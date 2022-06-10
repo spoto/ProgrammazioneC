@@ -1,0 +1,184 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{textcomp}
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+
+\lstdefinelanguage{myC}{
+        keywords=[1]{break, case, continue, default, do
+, else, false, for, if, const, return, switch, true, while}, % generic keywords
+        keywordstyle=[1]\color{blue}\bfseries,
+        keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+        keywordstyle=[2]\color{teal}\bfseries,
+        keywordstyle=[2]\color{violet}\bfseries,
+        keywords=[3]{NULL},
+        keywordstyle=[3]\color{teal}\bfseries,
+        identifierstyle=\color{black},
+        sensitive=false,
+        comment=[l]{//},
+        morecomment=[s]{/*}{*/},
+        commentstyle=\color{violet}\ttfamily,
+        commentstyle=\small\ttfamily\color{myGreen},
+        stringstyle=\color{red}\ttfamily,
+        morestring=[b]',
+        morestring=[b]"
+}
+
+\lstset{
+        language=myC,
+        backgroundcolor=\color{verylightgray},
+        extendedchars=true,
+        basicstyle=\small\ttfamily,
+        showstringspaces=false,
+        showspaces=false,
+        numbers=none,
+        numberstyle=\small,
+        numbersep=9pt,
+        tabsize=2,
+        upquote=true,
+        breaklines=true,
+        showtabs=false,
+        captionpos=b
+        otherkeywords={define,include,\# }
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+\begin{center}{\LARGE Compito di Programmazione I - Bioinformatica}\\
+\begin{center}
+  \large 5 luglio 2022 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($15$ punti)\\
+  \textbf{(si consegni \texttt{max\_subarray.c})}
+\end{center}
+
+Si completi il programma \texttt{max\_subarray.c} in modo che la funzione:
+
+\begin{center}
+  \begin{lstlisting}[language=myC]
+    void max_subarray(int arr[], int length, int *start, int *end)
+  \end{lstlisting}
+\end{center}
+%
+identifichi un sottoarray di \texttt{arr} (cio\`e una porzione contigua di \texttt{arr})
+i cui elementi abbiano somma massima. Per indicare dove si trova tale
+sottoarray, la funzione scriver\`a gli estremi del sottoarray
+nelle variabili puntate da \texttt{start} (incluso)
+ed \texttt{end} (escluso). L'array \texttt{arr} \`e lungo \texttt{length}.
+Per esempio, nel \texttt{main} gi\`a fornito con il compito:
+
+\begin{center}
+  \begin{lstlisting}[language=myC]
+int main(void) {
+  int arr[] = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+  int start, end;
+  max_subarray(arr, 9, &start, &end);
+  printf("Un sottoarray di somma massima e': ");
+  for (int pos = start; pos < end; pos++)
+    printf("%i ", arr[pos]);
+  printf("\n");
+  return 0;
+}
+  \end{lstlisting}
+\end{center}
+
+\noindent
+la funzione \texttt{sub\_array} dovr\`a identificare
+che un sottoarray massimo \`e 4, -1, 2, 1 e quindi memorizzer\`a
+3 dentro \texttt{start} (posizione di inizio, inclusa)
+e 7 dentro \texttt{end} (posizione di fine, esclusa).
+L'esecuzione di tale \texttt{main} stamper\`a quindi:
+
+\begin{mdframed}[backgroundcolor=lightgrey] 
+\begin{verbatim}
+Un sottoarray di somma massima e': 4 -1 2 1
+\end{verbatim}
+\end{mdframed}
+
+\mbox{}\\
+\begin{center}{\Large Esercizio 2} ($16$ punti)\\
+  \textbf{(si consegni \texttt{punti.c})}\end{center}
+Si completi il seguente programma \texttt{punti.c}, la cui funzione \texttt{main()} :
+\begin{center}
+\begin{lstlisting}[language=myC]
+int main() {
+    struct polilinea_t *polilinea1;
+    struct polilinea_t *polilinea2;
+
+    polilinea1 = new_polilinea();
+    polilinea2 = new_polilinea();
+
+    add_punto(polilinea1, 0, 0);
+    add_punto(polilinea1, 1, 0);
+    add_punto(polilinea1, 1, 1);
+
+    printf("Lunghezza polilinea 1: %.2lf\n", length(polilinea1));
+    printf("Lunghezza polilinea 2: %.2lf\n", length(polilinea2));
+    return 0;
+}
+\end{lstlisting}
+\end{center}
+produce il seguente ouput:
+\begin{mdframed}[backgroundcolor=lightgrey] 
+\begin{verbatim}
+Lunghezza polilinea 1: 2.00
+Lunghezza polilinea 2: 0.00
+\end{verbatim}
+\end{mdframed}
+
+\mbox{}\\
+Nota:
+\begin{itemize}
+\item Il programma va compilato con l'opzione \texttt{-lm} posta dopo \texttt{punti.c}, per utilizzare la funzione \texttt{sqrt()} della libreria \texttt{math.h}:\\
+ \texttt{gcc punti.c -lm}
+\end{itemize}
+
+\end{document}
