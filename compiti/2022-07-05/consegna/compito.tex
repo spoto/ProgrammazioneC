@@ -143,42 +143,39 @@ Un sottoarray di somma massima e': 4 -1 2 1
 \end{verbatim}
 \end{mdframed}
 
+\pagebreak
 \mbox{}\\
 \begin{center}{\Large Esercizio 2} ($16$ punti)\\
-  \textbf{(si consegni \texttt{punti.c})}\end{center}
-Si completi il seguente programma \texttt{punti.c}, la cui funzione \texttt{main()} :
+  \textbf{(si consegni \texttt{odd\_element\_list.c})}
+\end{center}
+Si completi il programma \texttt{odd\_element\_list.c}, la cui funzione \texttt{main()} seguente:
+
 \begin{center}
-\begin{lstlisting}[language=myC]
+  \begin{lstlisting}[language=myC]
 int main() {
-    struct polilinea_t *polilinea1;
-    struct polilinea_t *polilinea2;
-
-    polilinea1 = new_polilinea();
-    polilinea2 = new_polilinea();
-
-    add_punto(polilinea1, 0, 0);
-    add_punto(polilinea1, 1, 0);
-    add_punto(polilinea1, 1, 1);
-
-    printf("Lunghezza polilinea 1: %.2lf\n", length(polilinea1));
-    printf("Lunghezza polilinea 2: %.2lf\n", length(polilinea2));
+    char filename[] = "numbers.txt";
+    struct element_t *list = create_odd_list(filename);
+    print_list(list);
     return 0;
 }
-\end{lstlisting}
+  \end{lstlisting}
 \end{center}
-produce il seguente ouput:
-\begin{mdframed}[backgroundcolor=lightgrey] 
+crea e poi stampa una lista concatenata con i soli numeri dispari presenti in un file di testo contenente dei numeri interi.
+\\
+Per esempio, se viene fornito in input il file \texttt{numbers.txt} fornito in allegato:
+
+\begin{mdframed}[backgroundcolor=verylightgray] 
 \begin{verbatim}
-Lunghezza polilinea 1: 2.00
-Lunghezza polilinea 2: 0.00
+8 3 1 3
+9 4
+6 7 7
 \end{verbatim}
 \end{mdframed}
-
-\mbox{}\\
-Nota:
-\begin{itemize}
-\item Il programma va compilato con l'opzione \texttt{-lm} posta dopo \texttt{punti.c}, per utilizzare la funzione \texttt{sqrt()} della libreria \texttt{math.h}:\\
- \texttt{gcc punti.c -lm}
-\end{itemize}
+il programma stampa nella console:
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+3 1 3 9 7 7
+\end{verbatim}
+\end{mdframed}
 
 \end{document}
