@@ -83,10 +83,11 @@ void print_list(struct element_t *l) {
   printf("\n");
 }
 
-// riceve un array vulcaniano lungo length e restituisce una lista che contiene
-// i caratteri dell'array ma senza ripetizioni: un carattere viene inserito
-// nella lista solo la prima volta che compare, la seconda volta viene scartato
-// e non viene inserito
+
+// riceve un array vulcaniano lungo length e restituisce una lista
+// che contiene i caratteri dell'array ma senza ripetizioni:
+// un carattere viene inserito nella lista solo la prima volta che
+// compare, mentre la seconda volta non viene inserito nella lista
 struct element_t *non_ripetuti(char arr[], int length) {
   if (length == 0)
     return NULL;
