@@ -1,6 +1,6 @@
 // aggiungete #include se servono
 
-// inizializza arr, lungo length, con numeri casuali tra 1 e 100 inclusi
+// inizializza arr, lungo length, con numeri casuali tra -5 e 25 inclusi
 // in modo da non avere mai ne' due numeri pari in posizioni consecutive
 // ne' due numeri dispari in posizioni consecutive;
 // non randomizza la sequenza casuale con srand(time(NULL)): ci pensa il main

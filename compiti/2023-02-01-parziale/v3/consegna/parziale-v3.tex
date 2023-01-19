@@ -1,0 +1,213 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{textcomp}
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+
+\lstdefinelanguage{myC}{
+        keywords=[1]{break, case, continue, default, do
+, else, false, for, if, const, return, switch, true, while}, % generic keywords
+        keywordstyle=[1]\color{blue}\bfseries,
+        keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+        keywordstyle=[2]\color{teal}\bfseries,
+        keywordstyle=[2]\color{violet}\bfseries,
+        keywords=[3]{NULL},
+        keywordstyle=[3]\color{teal}\bfseries,
+        identifierstyle=\color{black},
+        sensitive=false,
+        comment=[l]{//},
+        morecomment=[s]{/*}{*/},
+        commentstyle=\color{violet}\ttfamily,
+        commentstyle=\small\ttfamily\color{myGreen},
+        stringstyle=\color{red}\ttfamily,
+        morestring=[b]',
+        morestring=[b]"
+}
+
+\lstset{
+        language=myC,
+        backgroundcolor=\color{verylightgray},
+        extendedchars=true,
+        basicstyle=\small\ttfamily,
+        showstringspaces=false,
+        showspaces=false,
+        numbers=none,
+        numberstyle=\small,
+        numbersep=9pt,
+        tabsize=2,
+        upquote=true,
+        breaklines=true,
+        showtabs=false,
+        captionpos=b
+        otherkeywords={define,include,\# }
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+\begin{center}{\LARGE Parziale di Programmazione I - Bioinformatica}\\
+  \large 1 febbraio 2023, turno delle 15:00 (tempo disponibile: 2 ore)
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($20$ punti)\\
+  \textbf{(si consegni \texttt{pari\_dispari.c} e \texttt{pari\_dispari.h})}
+\end{center}
+
+Si completi il seguente file \texttt{pari\_dispari.c}:
+
+\begin{center}
+\begin{lstlisting}[language=myC]
+// aggiungete #include se servono
+
+// inizializza arr, lungo length, con numeri casuali non negativi divisibili
+// per 5 in modo da non avere mai ne' due numeri pari in posizioni
+// consecutive ne' due numeri dispari in posizioni consecutive; non
+// randomizza la sequenza casuale con srand(time(NULL)): ci pensa il main
+void init(int arr[], int length) { // completare
+}
+
+// stampa arr, lungo length, separando gli elementi
+// con uno spazio, e va a capo
+void print(int arr[], int length) { // completare
+}
+
+// determina se in arr, lungo length, la quantita' dei numeri dispari
+// e' maggiore o uguale alla quantita' dei numeri pari; si assuma
+// che arr non abbia mai ne' due numeri pari in posizioni consecutive
+// ne' due numeri dispari in posizioni consecutive
+int dispari_almeno_quanto_i_pari(int arr[], int length) { // completare
+}
+\end{lstlisting}
+\end{center}
+%
+Si scriva quindi un file di header \texttt{pari\_dispari.h} che dichiara le precedenti funzioni.
+
+Per esempio, il seguente file \texttt{main.c}
+(gi\`a fornito e da non modificare):
+
+\begin{center}
+  \begin{lstlisting}[language=myC]
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "pari_dispari.h"
+
+int main(void) {
+  srand(time(NULL));
+  int array1[20];
+  init(array1, 20);
+  printf("array1: ");
+  print(array1, 20);
+  printf("In array1 dispari >= pari ? %i\n", dispari_almeno_quanto_i_pari(array1, 20));
+  int array2[15];
+  init(array2, 15);
+  printf("array2: ");
+  print(array2, 15);
+  printf("In array2 dispari >= pari ? %i\n", dispari_almeno_quanto_i_pari(array2, 15));
+  int array3[17];
+  init(array3, 17);
+  printf("array3: ");
+  print(array3, 17);
+  printf("In array3 dispari >= pari ? %i\n", dispari_almeno_quanto_i_pari(array3, 17));
+  return 0;
+}
+  \end{lstlisting}
+\end{center}
+stampa qualcosa del tipo:
+
+\begin{mdframed}[backgroundcolor=lightgrey] 
+{\small\begin{verbatim}
+array1: 1390741700 1729062575 476161820 466897965 399090190 26084305 251372970 799201515
+  1094977550 670565265 1743740570 186827875 1663476810 1017154705 904737510 597427485
+  2044555980 678609605 212097830 807774915 
+In array1 dispari >= pari ? 1
+array2: 13150390 1810090715 1792295540 466060805 1560237680 283637865 247794490 855049935
+  1862099380 1077922515 524959800 369117805 1744420990 630703485 418630810 
+In array2 dispari >= pari ? 0
+array3: 2007145705 1903055230 1870673145 2008279780 1306383695 60525760 1518577195
+  1129157370 1796086945 38722370 2093968385 274308190 899586285 1623976460 1024382915
+  434370140 530517665 
+In array3 dispari >= pari ? 1
+\end{verbatim}}
+\end{mdframed}
+
+\begin{center}
+  {\Large Esercizio 2} ($11$ punti)\\
+  \textbf{(si consegni \texttt{triangular.c})}
+\end{center}
+%
+Si completi il seguente programma \texttt{triangular.c}.
+\textbf{La funzione triangular deve essere ricorsiva}:
+
+\begin{center}
+  \begin{lstlisting}[language=myC]
+#include <stdio.h>
+
+// stampa i volte c, poi i-1 volte il carattere precedente a c
+// poi i-2 volte il carattere precedente al carattere precedente a c, ecc.
+void triangular(char c, int i) { // completare
+}
+
+int main(void) {
+  triangular('j', 5); printf("\n");
+  triangular('s', 8); printf("\n");
+  return 0;
+}
+  \end{lstlisting}
+\end{center}
+
+Se tutto \`e corretto, tale programma dovrebbe stampare:
+
+\begin{mdframed}[backgroundcolor=lightgrey] 
+{\small\begin{verbatim}
+jjjjjiiiihhhggf
+ssssssssrrrrrrrqqqqqqpppppoooonnnmml
+\end{verbatim}}
+\end{mdframed}
+
+\end{document}
