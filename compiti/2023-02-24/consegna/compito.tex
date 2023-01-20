@@ -1,0 +1,187 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{textcomp}
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+\definecolor{lightred}{rgb}{.97,.50,.50}
+
+\lstdefinelanguage{myC}{
+        keywords=[1]{break, case, continue, default, do
+, else, false, for, if, const, return, switch, true, while}, % generic keywords
+        keywordstyle=[1]\color{blue}\bfseries,
+        keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+        keywordstyle=[2]\color{teal}\bfseries,
+        keywordstyle=[2]\color{violet}\bfseries,
+        keywords=[3]{NULL},
+        keywordstyle=[3]\color{teal}\bfseries,
+        identifierstyle=\color{black},
+        sensitive=false,
+        comment=[l]{//},
+        morecomment=[s]{/*}{*/},
+        commentstyle=\color{violet}\ttfamily,
+        commentstyle=\small\ttfamily\color{myGreen},
+        stringstyle=\color{red}\ttfamily,
+        morestring=[b]',
+        morestring=[b]"
+}
+
+\lstset{
+        language=myC,
+        backgroundcolor=\color{verylightgray},
+        extendedchars=true,
+        basicstyle=\small\ttfamily,
+        showstringspaces=false,
+        showspaces=false,
+        numbers=none,
+        numberstyle=\small,
+        numbersep=9pt,
+        tabsize=2,
+        upquote=true,
+        breaklines=true,
+        showtabs=false,
+        captionpos=b
+        otherkeywords={define,include,\# }
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+\begin{center}{\LARGE Compito di Programmazione I - Bioinformatica}\\
+\begin{center}
+  \large 24 febbraio 2023 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($31$ punti)\\
+  \textbf{(si consegni \texttt{marziano.c})}
+\end{center}
+
+Un array di caratteri \`e detto \emph{alfabetico} se i suoi caratteri
+sono tutti lettere minuscole o maiuscole dell'alfabeto inglese (eventualmente ripetute).
+Per esempio, l'array \texttt{['i','P','b','J','j','E']} \`e alfabetico
+mentre l'array \texttt{['j','(','b','j','A','e']} non \`e alfabetico.
+
+Un array di caratteri \`e detto \emph{marziano} se \`e alfabetico
+e, inoltre, \`e composto da una prima parte che contiene
+consonanti, in ordine alfabetico inverso, e da una seconda parte che contiene
+vocali (italiane), sempre in ordine alfabetico inverso (si ricordi che nell'ordine alfabetico
+le maiuscole vengono prima delle minuscole).
+Per esempio, l'array
+\[
+\mbox{\texttt{[}}\underbrace{\mbox{\texttt{'j','b','P','J'}}}_{\text{consonanti in ordine alfabetico inverso}}\mbox{\texttt{,}}\underbrace{\mbox{\texttt{'i','E'}}}_{\text{vocali in ordine alfabetico inverso}}\mbox{\texttt{]}}
+\]
+\`e marziano.
+Invece l'array \texttt{['i','P','b','J','j','E']} non \`e marziano, perch\'e la
+vocale \texttt{i} precede la consonante \texttt{J}.
+Neanche l'array \texttt{['b','j','P','J','i','E']} \`e marziano, perch\'e
+le consonanti non sono in ordine alfabetico inverso.
+E neanche l'array \texttt{['j','b,'P','J','E','i']} \`e marziano, perch\'e
+le vocali non sono in ordine alfabetico inverso.
+
+Si completino le cinque funzioni del programma \texttt{marziano.c}:
+
+\begin{center}
+  \begin{lstlisting}[language=myC]
+// aggiungete gli #include necessari
+#include "marziano.h"
+
+// inizializza l'array indicato, lungo length,
+// in modo che diventi un array alfabetico casuale
+// (caratteri alfabetici minuscoli o maiuscoli, eventualmente ripetuti)
+void init_random(char arr[], int length) {
+  // completare
+}
+
+// stampa l'array indicato, su una riga, senza spazi fra i caratteri,
+// andando a capo alla fine
+void print(char arr[], int length) {
+  // completare
+}
+
+// riceve un array alfabetico arr e ne sposta i caratteri in modo che
+// arr diventi marziano (prima le consonanti, in ordine alfabetico inverso,
+// poi le vocali, in ordine alfabetico inverso)
+void ordina_marziano(char arr[], int length) {
+  // completare
+}
+
+// stampa una lista di caratteri, senza spazio fra i caratteri,
+// andando a capo alla fine
+void print_list(struct element_t *l) {
+  // completare
+}
+
+// riceve un array marziano lungo length e restituisce una lista
+// che contiene solo le vocali dell'array e senza ripetizioni:
+// una vocale viene inserita nella lista solo la prima volta che
+// compare, mentre la seconda volta non viene inserita nella lista
+struct element_t *vocali_non_ripetute(char arr[], int length) {
+  // completare
+}
+  \end{lstlisting}
+\end{center}
+
+\begin{mdframed}[backgroundcolor=lightred] 
+  \textbf{I file \texttt{marziano.h} e \texttt{main.c} sono gi\`a scritti e completi, non vanno modificati e non vanno consegnati. Se servisse, si possono aggiungere funzioni ausiliarie dentro \texttt{marziano.c}.}
+\end{mdframed}
+
+\vspace*{5ex}
+Se tutto \`e corretto,
+un esempio di esecuzione del \texttt{main.c} potrebbe essere:
+
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+Inserisci la lunghezza dell'array, non negativa: 30
+                           Array alfabetico casuale: lvPqQgGOIadSbSeUafTKuRtbIafQYI
+                    Array trasformato in marziano: vtqlgffdbbYTSSRQQPKGueaaaUOIII
+Lista derivata dall'array eliminando le consonanti e le vocali ripetute: ueaUOI
+
+\end{verbatim}
+\end{mdframed}
+
+\end{document}
