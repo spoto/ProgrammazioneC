@@ -10,8 +10,12 @@ void init(int arr[], int length) {
     do {
       arr[pos] = rand() % 31 - 5;
     }
-    while (pos > 0 && arr[pos] % 2 == arr[pos - 1] % 2);
+    while (pos > 0 && abs(arr[pos]) % 2 == abs(arr[pos - 1]) % 2);
   }
+}
+
+int abs(int x) {
+  return x < 0 ? -x : x;
 }
 
 // stampa arr, lungo length, separando gli elementi
