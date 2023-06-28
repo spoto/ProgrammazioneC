@@ -1,0 +1,212 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+% \usepackage[dvipsnames]{xcolor} % Non va!
+\usepackage{textcomp}
+
+\lstdefinelanguage{myC}{
+	keywords=[1]{break, case, continue, default, do
+		, else, false, for, if, const, return, switch, true, while}, % generic keywords
+	keywordstyle=[1]\color{blue}\bfseries,
+	keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+	keywordstyle=[2]\color{teal}\bfseries,
+	keywordstyle=[2]\color{violet}\bfseries,
+	keywords=[3]{NULL},
+	keywordstyle=[3]\color{violet}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{violet}\ttfamily,
+	commentstyle=\normalsize\ttfamily\color{grey}, % scriptsize
+	stringstyle=\color{forestgreen}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+\lstset{
+	language=myC,
+	backgroundcolor=\color{veryLightgray},
+	extendedchars=true,
+	basicstyle=\small\ttfamily,
+	showstringspaces=false,
+	showspaces=false,
+	numbers=none,
+	numberstyle=\normalsize,
+	numbersep=9pt,
+	tabsize=2,
+	upquote=true,
+	breaklines=true,
+	showtabs=false,
+	captionpos=b
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+
+\lstdefinelanguage{customc}{
+	language=C,
+	backgroundcolor = \color{white},
+	basicstyle=\small\ttfamily\color{myBlack},
+	keywordstyle=\color{myLightBlue},
+	keywordstyle=[2]\color{red},
+	commentstyle=\small\ttfamily\color{forestgreen},
+	morekeywords={RequirePackage,ProvidesPackage},
+	%
+	% The special highlighting works for '!if', '!endif' and '!else'
+	% But it doesn't work for '#if', '#endif' and '#else'.
+	alsoletter = {!},
+	keywords=[2]{!if,!endif,!else},
+}
+
+\lstdefinestyle{myCustomc}{
+	language = customc,
+	% keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\newcommand\ddfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}
+
+\begin{document}
+	\begin{center}{\LARGE Secondo parziale di Programmazione I - Bioinformatica}\\
+		%\vspace*{-1ex}
+		\begin{center}
+			\large 20 giugno 2023 (tempo disponibile: 2 ore)
+		\end{center}
+	\end{center}
+	\input{indicazioni_generali.tex}
+	\newpage
+	% ESERCIZIO 1
+		\begin{center}
+			{\Large Esercizio 1} ($16$ punti).
+			\\
+			\textbf{(si consegni {es1\_targhe.c})}
+	\end{center}
+
+	
+
+Si vogliono trovare le targhe pari a partire da un insieme di targhe.
+Una targa valida e' una stringa alfanumerica di 7 caratteri, in particolare due alfabetici 3 numerici e 2 alfabetici (es. \texttt{AS234NN}). 
+Si completi l'implementazione del codice allegato \texttt{es1\_targhe.c}.
+
+La funzione \texttt{leggiTarghe()} legge da stdin 10 targhe valide e le memorizza in una matrice di caratteri.
+
+La funzione \texttt{trovaTarghePari()} riceve in input la matrice m di caratteri contenente le targhe e una matrice di caratteri vuota, e popolera' la matrice vuota con le targhe pari presenti in m, infine restituirà il numero di targhe pari trovate. 
+
+	Completare il file \texttt{es1\_targhe.c} che ha la seguente struttura.
+
+		\begin{lstlisting}[language=myC]
+		#include <stdio.h>
+		#include <string.h>
+		#include <stdlib.h>
+		#define M 10
+		#define L 8//lunghezza standard di una targa
+		
+		
+		/*legge le targhe da stdin e le memorizza in una matrice di caratteri*/
+		void leggiTarghe(char [][L] );
+		/*memorizza le targhe pari in una matrice di caratteri e resituisce il numero di targhe pari*/
+		int trovaTarghePari(char [][L], char [][L] );
+		int main(void){
+			char targhe[M][L];
+			leggiTarghe(targhe);
+			
+			char targhePari[M][L];	
+			int k = trovaTarghePari(targhe,targhePari);
+			printf("Le seguenti targhe sono pari:\n");
+			for (int i=0;i<k;i++){
+				printf("%s\n",targhePari[i]);
+			}
+			return -1;
+		}
+		void leggiTarghe(char targhe[M][L] ){
+			 // da completare	
+		}
+		
+		int trovaTarghePari(char targhe[][L], char targhePari [][L] ){
+  		 // da completare	
+		}	
+		
+		\end{lstlisting}
+
+	
+	
+	
+	
+	
+	
+	
+	\newpage
+	% ESERCIZIO 2
+	\vspace*{8ex}
+	\begin{center}{\Large Esercizio 2} ($14$ punti)\\
+		\textbf{(si consegni \texttt{es2\_elim.c})}
+	\end{center}
+
+	Completare il file \texttt{es2\_elim.c} che ha la seguente struttura
+	
+	\begin{lstlisting}[language=myC]
+	#include <stdio.h>
+	#include <stdlib.h>
+	//definizione del tipo di dato per gli elementi di una lista
+	typedef struct elem {
+		// da completare 
+	} Elem;
+	
+	Elem* crealista(int a[], int size);
+	void printList(Elem* head);
+	
+	int main(void) {
+		int arr[] = {2,4,4,4,4,6,6,8,8,8,10,10,10};
+		int size = sizeof(arr) / sizeof(int);
+		Elem* result = crealista(arr, size);
+		printf("Lista senza duplicati:\n ");
+		printList(result);
+		return 0;
+	}
+	//funzione che dato un array e la sua lunghezza restituisce 
+	//il puntatore al primo elemento della lista
+	Elem* crealista(int a[], int size) {
+		// da completare  
+	}
+
+	//funzione che dato il puntatore di testa ad una lista stampa 
+	//tutti gli elementi della lista
+	void printList(Elem* head) {
+		// da completare  
+	}
+	\end{lstlisting}
+	in modo che, dato un array di n  interi ordinati in modo non decrescente, si trasferiscano tutti gli elementi dell’array senza duplicazioni in una lista di interi.
+	
+	\bigskip
+	\noindent
+	Il \texttt{main()},  dato l'array\\
+	\texttt{int arr[] = {2,2,2,2,2,2,2,2,4,4,4,4,6,6,8,8,8,10,10,10};}\\
+	dovrà  stampare \\
+	\texttt{2 4 6 8 10}
+	
+	
+\end{document}
