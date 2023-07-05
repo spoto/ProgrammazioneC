@@ -1,0 +1,224 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{textcomp}
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+\definecolor{lightred}{rgb}{.97,.50,.50}
+
+\lstdefinelanguage{myC}{
+        keywords=[1]{break, case, continue, default, do
+, else, false, for, if, const, return, switch, true, while}, % generic keywords
+        keywordstyle=[1]\color{blue}\bfseries,
+        keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+        keywordstyle=[2]\color{teal}\bfseries,
+        keywordstyle=[2]\color{violet}\bfseries,
+        keywords=[3]{NULL},
+        keywordstyle=[3]\color{teal}\bfseries,
+        identifierstyle=\color{black},
+        sensitive=false,
+        comment=[l]{//},
+        morecomment=[s]{/*}{*/},
+        commentstyle=\color{violet}\ttfamily,
+        commentstyle=\small\ttfamily\color{myGreen},
+        stringstyle=\color{red}\ttfamily,
+        morestring=[b]',
+        morestring=[b]"
+}
+
+\lstset{
+        language=myC,
+        backgroundcolor=\color{verylightgray},
+        extendedchars=true,
+        basicstyle=\small\ttfamily,
+        showstringspaces=false,
+        showspaces=false,
+        numbers=none,
+        numberstyle=\small,
+        numbersep=9pt,
+        tabsize=2,
+        upquote=true,
+        breaklines=true,
+        showtabs=false,
+        captionpos=b
+        otherkeywords={define,include,\# }
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+\begin{center}{\LARGE Compito di Programmazione - Bioinformatica}\\
+\begin{center}
+  \large 5 luglio 2023 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($15$ punti)\\
+  \textbf{(si consegni \texttt{bits.c})}
+\end{center}
+
+Un numero naturale \`e detto avere ripetizione due se
+nella sua rappresentazione binaria ci sono almeno due bit ad 1 consecutivi. Per esempio, il
+numero $22$ ha ripetizione due poich\'e la sua rappresentazione
+binaria $10110$ ha almeno due bit ad 1 consecutivi. Similmente, il numero $92$ ha ripetizione due
+poich\'e la sua rappresentazione binaria $1011100$ ha almeno due bit ad 1 consecutivi.
+Invece il numero $18$ non ha ripetizione due poich\'e la sua rappresentazione binaria
+$10010$ non ha almeno due bit ad 1 consecutivi.
+
+Si completi il seguente file \texttt{bits.c} (\textbf{si noti che la funzione
+\texttt{ripetizione2} deve essere ricorsiva}):
+
+\begin{center}
+  \begin{lstlisting}[language=myC]
+// AGGIUNGERE QUI GLI #include NECESSARI
+
+// riempie arr con interi casuali, divisibili per 3, tra 0 e 65535 inclusi;
+// arr ha lunghezza length
+void init_random(int arr[], int length) {
+  // COMPLETARE
+}
+
+// determina se n ha ripetizione due, cioe' se la sua rappresentazione
+// binaria contiene almeno due bit ad 1 consecutivi;
+// si dia per scontato che n sia tra 0 e 65535 inclusi;
+// questa funzione deve essere ricorsiva
+int ripetizione2(int n) {
+  return 0; // MODIFICARE E COMPLETARE, DEVE ESSERE RICORSIVA
+}
+
+// ordina gli elementi di arr, lungo length, in modo da spostare all'inizio
+// i suoi elementi che hanno ripetizione due e alla fine i suoi
+// elementi che non hanno ripetizione due
+void sort_by_ripetizione2(int arr[], int length) {
+  // COMPLETARE
+}
+  \end{lstlisting}
+\end{center}
+
+\begin{mdframed}[backgroundcolor=lightred] 
+  \textbf{I file \texttt{bits.h} e \texttt{main\_bits.c} sono gi\`a scritti e completi, non vanno modificati e non vanno consegnati. Se servisse, si possono aggiungere funzioni ausiliarie dentro \texttt{bits.c}.}
+\end{mdframed}
+
+\vspace*{3ex}
+Se tutto \`e corretto,
+un esempio di esecuzione di \texttt{main\_bits.c} potrebbe essere:
+
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+Inserisci la lunghezza dell'array, non negativa: 100
+60417 (ripetizione2=1)
+7842 (ripetizione2=1)
+36831 (ripetizione2=1)
+42237 (ripetizione2=1)
+.....
+30150 (ripetizione2=1)
+47757 (ripetizione2=1)
+42273 (ripetizione2=0)
+4362 (ripetizione2=0)
+38226 (ripetizione2=0)
+36936 (ripetizione2=0)
+\end{verbatim}
+\end{mdframed}
+
+\begin{center}{\Large Esercizio 2} ($16$ punti)\\
+  \textbf{(si consegni {es2\_lista\_multipli3.c})}
+\end{center}
+
+Si consideri il file allegato \texttt{es2\_lista\_multipli3.c}, riportato
+per comodit\`a anche qui sotto.
+Si completi la funzione \texttt{crea\_lista\_multipli\_3()} in modo che,
+dato un numero intero $N$ maggiore di $100$, generi una lista contenente
+tutti i numeri positivi multipli di $3$ e minori di $N$. Si completi anche
+la funzione \texttt{calcola\_media()} in modo che, data una lista di interi,
+calcoli la media aritmetica di tutti i valori della lista.
+Si usi il \texttt{main} gi\`a scritto per testare le due funzioni.
+\textbf{Si} possono aggiungere altre funzioni ma
+\textbf{non} si deve modificare il \texttt{main}.
+
+\begin{lstlisting}[language=myC]
+#include <stdio.h>
+#include <stdlib.h>
+
+struct nodo *crea_lista_multipli_3(struct nodo *head,int valore);
+float calcola_media(struct nodo *head);
+struct nodo {
+    int value;
+    struct nodo *next;
+};
+
+// Program entry point
+int main() {
+    int n = 150;
+    struct nodo* head = (struct nodo *)malloc(sizeof(struct nodo));
+    head=crea_lista_multipli_3(head,n);
+    printf("La media e' %f", calcola_media(head));
+   
+    return 0;
+}
+
+/**
+ * Crea un lista con i multipli di 3 positivi e inferiori a n
+ */
+struct nodo *crea_lista_multipli_3(struct nodo *head, int n) {
+   //da completare
+}
+
+/**
+ * Restituisce la media degli elementi di una lista
+ */
+float calcola_media(struct nodo *head) {
+    //da completare
+}
+\end{lstlisting}
+	
+	
+	
+	
+	
+
+
+\end{document}
