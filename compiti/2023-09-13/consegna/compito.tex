@@ -1,0 +1,258 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{textcomp}
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+\definecolor{lightred}{rgb}{.97,.50,.50}
+
+\lstdefinelanguage{myC}{
+        keywords=[1]{break, case, continue, default, do
+, else, false, for, if, const, return, switch, true, while}, % generic keywords
+        keywordstyle=[1]\color{blue}\bfseries,
+        keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+        keywordstyle=[2]\color{teal}\bfseries,
+        keywordstyle=[2]\color{violet}\bfseries,
+        keywords=[3]{NULL},
+        keywordstyle=[3]\color{teal}\bfseries,
+        identifierstyle=\color{black},
+        sensitive=false,
+        comment=[l]{//},
+        morecomment=[s]{/*}{*/},
+        commentstyle=\color{violet}\ttfamily,
+        commentstyle=\small\ttfamily\color{myGreen},
+        stringstyle=\color{red}\ttfamily,
+        morestring=[b]',
+        morestring=[b]"
+}
+
+\lstset{
+        language=myC,
+        backgroundcolor=\color{verylightgray},
+        extendedchars=true,
+        basicstyle=\small\ttfamily,
+        showstringspaces=false,
+        showspaces=false,
+        numbers=none,
+        numberstyle=\small,
+        numbersep=9pt,
+        tabsize=2,
+        upquote=true,
+        breaklines=true,
+        showtabs=false,
+        captionpos=b
+        otherkeywords={define,include,\# }
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+\begin{center}
+  {\LARGE Compito di Programmazione - Bioinformatica}\\
+  {13 settembre 2023 (tempo disponibile: 2 ore)}
+\end{center}
+
+\begin{center}
+  Esercizio 1 ($15$ punti, \textbf{si consegni \texttt{parentesi.c}})
+\end{center}
+
+Una sequenza di caratteri \`e una \emph{struttura di parentesi} se e solo se:
+$(1)$ \`e vuota (cio\`e ha lunghezza zero), oppure $(2)$
+\`e composta da una parentesi aperta (tonda, quadra o graffa), seguita da una struttura
+  di parentesi, seguita da una parentesi chiusa (corrispondente come tipo a quella aperta).
+Si noti che una struttura di parentesi ha sempre lunghezza pari.
+Le seguenti sono tutte strutture di parentesi:
+%
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+((({{({()})}})))
+[(({}))]
+
+(({[{({{[]}})}]}))
+\end{verbatim}
+\end{mdframed}
+%
+(la terza \`e una sequenza vuota).
+Mentre le seguenti sequenze di caratteri non lo sono:
+%
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+{]([[({{}})]]))} (la seconda parentesi non e' chiusa dalla penultima)
+{$([[({{}})]]))} (il secondo carattere non e' una parentesi)
+{([[({{}})]]))}  (la terza parentesi e' di tipo diverso dalla terzultima)
+[                (la prima parentesi non e' mai chiusa)
+\end{verbatim}
+\end{mdframed}
+%
+Si completi il seguente file \texttt{parentesi.c} (\textbf{dove
+\texttt{struttura\_di\_parentesi} deve essere ricorsiva}):
+%
+\begin{center}
+  \vspace*{-0.8ex}
+  \begin{lstlisting}[language=myC]
+// riempie arr, lungo length, con una struttura di parentesi casuale lunga
+// length; si dia per scontato che length >= 0 e che length sia pari
+void init_random(char arr[], int length) {} // COMPLETATE
+
+// determina se arr, lungo length, e' una struttura di parentesi;
+// si dia per scontato che length >= 0 e che length sia pari;
+int struttura_di_parentesi(char arr[], int length) {} // COMPLETATE RICORS.
+  \end{lstlisting}
+\end{center}
+%
+\begin{mdframed}[backgroundcolor=lightred] 
+  \vspace*{-0.5ex}
+  \textbf{I file \texttt{parentesi.h} e \texttt{main\_parentesi.c} sono gi\`a scritti e completi, non vanno modificati e non vanno consegnati. Si possono aggiungere funzioni ausiliarie dentro \texttt{parentesi.c}.}
+\end{mdframed}
+%
+Se tutto \`e corretto, un esempio di esecuzione di \texttt{main\_parentesi.c} potrebbe essere:
+%
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+((({{({()})}}))) si'
+[(({}))] si'
+[((([{[{}]}])))] si'
+({([(({{}}))])}) si'
+[{((([{}])))}] si'
+{[{{({{()}})}}]} si'
+{(([[({{}})]]))} si'
+ si'
+[{(({(([]))}))}] si'
+(({[{({{[]}})}]})) si'
+(({{(][([()])]})}})) no
+\end{verbatim}
+\end{mdframed}
+
+\begin{center}Esercizio 2 ($15$ punti, \textbf{si consegni {MaxLoc.c}})
+\end{center}
+
+Data una lista di interi si dice che un elemento della lista con valore intero ${n}$ è un massimo locale se non è direttamente preceduto e non è direttamente seguito da un elemento ${m\ge n}.$ 
+%
+
+Si modifichi il seguente file \texttt{MaxLoc.c} completando opportunamente le funzioni add e isLocMax.
+
+
+\begin{lstlisting}[language=myC]completi
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Lista {
+    int val;
+    struct Lista * next;
+};
+typedef struct Lista LL;
+LL * add(int, LL* );
+int isLocMax(LL* , int );
+
+//funzione che aggiunge un elemento in testa ad una lista di interi.
+LL * add(int num, LL* l) {
+    // ... a cura delle/i studentesse/i
+}
+
+//funzione che verifica se esiste almeno un elemento nella lista h 
+//con campo valore uguale a n che e' un massimo locale.
+//La funzione deve restituire 0 in caso di riposta negativa ed 1 in 
+//caso di risposta positiva.
+
+int isLocMax(LL* h, int n) {
+    // ... a cura delle/i studentesse/i
+}
+
+int main(void) {
+    int n;
+    
+    LL* l0=add(1,NULL);
+    LL* l1=add(1,add(1,NULL));
+    LL* l2=add(1,add(1,add(3,NULL)));
+    LL* l3= add(9,add(1,add(3,add(2,add(6,NULL)))));
+    n=1;
+    if (isLocMax(l0, n)) {
+        printf("%d e' locmax di l0 \n", n);
+    } else {
+        printf("%d non e' locmax di l0\n", n);
+    }
+    if (isLocMax(l1, n)) {
+        printf("%d e' locmax di l1\n", n);
+    } else {
+        printf("%d non e' locmax di l1\n", n);
+    }
+    n = 3;
+    if (isLocMax(l2, n)) {
+        printf("%d e' locmax di l2\n", n);
+    } else {
+        printf("%d non e' locmax di l2\n", n);
+    }
+    if (isLocMax(l3, n)) {
+        printf("%d e' locmax di l3\n", n);
+    } else {
+        printf("%d non e' locmax di l3 \n", n);
+    }
+    return 0;
+}
+\end{lstlisting}
+\begin{mdframed}[backgroundcolor=lightred] 
+  \vspace*{-0.5ex}
+  \textbf{La funzione main non va modificata.}
+\end{mdframed}
+%
+Se tutto \`e corretto, l'esecuzione di \texttt{MaxLoc.c} stamperà:
+
+%
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+1 e' locmax di l0
+1 non e' locmax di l1
+3 e' locmax di l2
+3 e' locmax di l3
+\end{verbatim}
+\end{mdframed}
+
+	
+	
+	
+
+
+\end{document}
