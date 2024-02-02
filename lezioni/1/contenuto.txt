@@ -1,7 +1,0 @@
-* introduzione al corso
-* linguaggi di alto e di basso livello
-* storia del C
-* interpretazione e compilazione: cc
-* esempio di programma C che legge un numero da tastiera e lo ripresenta su video
-* il concetto di variabile
-* funzioni C main, printf

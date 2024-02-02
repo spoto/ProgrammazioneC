@@ -1,3 +1,0 @@
-- visione globale dei 5 possibili leftvalue
-- puntatori a strutture
-- passaggio di un puntatore a struttura a una funzione: side-effect

@@ -1,3 +1,0 @@
-- esempi di ciclo for
-- conteggio delle cifre di un numero decimale
-- calcolo della radice quadrata di un numero naturale, approssimata per difetto

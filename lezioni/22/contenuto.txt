@@ -1,3 +1,0 @@
-- passaggio di array come parametri di una funzione
-- specifica della lunghezza dell'array passato come parametro
-- effetti collaterali (side-effect) sui parametri di tipo array

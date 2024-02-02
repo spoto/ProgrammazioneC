@@ -1,5 +1,0 @@
-Parametri attuali e formali
-Valore di ritorno di una funzione
-Esempio del valore assoluto
-Funzioni che chiamano funzioni: l'algoritmo di Newton-Raphson
-Record e stack di attivazione

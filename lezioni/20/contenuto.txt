@@ -1,9 +1,0 @@
-- Funzioni
-- Dichiarazione di funzione
-- Invocazione di funzione
-- Attivazione di una funzione
-- Parametri di una funzione
-- Tipo dei parametri
-- Esempi di funzioni:
-- calcolo dei numeri triangolari
-- calcolo del massimo comun divisore

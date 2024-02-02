@@ -1,4 +1,0 @@
-- ricorsione sulle stringhe viste come puntatori a carattere
-- ricorsione sulle liste
-- lunghezza di una lista, versione ricorsiva
-- somma e massimo degli elementi di una lista, versione ricorsiva

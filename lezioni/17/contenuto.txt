@@ -1,5 +1,0 @@
-- inizializzazione esplicita degli array
-- rotazione a sinistra e a destra di un array
-- creazione dell'array dei numeri di Fibonacci
-- lettura dei voti presi a un esame, con sintesi finale
-

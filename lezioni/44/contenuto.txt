@@ -1,4 +1,0 @@
-- lettura di una lista da tastiera
-- traduzione di una lista in stringa
-- funzione sprintf
-- fusione di liste ordinate

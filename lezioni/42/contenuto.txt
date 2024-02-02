@@ -1,3 +1,0 @@
-- costruzione di una lista
-- ricorsione sulle liste
-- esempi di funzioni ricorsive sulle liste

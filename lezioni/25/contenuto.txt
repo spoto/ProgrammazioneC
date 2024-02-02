@@ -1,7 +1,0 @@
-- ricorsione
-- esempi di funzioni ricorsive:
-  * fattoriale
-  * somma dei primi n numeri
-  * funzione ricorsiva che stampa le prime n lettere dell'alfabeto in ordine descrescente
-  * funzione ricorsiva che stampa le prime n lettere dell'alfabeto in ordine crescente
-  * fibonacci

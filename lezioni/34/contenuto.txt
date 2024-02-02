@@ -1,5 +1,0 @@
-- puntatori a tipi primitivi
-- dichiarazione di un puntatore
-- operatore &
-- operatore *
-- aliasing fra due puntatori

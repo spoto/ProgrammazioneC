@@ -1,6 +1,0 @@
-- break e continue dentro i cicli: esempio del test di primalità
-- condizionale a più vie per determinare il tipo di carattere
-- l'istruzione condizionale a più vie switch
-- esempio: semplice calcolatrice per operazioni binarie su float
-- esempio: semplice calcolatrice per operazioni binarie su float,
-  con accumulatore

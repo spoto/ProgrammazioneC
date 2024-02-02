@@ -1,2 +1,0 @@
-- cicli annidati
-- stampa di una cornice e di una diagonale di asterischi

@@ -1,5 +1,0 @@
-- Il ciclo do...while
-- Input vincolato
-- Prendere decisioni: il comando condizionale if
-- L'alternativa con else
-- Esempi di uso di cicli e condizionali

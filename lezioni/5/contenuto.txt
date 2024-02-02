@@ -1,7 +1,0 @@
-- tipi primitivi int, float, double e char
-- costanti di tipi primitivi
-- modificatori long e unsigned
-- tabella ASCII e calcoli fra i caratteri
-- stampa dell'i-esimo carattere
-- dal carattere minuscolo a quello maiuscolo e viceversa
-

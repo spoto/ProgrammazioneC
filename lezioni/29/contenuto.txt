@@ -1,3 +1,0 @@
-- le direttive #ifndef e #endif del preprocessore
-- loro uso nel file di header .h
-- esempio di definizione di strutture

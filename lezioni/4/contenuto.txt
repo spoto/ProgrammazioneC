@@ -1,5 +1,0 @@
-- Algebra di Boole
-- Operazioni bit a bit
-- espressioni aritmetiche, precedenza, associatività, parentesi
-- assegnamento, leftvalue e rightvalue
-- lettura di dati da tastiera tramite scanf

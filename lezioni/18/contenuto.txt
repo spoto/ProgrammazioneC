@@ -1,2 +1,0 @@
-- costruzione dell'array dei numeri primi
-- algoritmo del crivello di Eratostene

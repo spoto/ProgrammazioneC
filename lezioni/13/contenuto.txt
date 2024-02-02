@@ -1,2 +1,0 @@
-- Equivalenza fra while e do...while
-- Conteggio dei divisori di un numero

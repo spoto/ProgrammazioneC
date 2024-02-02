@@ -1,4 +1,0 @@
-* espressioni aritmetiche
-* precedenza, associativit&agrave; e ordine di valutazione
-* operazioni aritmetiche ibride
-* conversioni fra tipi primitivi: perdita di informazione

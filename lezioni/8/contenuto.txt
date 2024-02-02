@@ -1,2 +1,0 @@
-- espressioni di confronto
-- il ciclo for

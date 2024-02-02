@@ -1,3 +1,0 @@
-* codifica binaria dei numeri
-* calcoli in binario (addizioni, moltiplicazioni e divisioni per potenze del 2)
-
