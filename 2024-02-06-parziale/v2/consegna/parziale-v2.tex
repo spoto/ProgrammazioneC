@@ -1,0 +1,219 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{textcomp}
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+\definecolor{lightred}{rgb}{.97,.50,.50}
+
+\lstdefinelanguage{myC}{
+        keywords=[1]{break, case, continue, default, do
+, else, false, for, if, const, return, switch, true, while}, % generic keywords
+        keywordstyle=[1]\color{blue}\bfseries,
+        keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+        keywordstyle=[2]\color{teal}\bfseries,
+        keywordstyle=[2]\color{violet}\bfseries,
+        keywords=[3]{NULL},
+        keywordstyle=[3]\color{teal}\bfseries,
+        identifierstyle=\color{black},
+        sensitive=false,
+        comment=[l]{//},
+        morecomment=[s]{/*}{*/},
+        commentstyle=\color{violet}\ttfamily,
+        commentstyle=\small\ttfamily\color{myGreen},
+        stringstyle=\color{red}\ttfamily,
+        morestring=[b]',
+        morestring=[b]"
+}
+
+\lstset{
+        language=myC,
+        backgroundcolor=\color{verylightgray},
+        extendedchars=true,
+        basicstyle=\small\ttfamily,
+        showstringspaces=false,
+        showspaces=false,
+        numbers=none,
+        numberstyle=\small,
+        numbersep=9pt,
+        tabsize=2,
+        upquote=true,
+        breaklines=true,
+        showtabs=false,
+        captionpos=b
+        otherkeywords={define,include,\# }
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+\begin{center}{\LARGE Parziale di Programmazione I - Bioinformatica}\\
+  \large 6 febbraio 2024, turno delle 11:30 (tempo disponibile: 2 ore)
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($19$ punti)\\
+  \textbf{(si consegni \texttt{letters.c} e \texttt{letters.h})}
+\end{center}
+
+Si completi il seguente file \texttt{letters.c}:
+
+\begin{center}
+\begin{lstlisting}[language=myC]
+// aggiungete #include e funzioni ausiliarie se servono
+
+// inizializza arr, lungo length, con lettere casuali dell'alfabeto
+// inglese, maiuscole o minuscole, in modo tale che non ci siano
+// mai due consonanti di seguito (si consideri la definizione italiana di
+// vocale: aeiou, minuscole o maiuscole; le altre lettere sono consonanti);
+// non randomizza la sequenza casuale con srand(time(NULL)): lo fa il main
+void init(char arr[], int length) {
+  // completare
+}
+
+// stampa (senza fare spazi in mezzo) i caratteri di arr, lungo length,
+// e va a capo alla fine
+void print(char arr[], int length) {
+  // completare
+}
+
+// modifica l'array arr, lungo length, in modo che le lettere
+// minuscole diventino maiuscole e viceversa
+void invert(char arr[], int length) {
+  // completare
+}
+\end{lstlisting}
+\end{center}
+%
+Si scriva quindi un file di header \texttt{letters.h} che dichiara le precedenti tre funzioni.
+
+Per esempio, il seguente file \texttt{main.c}
+(gi\`a fornito e da non modificare):
+
+\begin{center}
+  \begin{lstlisting}[language=myC]
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#include "letters.h"
+
+int main(void) {
+  srand(time(NULL)); // inizializza la sequenza casuale
+  char array[70];    // crea l'array
+  init(array, 70);   // inizializza l'array in modo casuale
+  printf("array prima: ");
+  print(array, 70);  // stampa l'array
+  invert(array, 70); // inverte maiuscole con minuscole e viceversa
+  printf(" array dopo: ");
+  print(array, 70);  // stampa nuovamente l'array
+  return 0;
+}
+  \end{lstlisting}
+\end{center}
+deve stampare qualcosa del tipo:
+
+\begin{mdframed}[backgroundcolor=lightgrey] 
+\begin{verbatim}
+array prima: odiSEdudEuhovEHESiVurIloVADivuEGEfaimipIkALAhiKiEMejOmoWivaEWepIBInIGO
+ array dopo: ODIseDUDeUHOVehesIvURiLOvadIVUegeFAIMIPiKalaHIkIemEJoMOwIVAewEPibiNigo
+\end{verbatim}
+\end{mdframed}
+
+\begin{center}
+  {\Large Esercizio 2} ($12$ punti)\\
+  \textbf{(si consegni \texttt{triangle.c})}
+\end{center}
+%
+Si completi il seguente programma \texttt{triangle.c}.
+\textbf{La funzione triangle deve essere ricorsiva}:
+
+\begin{center}
+  \begin{lstlisting}[language=myC]
+#include <stdio.h>
+
+// stampa un triangolo rettangolo di altezza h, con
+// l'angolo retto in basso a sinistra, con bordi sinistro e destro
+// fatti dal carattere chiocciolina e con l'interno riempito dal
+// carattere asterisco (si veda la stampa di esempio)
+// QUESTA FUNZIONE DEVE ESSERE RICORSIVA
+void triangle(int h) {
+  // completare
+}
+
+int main(void) {
+  triangle(5);
+  triangle(8);
+  return 0;
+}
+  \end{lstlisting}
+\end{center}
+
+Se tutto \`e corretto, tale programma deve stampare due triangoli, il
+primo di altezza 5 e il secondo di altezza 8:
+
+\begin{mdframed}[backgroundcolor=lightgrey] 
+\begin{verbatim}
+@
+@@
+@*@
+@**@
+@***@
+@
+@@
+@*@
+@**@
+@***@
+@****@
+@*****@
+@******@
+\end{verbatim}
+\end{mdframed}
+
+\begin{mdframed}[backgroundcolor=lightred] 
+  \textbf{Se servisse, negli esercizi si possono aggiungere funzioni ausiliarie.}
+\end{mdframed}
+
+\end{document}
