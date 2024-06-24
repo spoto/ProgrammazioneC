@@ -1,0 +1,233 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+% \usepackage[dvipsnames]{xcolor} % Non va!
+\usepackage{textcomp}
+
+\lstdefinelanguage{myC}{
+	keywords=[1]{break, case, continue, default, do
+		, else, false, for, if, const, return, switch, true, while}, % generic keywords
+	keywordstyle=[1]\color{blue}\bfseries,
+	keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+	keywordstyle=[2]\color{teal}\bfseries,
+	keywordstyle=[2]\color{violet}\bfseries,
+	keywords=[3]{NULL},
+	keywordstyle=[3]\color{violet}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{violet}\ttfamily,
+	commentstyle=\normalsize\ttfamily\color{grey}, % scriptsize
+	stringstyle=\color{forestgreen}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+\lstset{
+	language=myC,
+	backgroundcolor=\color{veryLightgray},
+	extendedchars=true,
+	basicstyle=\small\ttfamily,
+	showstringspaces=false,
+	showspaces=false,
+	numbers=none,
+	numberstyle=\normalsize,
+	numbersep=9pt,
+	tabsize=2,
+	upquote=true,
+	breaklines=true,
+	showtabs=false,
+	captionpos=b
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+\begin{center}
+  {\LARGE Compito di Programmazione - Bioinformatica}\\
+  {19 giugno 2024 (tempo disponibile: 2 ore)}
+\end{center}
+
+\begin{center}
+  Esercizio 1 ($22$ punti, \textbf{si consegni \texttt{dipendenti.c} opportunamente modificato})
+\end{center}
+Si costruisca una lista concatenata di dipendenti caratterizzati ciascuno da codice fiscale e stipendio. Il codice fiscale e' una stringa alfanumerica formata da 16 caratteri.
+Esempio: CZZVTR\textbf{81}S\textbf{51}D086N.
+I primi due caratteri in grassetto rappresentano l'anno di nascita, 81 per il  codice fiscale nell'esempio.
+Il secondo gruppo di caratteri in grassetto invece indica il giorno di nascita e il genere.
+In particolare il secondo gruppo di caratteri è pari al giorno di nascita per un uomo, al giorno di nascita più 40 per una donna. Ad esempio 51 indica una donna nata giorno 11; 10 un uomo nato giorno 10.
+
+Si completi il file dipendenti.c di seguito riportato:
+%
+\begin{mdframed}[backgroundcolor=myLightBlue] 
+  \vspace*{-0.5ex}
+  \textbf{La funzione main e' gi\`a scritta e completa, non va modificata. Si possono (e si suggerisce di) aggiungere funzioni ausiliarie dentro \texttt{dipendenti.c}.}
+\end{mdframed}
+%
+\begin{lstlisting}[language=myC]
+#include <stdio.h>
+struct entry {
+	  //da completare
+};
+
+struct entry *construct_entry(char fiscal_code[], float income,
+  struct entry *next) {
+	//da completare
+}
+
+int list_length(struct entry *l) {
+	//da completare
+}
+float list_sum(struct entry *l) {
+	//da completare
+}
+
+void print_list(struct entry *l) {
+ 	//da completare
+}
+
+void destroy_list(struct entry *l) {
+ 	//da completare
+}
+
+struct entry *senior_women_manager(struct entry *l, float avg_income) {
+	//da completare
+}
+
+int main(void) {
+	 struct entry *l = NULL;
+      l = construct_entry( "czzvtr81s51d086n", 1300.0, construct_entry( "czzvtr61s51d086n", 3300, construct_entry( "vnrmzz93s42d086n", 1100.0, construct_entry( "abclmn00s71d086n", 3000.0, construct_entry( "mrtmtt93d48f205j", 3500.0, construct_entry( "rmqxss61s01d086n", 2500.0, l))))));
+	  
+	 printf("La lista e' lunga %d\n", list_length(l));
+	 printf("I dipendenti sono:\n");
+	 print_list(l);
+	 
+	 float avg_income= list_length(l)!=0? list_sum(l)/list_length(l): 0;
+	 printf("La media degli elementi e' %2.f\n", avg_income);
+	 printf("I dipendenti senior e con stipendio maggiore della media sono:\n");
+	  struct entry * swm = senior_women_manager(l, avg_income);
+	  print_list(swm);
+	  destroy_list(l);
+	  destroy_list(swm);
+  return 0;
+}
+\end{lstlisting}
+In particolare si completino le funzioni:
+\begin{itemize}
+\item construct$\_$entry  che crea e inizializza una nodo della lista dipendenti;
+\item list$\_$length che calcola la lunghezza della lista.
+\item list$\_$sum che prende in input una lista e restituisce la somma degli stipendi di tutti i dipendenti.
+\item senior$\_$women$\_$manager che restituisce una lista, a partire da una lista data, che contiene solo i codici fiscali e gli stipendi delle donne che sono nate prima del 94 e che hanno degli stipendi sopra la media.
+\end{itemize}
+
+Le ultime tre funzioni indicate vanno implementate in modo \textbf{ricorsivo}.
+Se tutto \`e corretto, un esempio di esecuzione di \texttt{dipendenti.c} con la lista come inizializzata nel main \`e:
+%
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+La lista e' lunga 6
+I dipendenti sono:
+czzvtr81s51d086n: 1300
+czzvtr61s51d086n: 3300
+vnrmzz93s42d086n: 1100
+abclmn00s71d086n: 3000
+mrtmtt93d48f205j: 3500
+rmqxss61s01d086n: 2500
+
+La media degli elementi e' 2450
+I dipendenti senior e con stipendio maggiore della media sono:
+czzvtr61s51d086n: 3300
+mrtmtt93d48f205j: 3500
+\end{verbatim}
+\end{mdframed}
+
+\begin{center}Esercizio 2 ($8$ punti, \textbf{si consegni {sottostringa.c} opportunamente modificato})
+\end{center}
+
+Data una stringa s1 e una stringa s2, vogliamo verificare se s2 e' sottostringa di s1.
+%
+Si modifichi il seguente file \texttt{sottostringa.c} completando opportunamente la funzione isSubstring:
+
+\begin{lstlisting}[language=myC]
+#include <stdio.h>
+
+int isSubstring(char*b, char *a){
+	//da completare
+}
+int main(void){
+	printf("%s%s e' sottostringa di %s\n", "am", isSubstring( "am","amici")==0? " non": "", "amici");
+	printf("%s%s e' sottostringa di %s\n", "pia", isSubstring("pia", "amici")==0? " non": "", "amici");
+	printf("%s%s e' sottostringa di %s\n", "riva", isSubstring("riva", "arrivare")==0? " 	non": "", "arrivare");
+	return 0;
+}
+
+\end{lstlisting}
+L'implementazione della funzione deve utilizzare \textbf{i puntatori e l'aritmetica dei puntatori} per accedere alle stringhe.
+\begin{mdframed}[backgroundcolor=myLightBlue] 
+  \vspace*{-0.5ex}
+  \textbf{La funzione main non va modificata.}
+\end{mdframed}
+%
+Se tutto \`e corretto, l'esecuzione di \texttt{sottostringa.c} stamperà:
+
+%
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+am e' sottostringa di amici
+pia non e' sottostringa di amici
+riva e' sottostringa di arrivare
+\end{verbatim}
+\end{mdframed}
+
+	
+	
+	
+
+
+\end{document}
