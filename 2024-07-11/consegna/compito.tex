@@ -1,0 +1,260 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{textcomp}
+
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+\definecolor{lightred}{rgb}{.97,.50,.50}
+
+\lstdefinelanguage{myC}{
+        keywords=[1]{break, case, continue, default, do
+, else, false, for, if, const, return, switch, true, while}, % generic keywords
+        keywordstyle=[1]\color{blue}\bfseries,
+        keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+        keywordstyle=[2]\color{teal}\bfseries,
+        keywordstyle=[2]\color{violet}\bfseries,
+        keywords=[3]{NULL},
+        keywordstyle=[3]\color{teal}\bfseries,
+        identifierstyle=\color{black},
+        sensitive=false,
+        comment=[l]{//},
+        morecomment=[s]{/*}{*/},
+        commentstyle=\color{violet}\ttfamily,
+        commentstyle=\small\ttfamily\color{myGreen},
+        stringstyle=\color{red}\ttfamily,
+        morestring=[b]',
+        morestring=[b]"
+}
+
+\lstset{
+        language=myC,
+        backgroundcolor=\color{verylightgray},
+        extendedchars=true,
+        basicstyle=\small\ttfamily,
+        showstringspaces=false,
+        showspaces=false,
+        numbers=none,
+        numberstyle=\small,
+        numbersep=9pt,
+        tabsize=2,
+        upquote=true,
+        breaklines=true,
+        showtabs=false,
+        captionpos=b
+        otherkeywords={define,include,\# }
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+\begin{center}{\LARGE Compito di Programmazione I - Bioinformatica}\\
+\begin{center}
+  \large 11 luglio 2024 (tempo disponibile: 2 ore)
+\end{center}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($12$ punti)\\
+  \textbf{(si consegni \texttt{prefix.c} e \texttt{prefix.h})}
+\end{center}
+
+Si completi \texttt{prefix.c} in modo che la funzione \texttt{prefix(s1,s2)} determini
+se la stringa \texttt{s1} \`e un prefisso della stringa \texttt{s2}
+(cio\`e se \texttt{s2} comincia con \texttt{s1}).
+Tale funzione deve essere ricorsiva.
+Si scriva quindi il file di header \texttt{prefix.h} per l'esportazione di tale funzione.
+
+Se tutto \`e corretto, compilando insieme a \texttt{main\_prefix.c} (gi\`a scritto, da non
+modificare) ed ese\-guendo il risultato, verr\`a stampato:
+
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+prefix("anno","annata"): falso
+prefix("anno","annoso"): vero
+prefix("annata","annoso"): falso
+prefix("annata","anno"): falso
+prefix("annoso","annoso"): vero
+prefix("","annata"): vero
+prefix("annata",""): falso
+\end{verbatim}
+\end{mdframed}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 2} ($19$ punti)\\
+  \textbf{(si consegni \texttt{panopto.c})}
+\end{center}
+Un corso e' caratterizzato da un codice univoco alfanumerico di 5 caratteri, il numero di CFU, la data di inizio corso.
+Il primo carattere del codice corso rappresenta il settore del corso, quindi ad esempio per il corso "BIO03", la B indica che fa parte del gruppo dei corsi di biologia.
+
+Si costruisca una catalogo di corsi, rappresentato come lista concatenata, completando opportunamente il seguente programma.
+
+
+\begin{mdframed}[backgroundcolor=myLightBlue] 
+  \vspace*{-0.5ex}
+  \textbf{La funzione main e' gi\`a scritta e completa, non va modificata. Si possono aggiungere funzioni ausiliarie dentro \texttt{panopto.c}.}
+\end{mdframed}
+%
+\begin{lstlisting}[language=myC]
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct data {
+	int giorno;
+    int mese;
+    int anno;
+};
+
+struct corso {
+   char codice_corso[6];
+   int CFU;
+   struct data data_inizio;
+   struct corso *next;
+};
+
+struct corso *construct_entry(char codice_corso[], int CFU, struct data d,
+  struct corso *next) {
+//da completare
+}
+
+int list_length(struct corso *l) {
+//da completare
+}
+
+void print_list(struct corso *l) {
+//da completare
+}
+
+void destroy_list(struct corso *l) {	
+//da completare
+}
+
+int valid_study_plan (struct corso *l, int anno){
+//da completare
+}
+
+struct corso * create_by_sector(struct corso *l, char s){
+//da completare
+}
+
+struct corso * add_from_input (struct corso *l) {
+//da completare	
+}
+
+int main(void) {
+    struct corso *l = NULL;
+    l = construct_entry( "BI006", 10, (struct data){2,3,2024}, l);
+    l = construct_entry( "INF04", 10,(struct data) {2,3,2024}, l);
+    l = construct_entry("INF03",8,(struct data){11,11,2023}, l);
+    l = construct_entry( "BI005", 12,(struct data) {1,3,2024}, l);
+    l = construct_entry( "INF02", 12,(struct data) {12,4,2023}, l);
+    l = construct_entry("INF01",8,(struct data){11,6,2023}, l);
+    l = construct_entry( "BI004", 12,(struct data) {21,5,2024}, l);
+    l = construct_entry( "BI003", 12,(struct data) {21,5,2024}, l);
+    l = construct_entry( "BI002", 12,(struct data) {21,5,2024}, l);
+    l = construct_entry( "BI001", 12,(struct data) {21,5,2024}, l);
+    l = add_from_input(l);
+	 
+    printf("La lista di corsi e' lunga %d\n", list_length(l));
+    printf("I corsi sono:\n");
+    print_list(l);
+    printf("Piano di studio valido: %d\n", valid_study_plan (l, 2023));
+    printf("Piano di studio valido: %d\n", valid_study_plan (l, 2024));
+    struct corso * sector_plan=create_by_sector(l,'B');
+    print_list(sector_plan);
+    destroy_list(sector_plan);
+    destroy_list(l);
+    return 0;
+}
+\end{lstlisting}
+In particolare si completino le funzioni:
+
+\begin{itemize}
+\item construct$\_$entry  che crea (in testa) e inizializza un nodo della lista di corsi;
+\item add\_from\_input che riceve in input una lista e aggiunge 5 corsi da input, verificando la correttezza dei valori inseriti. I CFU devono essere al più 12, mentre l'anno di inizio corso deve essere compreso tra il 1990 ed il 2025. Un esempio di dati di test è contenuto nel file \texttt{corsi.txt} allegato.
+\item list$\_$length che calcola la lunghezza della lista.
+\item print$\_$list che stampa la lista.
+\item destroy$\_$list che cancella la lista.
+\item valid$\_$study$\_$plan che riceve in input una lista e un anno, e verifica se la somma dei CFU dei corsi iniziati nell'anno dato e' almeno 60.
+\item create$\_$by$\_$sector che riceve in input una lista e un settore, e crea una lista contenente solo i corsi di quel settore.  create$\_$by$\_$sector NON deve essere implementata in modo ricorsivo.
+
+\end{itemize}
+
+Se tutto \`e corretto, un esempio di esecuzione di \texttt{panopto.c} con la lista come inizializzata nel main e con i corsi inclusi in \texttt{corsi.txt} \`e:
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+La lista di corsi e' lunga 15
+I corsi sono:
+anno 2022: MAT09: 11 CFU
+anno 2022: MAT10: 10 CFU
+anno 2022: MAT11: 11 CFU
+anno 2022: FIS01: 6 CFU
+anno 2022: MAT12: 12 CFU
+anno 2024: BI001: 12 CFU
+anno 2024: BI002: 12 CFU
+anno 2024: BI003: 12 CFU
+anno 2024: BI004: 12 CFU
+anno 2023: INF01: 8 CFU
+anno 2023: INF02: 12 CFU
+anno 2024: BI005: 12 CFU
+anno 2023: INF03: 8 CFU
+anno 2024: INF04: 10 CFU
+anno 2024: BI006: 10 CFU
+totale cfu 28
+Piano di studio valido: 0
+totale cfu 80
+Piano di studio valido: 1
+anno 2024: BI001: 12 CFU
+anno 2024: BI002: 12 CFU
+anno 2024: BI003: 12 CFU
+anno 2024: BI004: 12 CFU
+anno 2024: BI005: 12 CFU
+anno 2024: BI006: 10 CFU
+\end{verbatim}
+\end{mdframed}
+
+
+\end{document}
