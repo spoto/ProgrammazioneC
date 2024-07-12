@@ -62,29 +62,19 @@ int valid_study_plan (struct corso *l, int anno){
 		l=l->next;
 		}
 		printf("totale cfu %d\n",totCFU);
-		return totCFU>=60?1:0;
+		return totCFU>=60;
 }
 
 
 struct corso * create_by_sector(struct corso *l, char s){
 	struct corso* new_list=NULL;
-	struct corso* node;
-	struct corso *head=NULL;
 	while (l!=NULL){
-		if(l->codice_corso[0]==s){	
-			 node=construct_entry(l->codice_corso,l->CFU,l->data_inizio,NULL);
-		     if (new_list==NULL){
-		     	new_list=node;
-		     	head=node;}
-    	    	else{
-    	    		new_list->next=node;
-		
-			new_list=new_list->next;
-    	    } 
-    	}//if
+		if(l->codice_corso[0]==s)	
+			 new_list=construct_entry(l->codice_corso,l->CFU,l->data_inizio,new_list);
+		    
     	l=l->next; 
     	}//while
-    	return head;
+    	return new_list;
 }
 
 
@@ -166,9 +156,9 @@ int main(void) {
 	 struct corso * sector_plan=create_by_sector(l,'B');
 	 print_list(sector_plan);
 	 sector_plan=create_by_sector_ric(l,'M');
-	 	 print_list(sector_plan);
-	  destroy_list(sector_plan);
-	  destroy_list(l);
+	 print_list(sector_plan);
+	 destroy_list(sector_plan);
+	 destroy_list(l);
   return 0;
 }
 
