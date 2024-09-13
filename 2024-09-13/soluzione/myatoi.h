@@ -1,0 +1,2 @@
+long myatoi(char *s);
+
