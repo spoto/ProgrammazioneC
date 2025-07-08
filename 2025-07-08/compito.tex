@@ -1,0 +1,183 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{booktabs}
+% \usepackage[dvipsnames]{xcolor} % Non va!
+\usepackage{textcomp}
+\usepackage[table]{xcolor}
+\newcommand{\gr}{\rowcolor[HTML]{EFEFEF}}
+\lstdefinelanguage{myC}{
+	keywords=[1]{break, case, continue, default, do
+		, else, false, for, if, const, return, switch, true, while}, % generic keywords
+	keywordstyle=[1]\color{blue}\bfseries,
+	keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+	keywordstyle=[2]\color{teal}\bfseries,
+	keywordstyle=[2]\color{violet}\bfseries,
+	keywords=[3]{NULL},
+	keywordstyle=[3]\color{violet}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{violet}\ttfamily,
+	commentstyle=\normalsize\ttfamily\color{grey}, % scriptsize
+	stringstyle=\color{forestgreen}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+\lstset{
+	language=myC,
+	backgroundcolor=\color{veryLightgray},
+	extendedchars=true,
+	basicstyle=\small\ttfamily,
+	showstringspaces=false,
+	showspaces=false,
+	numbers=none,
+	numberstyle=\normalsize,
+	numbersep=9pt,
+	tabsize=2,
+	upquote=true,
+	breaklines=true,
+	showtabs=false,
+	captionpos=b
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+\begin{center}
+  {\LARGE Compito di Programmazione - Bioinformatica}\\
+  {8 Luglio 2025 (tempo disponibile: 2 ore)}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($31$ punti)\\
+  (\textbf{si consegnino} i file \texttt{list.h}, e \texttt{list.c} \textbf{opportunamente modificati})
+\end{center}
+
+\vspace{10pt}
+\noindent
+Si vuole gestire un elenco di giocatori (\emph{players}) per un torneo composto
+da un numero fissato \texttt{SCORE\_MAX} di partite.
+Ciascun giocatore \`e rappresentato da una struttura contenente:
+un identificativo intero, una stringa \texttt{nickname} di lunghezza massima \texttt{CHAR\_MAX}
+e l'elenco dei punteggi ottenuti al termine delle \texttt{SCORE\_MAX} partite disputate
+(cio\`e un array di \texttt{float} di lunghezza \texttt{SCORE\_MAX}).
+Il programma dovr\`a gestire i dati dei giocatori tramite una lista singolarmente concatenata
+non necessariamente ordinata.
+
+\vspace{10pt}
+\begin{mdframed}[backgroundcolor=blue!20!white]
+\vspace*{-0.5ex}
+\textbf{La funzione \texttt{main} \`e gi\`a scritta e completa, non va modificata.}
+
+\vspace{5pt}
+\noindent
+\textbf{Completare} invece i file \texttt{list.h} e \texttt{list.c} implementando le funzioni specificate. \`E consentito esclusivamente l'utilizzo delle funzioni appartenenti alle librerie gi\`a incluse nel codice fornito. 
+
+\noindent Se ritenuto necessario, si possono aggiungere funzioni ausiliarie.
+\end{mdframed}
+
+\vspace{10pt}
+\noindent
+In particolare si completino le funzioni:
+\begin{itemize}
+
+\item \texttt{newPlayer()}: crea e inizializza un nuovo giocatore a partire da identificativo, \texttt{nickname} e punteggi.
+
+\item \texttt{insertPlayer()}: inserisce un giocatore \textbf{in coda} alla lista.
+
+\item \texttt{listLen()}: calcola la lunghezza della lista di giocatori fornita, in maniera \textbf{iterativa}.
+
+\item \texttt{getMean()}: calcola la media di un array di punteggi fornito, lungo \texttt{SCORE\_MAX};
+
+\item \texttt{printList()}: stampa l'elenco dei giocatori della lista fornita, nel formato: identificativo, \texttt{nickname}, array dei punteggi e punteggio medio.
+
+\item \texttt{insertInOrder()}: inserisce un nuovo giocatore nella lista fornita, in base all'ordinamento decrescente per media dei punteggi. In questo caso si assume che la lista fornita sia gi\`a decrescente per media dei punteggi.
+
+\item \texttt{createTopPlayersList()}: partendo dalla lista passata come argomento, crea una nuova lista contenente copie
+  dei migliori giocatori, ordinata in maniera decrescente per media dei punteggi
+  e contentente solo i giocatori con punteggio medio maggiore o uguale a un certo valore
+  soglia \texttt{mediaTop}. \textbf{Questa funzione deve essere ricorsiva}.
+  \textbf{Attenzione:} i nodi della nuova lista devono essere \textbf{copie} dei nodi originali,
+  non riferimenti agli stessi elementi.
+
+\item \texttt{destroyList()}: dealloca la memoria occupata dall'intera lista fornita.
+
+\end{itemize}
+
+\newpage
+Se tutto \`e corretto, l'output del programma sar\`a il seguente:
+%
+\begin{mdframed}[backgroundcolor=verylightgray] 
+\begin{verbatim}
+Stampa lista inserita:
+ID: 0, Nickname: FastLane, Best Scores: 7.00 8.50 9.00 8.50, Media: 8.25
+ID: 1, Nickname: StackMaster, Best Scores: 6.00 7.00 7.50 7.00, Media: 6.88
+ID: 2, Nickname: LoopHunter, Best Scores: 7.50 8.50 8.50 7.50, Media: 8.00
+ID: 3, Nickname: NullPointer, Best Scores: 5.00 6.00 5.50 6.50, Media: 5.75
+ID: 4, Nickname: ZeroLag, Best Scores: 4.00 5.00 6.00 5.50, Media: 5.12
+ID: 5, Nickname: CodeSurfer, Best Scores: 9.00 8.50 9.50 8.00, Media: 8.75
+ID: 6, Nickname: BugFinder, Best Scores: 3.00 6.50 7.00 6.00, Media: 5.62
+
+Lunghezza della lista: 7
+
+Lista dei top players con media superiore a 8.00, decrescente per media:
+ID: 5, Nickname: CodeSurfer, Best Scores: 9.00 8.50 9.50 8.00, Media: 8.75
+ID: 0, Nickname: FastLane, Best Scores: 7.00 8.50 9.00 8.50, Media: 8.25
+ID: 2, Nickname: LoopHunter, Best Scores: 7.50 8.50 8.50 7.50, Media: 8.00
+
+Deallocazione lista...
+Deallocazione lista dei top players...
+\end{verbatim}
+\end{mdframed}
+
+
+\end{document}
