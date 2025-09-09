@@ -1,0 +1,212 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{booktabs}
+% \usepackage[dvipsnames]{xcolor} % Non va!
+\usepackage{textcomp}
+\usepackage[table]{xcolor}
+\newcommand{\gr}{\rowcolor[HTML]{EFEFEF}}
+\lstdefinelanguage{myC}{
+	keywords=[1]{break, case, continue, default, do
+		, else, false, for, if, const, return, switch, true, while}, % generic keywords
+	keywordstyle=[1]\color{blue}\bfseries,
+	keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+	keywordstyle=[2]\color{teal}\bfseries,
+	keywordstyle=[2]\color{violet}\bfseries,
+	keywords=[3]{NULL},
+	keywordstyle=[3]\color{violet}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{violet}\ttfamily,
+	commentstyle=\normalsize\ttfamily\color{grey}, % scriptsize
+	stringstyle=\color{forestgreen}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+\lstset{
+	language=myC,
+	backgroundcolor=\color{veryLightgray},
+	extendedchars=true,
+	basicstyle=\small\ttfamily,
+	showstringspaces=false,
+	showspaces=false,
+	numbers=none,
+	numberstyle=\normalsize,
+	numbersep=9pt,
+	tabsize=2,
+	upquote=true,
+	breaklines=true,
+	showtabs=false,
+	captionpos=b
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+\begin{center}
+  {\LARGE Compito di Programmazione - Bioinformatica}\\
+  {9 settembre 2025 (tempo disponibile: 2 ore)}\\
+  {(si consegnino i file \texttt{sentence.h} e \texttt{sentence.c} opportunamente completati)}
+\end{center}
+
+La struttura \texttt{sentence} implementa una frase, cio\`e una lista di parole. \`E definita
+dentro \texttt{sentence.h}:
+
+\begin{center}
+  \begin{lstlisting}[language=myC]
+    struct sentence {
+      char *word;
+      struct sentence *next;
+    };
+  \end{lstlisting}
+\end{center}
+
+Una frase pu\`o essere costruita a partire da un array di stringhe
+(\texttt{construct\_sentence})
+e successivamente deallocata (\texttt{free\_sentence}).
+Inoltre se ne pu\`o calcolare la lunghezza, cio\`e il numero di caratteri
+totale delle sue parole, contando anche uno spazio tra una parola
+e l'altra (\texttt{length\_sentence}). Infine, una
+frase pu\`o essere trasformata in una nuova stringa,
+ottenuta concatenando le sue parole e aggiungendo uno spazio tra una parola
+e l'altra (\texttt{concat\_sentence}). La stessa operazione pu\`o essere
+effettuata in senso inverso, cio\`e iniziando, nella concatenazione,
+dall'ultima parola e terminando con la prima parola (\texttt{inverse\_concat\_sentence}).
+
+Il seguente \texttt{main.c}, gi\`a fatto, completo e da non modificare, esemplifica
+l'utilizzo di una frase e delle sue funzioni citate sopra:
+
+\begin{mdframed}[backgroundcolor=verylightgray]
+  \begin{lstlisting}[language=myC]
+#include <stdio.h>
+#include <stdlib.h>
+#include "sentence.h"
+
+int main(void) {
+  char *words[] = {
+    "Nel", "mezzo", "del", "cammin", "di", "nostra", "vita"
+  };
+
+  struct sentence *s = construct_sentence(words, 7);
+  printf("La lunghezza della frase e' %i\n", length_sentence(s));
+  char *concat = concat_sentence(s);
+  printf("La sua concatenazione e' \"%s\"\n", concat);
+  free(concat);
+  concat = inverse_concat_sentence(s);
+  printf("La sua concatenazione inversa e' \"%s\"\n", concat);
+  free(concat);
+  free_sentence(s);
+
+  return 0;
+}
+  \end{lstlisting}
+\end{mdframed}
+
+\noindent
+Quando avrete implementato tutte le funzioni correttamente,
+l'esecuzione del \texttt{main} dovr\`a stampare:
+
+\begin{mdframed}[backgroundcolor=verylightgray]
+\begin{verbatim}
+La lunghezza della frase e' 35
+La sua concatenazione e' "Nel mezzo del cammin di nostra vita"
+La sua concatenazione inversa e' "vita nostra di cammin del mezzo Nel"
+\end{verbatim}
+\end{mdframed}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($1$ punto)\end{center}
+Si completi il file \texttt{sentence.h} aggiungendo la dichiarazione delle cinque funzioni
+\texttt{construct\_sentence}, \texttt{free\_sentence},
+\texttt{length\_sentence}, \texttt{concat\_sentence} e
+\texttt{inverse\_concat\_sentence}. Dentro \texttt{sentence.c} trovate
+la bozza di tali funzioni.
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 2} ($4$ punti)\end{center}
+Si completi la funzione \texttt{construct\_sentence} dentro \texttt{sentence.c}.
+Si noti che tale funzione copia, dentro la
+frase risultante, il puntatore alle stringhe passate come argomento, quindi
+non fa una copia di tali stringhe.
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 3} ($3$ punti)\end{center}
+Si completi la funzione \texttt{free\_sentence} dentro \texttt{sentence.c}.
+Si noti che tale funzione deve deallocare tutta la lista, precedentemente allocata
+con \texttt{construct\_sentence}, non solo il suo primo elemento.
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 4} ($5$ punti)\end{center}
+Si completi la funzione \texttt{length\_sentence} dentro \texttt{sentence.c}.
+Si noti che tale funzione, nel calcolare la lunghezza,
+considera uno spazio tra una parola e l'altra delle frase.
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 5} ($8$ punti)\end{center}
+Si completi la funzione ausiliaria \texttt{concat\_sentence\_rec} dentro \texttt{sentence.c},
+che concatena le parole di una frase dentro una stringa risultato, con uno spazio tra una
+parola e l'altra. \textbf{Tale funzione deve essere ricorsiva}. La si usi quindi per
+completare la funzione \texttt{concat\_sentence} dentro \texttt{sentence.c}.
+\textbf{Suggerimento:} in \texttt{concat\_sentence\_rec} si considerino i casi:
+frase vuota, frase di una sola parola, frase di pi\`u parole.
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 6} ($10$ punti)\end{center}
+Si completi la funzione ausiliaria \texttt{inverse\_concat\_sentence\_rec} dentro \texttt{sentence.c},
+che concatena le parole di una frase dentro una stringa risultato, con uno spazio tra una
+parola e l'altra, in ordine inverso, cio\`e mettendo all'inizio l'ultima parola e alla fine la prima parola.
+\textbf{Tale funzione deve essere ricorsiva}. La si usi quindi per
+completare la funzione \texttt{inverse\_concat\_sentence} dentro \texttt{sentence.c}.
+\textbf{Suggerimento:} in \texttt{inverse\_concat\_sentence\_rec}
+si considerino i casi: frase vuota, frase di una sola parola, frase di pi\`u parole.
+
+\end{document}
