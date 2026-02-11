@@ -1,0 +1,307 @@
+\documentclass[12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{listings, xcolor}
+\usepackage{booktabs}
+% \usepackage[dvipsnames]{xcolor} % Non va!
+\usepackage{textcomp}
+\usepackage[table]{xcolor}
+\newcommand{\gr}{\rowcolor[HTML]{EFEFEF}}
+\lstdefinelanguage{myC}{
+	keywords=[1]{break, case, continue, default, do
+		, else, false, for, if, const, return, switch, true, while}, % generic keywords
+	keywordstyle=[1]\color{blue}\bfseries,
+	keywords=[2]{bool, int, long, float, double, byte, short, char, void, signed, unsigned}, % types
+	keywordstyle=[2]\color{teal}\bfseries,
+	keywordstyle=[2]\color{violet}\bfseries,
+	keywords=[3]{NULL},
+	keywordstyle=[3]\color{violet}\bfseries,
+	identifierstyle=\color{black},
+	sensitive=false,
+	comment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	commentstyle=\color{violet}\ttfamily,
+	commentstyle=\normalsize\ttfamily\color{grey}, % scriptsize
+	stringstyle=\color{forestgreen}\ttfamily,
+	morestring=[b]',
+	morestring=[b]"
+}
+
+\lstset{
+	language=myC,
+	backgroundcolor=\color{veryLightgray},
+	extendedchars=true,
+	basicstyle=\small\ttfamily,
+	showstringspaces=false,
+	showspaces=false,
+	numbers=none,
+	numberstyle=\normalsize,
+	numbersep=9pt,
+	tabsize=2,
+	upquote=true,
+	breaklines=true,
+	showtabs=false,
+	captionpos=b
+}
+
+\definecolor{myBlue}{rgb}{0.5,0.5,1}
+\definecolor{myLightBlue}{rgb}{0.35,0.6,0.8}
+\definecolor{myBlack}{rgb}{0,0,0}
+\definecolor{myGreen}{rgb}{0.1,0.6,0.2}
+\definecolor{myGray}{rgb}{0.5,0.5,0.5}
+\definecolor{myLightgray}{rgb}{0.95,0.95,0.95}
+\definecolor{verylightgray}{rgb}{.97,.97,.97}
+\definecolor{myMauve}{rgb}{0.58,0,0.82}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{forestgreen}{rgb}{0.13, 0.55, 0.13}
+\lstdefinelanguage{customc}{
+    language=C,
+    backgroundcolor = \color{myLightgray},
+    basicstyle=\small\ttfamily\color{myBlack},
+    keywordstyle=\color{myLightBlue},
+    keywordstyle=[2]\color{red},
+    commentstyle=\small\ttfamily\color{myGreen},
+    morekeywords={RequirePackage,ProvidesPackage},
+    %
+    % The special highlighting works for '!if', '!endif' and '!else'
+    % But it doesn't work for '#if', '#endif' and '#else'.
+    alsoletter = {!},
+    keywords=[2]{!if,!endif,!else},
+    otherkeywords={define,include,\# }
+}
+
+\lstdefinestyle{myCustomc}{
+    language = customc,
+    % keywordstyle = \color{myMauve},
+}
+
+\lstset{escapechar=@,style=myCustomc}
+
+
+\definecolor{grey}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgrey}{rgb}{0.9,0.9,0.9}
+
+\thispagestyle{empty}
+\setlength{\textwidth}{18.5cm}
+\setlength{\topmargin}{-2.5cm}
+\setlength{\textheight}{24.5cm}
+\setlength{\oddsidemargin}{-1cm}
+\setlength{\evensidemargin}{-1cm}
+
+\begin{document}
+\begin{center}
+  {\LARGE Compito di Programmazione - Bioinformatica}\\
+  {10 febbraio 2026 (tempo disponibile: 2 ore)}
+\end{center}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 1} ($11$ punti)\\
+  (\textbf{si consegni} il file \texttt{matrice.c})
+\end{center}
+
+Si completi il seguente programma \texttt{matrice.c}
+in modo che legga da tastiera una matrice $N\times M$
+di interi sicuramente positivi e quindi inizializzi un vettore $X$ di $N$ elementi,
+in modo tale che
+ogni elemento $X[i]$ contenga il valore $1$ se ciascun elemento della riga $i$-esima
+ha almeno una cifra pari, e contenga $0$ altrimenti.
+
+Per esempio, se $N = 3$, $M = 4$ e la matrice inserita fosse:
+%
+\[
+\begin{bmatrix}
+  12 & 32 & 46 & 27 \\
+  2 & 7 & 3 & 72 \\
+  5 & 9 & 77 & 11
+\end{bmatrix}
+\]
+%
+allora il vettore $X$ dovr\'a contenere $\begin{bmatrix}1 & 0 & 0\end{bmatrix}$
+(poich\'e ciascun elemento della prima riga ha almeno una cifra pari, mentre
+la seconda e la terza riga violano tale propriet\`a).
+%
+\begin{mdframed}[backgroundcolor=verylightgray]
+  \begin{lstlisting}[language=myC]
+#include <stdio.h>
+#define N 3
+#define M 4
+
+int main() {
+  int A[N][M];
+  int X[N];
+  return 0;
+}
+  \end{lstlisting}
+\end{mdframed}
+
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 2} ($11$ punti)\\
+  (\textbf{si consegni} il file \texttt{coppie.c})
+\end{center}
+
+Si completi il seguente programma \texttt{coppie.c}
+in modo che, inserita da tastiera
+una serie di valori interi positivi,
+conti e stampi a video quante coppie di numeri consecutivi della serie
+soddisfano la seguente propriet\`a:
+la somma delle cifre decimali del primo numero \`e uguale alla cifra
+decimale pi\`u significativa del secondo numero. La fine della sequenza
+viene indicata con un qualsiasi numero non positivo.
+%
+\begin{mdframed}[backgroundcolor=verylightgray]
+  \begin{lstlisting}[language=myC]
+#include <stdio.h>
+
+int somma(int);
+int left(int);
+
+int main() {
+  // continuare il codice
+  return 0;
+}
+
+// restituisce la somma delle cifre decimali di un numero intero positivo
+int somma(int n) {}
+
+// RICORSIVA: restituisce la cifra decimale piu' significativa di un intero positivo
+int left(int n) {}
+  \end{lstlisting}
+\end{mdframed}
+
+In particolare, si completino le funzioni:
+%
+\begin{itemize}
+\item \texttt{somma()}, che riceve un intero positivo $n$ e ritorna la somma di tutte
+  le cifre decimali di $n$;
+\item \texttt{left()} (\textbf{ricorsiva}), che riceve un intero positivo $n$
+  e ritorna la sua cifra decimale pi\`u significativa.
+\end{itemize}
+
+Per esempio, se la sequenza inserita da tastiera fosse:
+%
+\begin{mdframed}[backgroundcolor=verylightgray]
+\begin{verbatim}
+12 23 53 245 53 12 0
+\end{verbatim}
+\end{mdframed}
+%
+allora il programma stamper\`a a video il valore $1$ perch\'e solo la coppia
+$(23,53)$ di numeri consecutivi nella sequenza
+soddisfa la propriet\`a $\texttt{somma}(23)=2+3=5=\texttt{left}(53)$.
+%
+\vspace*{1ex}
+\begin{center}{\Large Esercizio 3} ($11$ punti)\\
+  (\textbf{si consegni} il file \texttt{lista.c})
+\end{center}
+
+Si completi il seguente programma in modo che, data in input una sequenza di stringhe
+di lunghezza non prefissata a priori (ciascuna di massimo $30$ caratteri)
+inserita da tastiera e terminante con la stringa \texttt{END}
+(che non fa parte della sequenza),
+inizializzi una lista ottenuta trasformando ciascuna stringa
+in un nodo che memorizza tre informazioni intere:
+%
+\begin{enumerate}
+\item se la stringa \`e palindroma oppure no
+  ($0$ = no, $1$ = s\`{\i});
+\item quante cifre decimali pari contiene la stringa;
+\item quante lettere maiuscole contiene la stringa.
+\end{enumerate}
+%
+La sequenza termina quando l'utente inserisce
+la stringa \texttt{END}.
+
+\begin{mdframed}[backgroundcolor=verylightgray]
+  \begin{lstlisting}[language=myC]
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define END "END"
+
+typedef struct nodo {
+  int palindroma;
+  int cifre;
+  int maiuscole;
+  struct nodo *next;
+} node;
+
+// prototipi, e' possibile aggiungere funzioni
+void visualizza(node *);
+int palindroma(char *);
+int cifre(char *);
+int maiuscole(char *);
+node *inserisciincoda(node *, int, int, int);
+
+int main() {
+  node *l = NULL;
+  char val[30+1];
+
+  scanf("%s",val);
+  while (strcmp(val, END) != 0) {
+    int p = palindroma(val);
+    int c = cifre(val);
+    int m = maiuscole(val);
+    l = inserisciincoda(l, p, c, m);
+    scanf("%s", val);
+  }
+	
+  visualizza(l);
+  return 0;
+}
+
+void visualizza(node* lista) {
+  while (lista != NULL){
+    if (lista->next != NULL)
+      printf("{%d, %d, %d} -> ", lista->palindroma, lista->cifre, lista->maiuscole);
+    else
+      printf("{%d, %d, %d}", lista->palindroma, lista->cifre, lista->maiuscole);
+    lista = lista->next;
+  }
+  printf("\n");
+}
+
+node *inserisciincoda(node *l, int pal, int cif, int mai) {}
+int palindroma(char *s) {}
+int cifre(char *s) {}
+int maiuscole(char* s) {}
+  \end{lstlisting}
+\end{mdframed}
+
+Se, ad esempio, la sequenza di stringhe inserite fosse la seguente:
+%
+\begin{mdframed}[backgroundcolor=verylightgray]
+\begin{verbatim}
+casa Pesa int64 anna comPut3r END
+\end{verbatim}
+\end{mdframed}
+%
+allora il programma creer\`a e poi stamper\`a a video la seguente lista di cinque nodi:
+%
+\begin{mdframed}[backgroundcolor=verylightgray]
+\begin{verbatim}
+{0, 0, 0} -> {0, 0, 1} -> {0, 2, 0} -> {1, 0, 0} -> {0, 0, 1}
+\end{verbatim}
+\end{mdframed}
+
+A tale scopo, si definiscano le funzioni:
+%
+\begin{itemize}
+\item \texttt{palindroma()}, che riceve in ingresso una stringa e ritorna $1$
+  se essa \`e palindroma (si considerino i caratteri maiuscoli diversi da quelli minuscoli)
+  e $0$ altrimenti;
+\item \texttt{cifre()}, che riceve in ingresso una stringa e ritorna il numero di
+  cifre decimali pari in essa contenute;
+\item \texttt{maiuscole()}, che riceve in ingresso una stringa e ritorna il numero di
+  lettere maiuscole in essa contenute;
+\item \texttt{inserisciincoda()}, che riceve in ingresso un puntatore \texttt{l}
+  alla testa di una lista,
+  tre informazioni intere da mettere nel nuovo nodo aggiunto in fondo ad \texttt{l},
+  e restituisce il puntatore alla lista risultante dall'aggiunta del nuovo nodo
+  in fondo ad \texttt{l}.
+\end{itemize}
+
+\end{document}
